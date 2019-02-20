@@ -5,17 +5,15 @@
  */
 package trivial;
 
+import javafx.scene.layout.StackPane;
+
 /**
  *
  * @author Félix Dupont
  */
-public class Trivial{
+public class Template extends StackPane {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public Template() {
     }
-    
+;
 }
