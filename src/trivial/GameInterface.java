@@ -11,22 +11,32 @@ import javafx.scene.layout.Pane;
  *
  * @author Félix Dupont
  */
-public class GameInterface extends Pane{
+public class GameInterface extends Pane {
+
     private boolean paused;
     private int ownScore;
     private int grade;
-    
-    public GameInterface(){
-    paused=false;
+
+    public GameInterface() {
+        paused = false;
     }
-    
-    public void pause(){
-    paused=true;
+
+    public void pause() {
+        paused = true;
     }
-    
-    public void resume(){
-    paused=false;
+
+    public void resume() {
+        paused = false;
     }
+
+    public void updateScore() {
+    }
+
+    public void answer() {
+    }
+
+    ;
     
-    
+    public void generateQuestion() {
+    }
 }

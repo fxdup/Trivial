@@ -19,14 +19,23 @@ public class Menu extends Template {
     public Menu() {
 
     }
-    
-    public void host(){
-    
+
+    public void host() {
+
     }
 
-    public void join(){}
-    public void options(){}
-    public void back(){}
-    public void hosting(){}
-    public void joinning(){}
+    public void join() {
+    }
+
+    public void options() {
+    }
+
+    public void back() {
+    }
+
+    public void hosting() {
+    }
+
+    public void joinning() {
+    }
 }

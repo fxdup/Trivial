@@ -14,14 +14,15 @@ import java.net.Socket;
  *
  * @author Félix Dupont
  */
-public class ClientPlayer extends Player{
+public class ClientPlayer extends Player {
+
     private Socket connectedSocket;
     private DataInputStream input;
     private DataOutputStream output;
 
-    public ClientPlayer(String name) {
+    public ClientPlayer(String name,String ip,int port) throws IOException {
         super(name);
-        //thread
+        connect(ip,port);
     }
 
     @Override
@@ -31,4 +32,8 @@ public class ClientPlayer extends Player{
         output.writeInt(grade);
     }
     
+    public void connect(String ip, int port) throws IOException{
+    connectedSocket=new Socket(ip,port);
+    }
+
 }
