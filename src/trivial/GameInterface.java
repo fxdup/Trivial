@@ -30,14 +30,12 @@ public class GameInterface extends Pane {
         paused = false;
     }
 
-    public void updateScore(ArrayList<Player> playerList) {
+    public void updateScore() {
     }
 
     public void answer() {
     }
 
-    ;
-    
     public void generateQuestion() {
     }
 }

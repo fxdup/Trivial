@@ -15,5 +15,5 @@ public class Template extends StackPane {
 
     public Template() {
     }
-;
+
 }

@@ -25,6 +25,7 @@ public class ClientPlayer extends Player {
     public ClientPlayer(String name, String ip, int port) throws IOException {
         super(name);
         connect(ip, port);
+        new Thread(new dataReceiver()).start();
     }
 
     @Override
@@ -38,6 +39,7 @@ public class ClientPlayer extends Player {
         connectedSocket = new Socket(ip, port);
         input = new DataInputStream(connectedSocket.getInputStream());
         output = new DataOutputStream(connectedSocket.getOutputStream());
+        output.writeUTF(this.getName());
     }
 
     class dataReceiver implements Runnable {
@@ -49,7 +51,7 @@ public class ClientPlayer extends Player {
                     String name = input.readUTF();
                     int score = input.readInt();
                     int grade = input.readInt();
-                    //send to interface to update
+                    //element.updatescore(name,score,grade);
                     if (score > 1000) {
                         break;
                     }

@@ -27,7 +27,9 @@ public class HostPlayer extends Player {
 
     public HostPlayer(String name) throws IOException {
         super(name);
-        ServerSocket serverSocket = new ServerSocket(0);
+        ServerSocket serverSocket = new ServerSocket(8000);
+        connectedSockets=new ArrayList<Socket>();
+        new Thread(new Connection()).start();
     }
 
     @Override
@@ -40,7 +42,7 @@ public class HostPlayer extends Player {
     }
 
     public String getIp() {
-        return serverSocket.getInetAddress().getHostAddress();
+        return serverSocket.getInetAddress().getAddress().toString();
     }
 
     public int getPort() {
@@ -53,10 +55,12 @@ public class HostPlayer extends Player {
         public void run() {
             while (connectedSockets.size() < 40) {
                 try {
+                    int i=0;
                     Socket socket = serverSocket.accept();
                     connectedSockets.add(socket);
                     output.add(new DataOutputStream(socket.getOutputStream()));
                     input.add(new DataInputStream(socket.getInputStream()));
+                    System.out.println(i++);
 
                 } catch (IOException ex) {
                     Logger.getLogger(HostPlayer.class.getName()).log(Level.SEVERE, null, ex);

@@ -18,7 +18,6 @@ public class Scoreboard extends Pane {
     public Scoreboard() {
     }
 
-    ;
     public void exportScore() {
     }
 ;
