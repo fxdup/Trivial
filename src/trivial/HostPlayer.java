@@ -27,7 +27,7 @@ public class HostPlayer extends Player {
 
     public HostPlayer(String name) throws IOException {
         super(name);
-        ServerSocket serverSocket=new ServerSocket(0);
+        ServerSocket serverSocket = new ServerSocket(0);
     }
 
     @Override
@@ -38,25 +38,30 @@ public class HostPlayer extends Player {
             i.writeInt(grade);
         }
     }
-    
-    public String getIp(){
-    return serverSocket.getInetAddress().getHostAddress();
+
+    public String getIp() {
+        return serverSocket.getInetAddress().getHostAddress();
     }
-    public int getPort(){
-    return serverSocket.getLocalPort();
+
+    public int getPort() {
+        return serverSocket.getLocalPort();
     }
-    
-    class Connection implements Runnable{
-        
+
+    class Connection implements Runnable {
+
         @Override
         public void run() {
-            while(connectedSockets.size()<40){
+            while (connectedSockets.size() < 40) {
                 try {
-                    connectedSockets.add(serverSocket.accept());
+                    Socket socket = serverSocket.accept();
+                    connectedSockets.add(socket);
+                    output.add(new DataOutputStream(socket.getOutputStream()));
+                    input.add(new DataInputStream(socket.getInputStream()));
+
                 } catch (IOException ex) {
                     Logger.getLogger(HostPlayer.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            
+
             }
         }
     }

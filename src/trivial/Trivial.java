@@ -9,7 +9,7 @@ package trivial;
  *
  * @author Félix Dupont
  */
-public class Trivial{
+public class Trivial {
 
     /**
      * @param args the command line arguments
@@ -17,5 +17,5 @@ public class Trivial{
     public static void main(String[] args) {
         // TODO code application logic here
     }
-    
+
 }

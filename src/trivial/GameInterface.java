@@ -5,6 +5,7 @@
  */
 package trivial;
 
+import java.util.ArrayList;
 import javafx.scene.layout.Pane;
 
 /**
@@ -29,7 +30,7 @@ public class GameInterface extends Pane {
         paused = false;
     }
 
-    public void updateScore() {
+    public void updateScore(ArrayList<Player> playerList) {
     }
 
     public void answer() {

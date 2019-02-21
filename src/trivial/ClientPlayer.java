@@ -9,6 +9,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,9 +22,9 @@ public class ClientPlayer extends Player {
     private DataInputStream input;
     private DataOutputStream output;
 
-    public ClientPlayer(String name,String ip,int port) throws IOException {
+    public ClientPlayer(String name, String ip, int port) throws IOException {
         super(name);
-        connect(ip,port);
+        connect(ip, port);
     }
 
     @Override
@@ -31,9 +33,31 @@ public class ClientPlayer extends Player {
         output.writeInt(score);
         output.writeInt(grade);
     }
-    
-    public void connect(String ip, int port) throws IOException{
-    connectedSocket=new Socket(ip,port);
+
+    public void connect(String ip, int port) throws IOException {
+        connectedSocket = new Socket(ip, port);
+        input = new DataInputStream(connectedSocket.getInputStream());
+        output = new DataOutputStream(connectedSocket.getOutputStream());
     }
 
+    class dataReceiver implements Runnable {
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    String name = input.readUTF();
+                    int score = input.readInt();
+                    int grade = input.readInt();
+                    //send to interface to update
+                    if (score > 1000) {
+                        break;
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(ClientPlayer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+    }
 }

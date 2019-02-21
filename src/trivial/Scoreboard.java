@@ -11,9 +11,15 @@ import javafx.scene.layout.Pane;
  *
  * @author Félix Dupont
  */
-public class Scoreboard extends Pane{
+public class Scoreboard extends Pane {
+
     private Player[] players;
-    
-    public Scoreboard(){};
-    public void exportScore(){};
+
+    public Scoreboard() {
+    }
+
+    ;
+    public void exportScore() {
+    }
+;
 }
