@@ -18,9 +18,10 @@ public class Trivial {
      */
     public static void main(String[] args) throws IOException {
         HostPlayer hPlayer=new HostPlayer("1");
-        ClientPlayer cPlayer1=new ClientPlayer("2","localhost",8000);
-        ClientPlayer cPlayer2=new ClientPlayer("3","localhost",8000);
-        ClientPlayer cPlayer3=new ClientPlayer("4","localhost",8000);
+        System.out.println(hPlayer.getIp());
+        ClientPlayer cPlayer1=new ClientPlayer("2","localhost",7000);
+        ClientPlayer cPlayer2=new ClientPlayer("3","localhost",7000);
+        ClientPlayer cPlayer3=new ClientPlayer("4","localhost",7000);
     }
 
 }

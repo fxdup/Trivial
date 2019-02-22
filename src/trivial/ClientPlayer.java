@@ -25,14 +25,13 @@ public class ClientPlayer extends Player {
     public ClientPlayer(String name, String ip, int port) throws IOException {
         super(name);
         connect(ip, port);
-        new Thread(new dataReceiver()).start();
+        new Thread(new DataReceiver(connectedSocket)).start();
     }
 
-    @Override
-    public void sendData(String name, int score, int grade) throws IOException {
-        output.writeUTF(name);
-        output.writeInt(score);
-        output.writeInt(grade);
+    public void sendData() throws IOException {
+        output.writeUTF(this.getName());
+        output.writeInt(this.getScore());
+        output.writeInt(this.getGrade());
     }
 
     public void connect(String ip, int port) throws IOException {
@@ -42,24 +41,4 @@ public class ClientPlayer extends Player {
         output.writeUTF(this.getName());
     }
 
-    class dataReceiver implements Runnable {
-
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    String name = input.readUTF();
-                    int score = input.readInt();
-                    int grade = input.readInt();
-                    //element.updatescore(name,score,grade);
-                    if (score > 1000) {
-                        break;
-                    }
-                } catch (IOException ex) {
-                    Logger.getLogger(ClientPlayer.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            }
-        }
-    }
 }
