@@ -6,6 +6,7 @@
 package trivial;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *
@@ -17,11 +18,12 @@ public class Trivial {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        HostPlayer hPlayer=new HostPlayer("1");
-       
-        ClientPlayer cPlayer1=new ClientPlayer("2","localhost",7000);
-        ClientPlayer cPlayer2=new ClientPlayer("3","localhost",7000);
-        ClientPlayer cPlayer3=new ClientPlayer("4","localhost",7000);
+        Scanner input=new Scanner(System.in);
+        int a=input.nextInt();
+        if(a==0)
+        new HostPlayer("1");
+       if(a==1)
+        new ClientPlayer("2",input.next(),input.nextInt());
     }
 
 }

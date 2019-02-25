@@ -65,6 +65,7 @@ public class HostPlayer extends Player {
                     connectedSockets.add(socket);
                     ObjectOutputStream output=new ObjectOutputStream(socket.getOutputStream());
                     outputs.add(output);
+                    System.out.println("Connected");
                     new Thread(new DataReceiver(socket));
                 }} catch (IOException ex) {
                     System.out.println(ex.getMessage());

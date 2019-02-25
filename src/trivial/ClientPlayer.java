@@ -39,6 +39,7 @@ public class ClientPlayer extends Player {
         connectedSocket = new Socket(ip, port);
         input = new DataInputStream(connectedSocket.getInputStream());
         new Thread(new DataReceiver(connectedSocket));
+        System.out.println("Connected");
     }
     
     
