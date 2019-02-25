@@ -74,7 +74,7 @@ public class Player implements Serializable{
         @Override
         public void run() {
             try {
-            input=new ObjectInputStream(socket.getInputStream());
+            input = new ObjectInputStream(socket.getInputStream());
             
             while (true) {
                 
