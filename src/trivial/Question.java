@@ -10,8 +10,13 @@ package trivial;
  * @author Félix Dupont
  */
 public class Question {
+    
+    public final int MATH = 0;
+    public final int SCIENCE = 1;
+    public final int GENERAL = 2;
+    public final int LOGIC = 3;
 
-    private int type;
+    private int type; //math(0), science(1), general(2), logic(3)
     private int grade;
     private String question;
     private String[] answers;
@@ -37,6 +42,17 @@ public class Question {
     }
 
     public void math() {
+        
+        int type = (int)(Math.random() * 5);
+        
+        switch (type) {
+            
+            case 0: arithmetic();
+            case 1: geometry();
+            case 3: fractions();
+            case 4: shapeCalculation();
+        }
+            
     }
 
     public void science() {
