@@ -24,20 +24,19 @@ public class HostPlayer extends Player {
 
     private ServerSocket serverSocket;
     private ArrayList<Socket> connectedSockets;
-    private ArrayList<ObjectOutputStream> output;
+    private ArrayList<ObjectOutputStream> outputs;
 
     public HostPlayer(String name) throws IOException {
         super(name);
         connectedSockets=new ArrayList<Socket>();
-        output=new ArrayList<ObjectOutputStream>();
+        outputs=new ArrayList<ObjectOutputStream>();
         new Thread(new Connection()).start();
     }
 
-    public void sendData(String name, int score, int grade,int id) throws IOException {
-        for (ObjectOutputStream i : output) {
-            i.writeUTF(name);
-            i.writeInt(score);
-            i.writeInt(grade);
+    public void sendData(Player player) throws IOException {
+        for (int i=0;i<outputs.size();i++) {
+            if(i+1!=player.getId())
+            outputs.get(i).writeObject(player);
         }
     }
 
@@ -63,7 +62,8 @@ public class HostPlayer extends Player {
                     
                     Socket socket = serverSocket.accept();
                     connectedSockets.add(socket);
-                    output.add(new ObjectOutputStream(socket.getOutputStream()));
+                    ObjectOutputStream output=new ObjectOutputStream(socket.getOutputStream());
+                    outputs.add(new ObjectOutputStream());
                     new Thread(new DataReceiver(socket));
                 }} catch (IOException ex) {
                     System.out.println(ex.getMessage());

@@ -37,7 +37,7 @@ public class ClientPlayer extends Player {
     public void connect(String ip, int port) throws IOException {
         connectedSocket = new Socket(ip, port);
         input = new DataInputStream(connectedSocket.getInputStream());
-        output = new DataOutputStream(connectedSocket.getOutputStream());
+        
         output.writeUTF(this.getName());
     }
 
