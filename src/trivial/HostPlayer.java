@@ -57,15 +57,14 @@ public class HostPlayer extends Player {
         @Override
         public void run() {
             try {
-        ServerSocket serverSocket = new ServerSocket(0);
-                System.out.println("IP:" + getIp() + "\nPort: " + serverSocket.getLocalPort());
+                serverSocket = new ServerSocket(0);
+                System.out.println("IP:" + getIp() + "\nPort: " + getPort());
             while (connectedSockets.size() < 40) {
                     
                     Socket socket = serverSocket.accept();
                     connectedSockets.add(socket);
                     ObjectOutputStream output=new ObjectOutputStream(socket.getOutputStream());
                     outputs.add(output);
-                    System.out.println("Connected");
                     new Thread(new DataReceiver(socket));
                 }} catch (IOException ex) {
                     System.out.println(ex.getMessage());

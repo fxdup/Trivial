@@ -64,8 +64,12 @@ public class Player implements Serializable{
         return NAME;
     }
 
-    
-    
-    
-    
+    public boolean equals(Object o){
+        if(o instanceof Player){
+            Player p= (Player)o;
+            if(p.getId()==this.getId())
+                return true;
+        }
+        return false;
+    }
 }
