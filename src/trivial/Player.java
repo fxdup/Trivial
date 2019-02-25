@@ -64,34 +64,8 @@ public class Player implements Serializable{
         return NAME;
     }
 
-    public class DataReceiver implements Runnable {
-        Socket socket;
-        ObjectInputStream input;
-        DataReceiver(Socket socket){
-        this.socket=socket;
-        }
-        
-        @Override
-        public void run() {
-            try {
-            input=new ObjectInputStream(socket.getInputStream());
-            
-            while (true) {
-                
-                    Player player=(Player)input.readObject();
-                    
-                    //element.updatescore(player);
-                    
-                    if (player.getScore() > 1000) {
-                        break;
-                    }
-                }} catch (IOException ex) {
-                    Logger.getLogger(ClientPlayer.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                Logger.getLogger(HostPlayer.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            
-        }
-    }
+    
+    
+    
+    
 }

@@ -31,6 +31,7 @@ public class HostPlayer extends Player {
         connectedSockets=new ArrayList<Socket>();
         outputs=new ArrayList<ObjectOutputStream>();
         new Thread(new Connection()).start();
+        
     }
 
     public void sendData(Player player) throws IOException {
@@ -41,7 +42,7 @@ public class HostPlayer extends Player {
     }
 
     public String getIp() {
-        return serverSocket.getInetAddress().getHostAddress();
+        return serverSocket.getInetAddress().toString();
     }
 
     public int getPort() {
@@ -57,7 +58,7 @@ public class HostPlayer extends Player {
         @Override
         public void run() {
             try {
-        ServerSocket serverSocket = new ServerSocket(7000);
+        ServerSocket serverSocket = new ServerSocket(8000);
             while (connectedSockets.size() < 40) {
                     
                     Socket socket = serverSocket.accept();
@@ -71,7 +72,38 @@ public class HostPlayer extends Player {
             }
         }
         
+    public class DataReceiver implements Runnable {
+        Socket socket;
+        ObjectInputStream input;
+        DataReceiver(Socket socket){
+        this.socket=socket;
+        }
+        
+        @Override
+        public void run() {
+            try {
+            input=new ObjectInputStream(socket.getInputStream());
+            
+            while (true) {
+                
+                    Player player=(Player)input.readObject();
+                    sendData(player);
+                    //element.updatescore(player);
+                    
+                    if (player.getScore() > 1000) {
+                        break;
+                    }
+                }} catch (IOException ex) {
+                    Logger.getLogger(ClientPlayer.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                Logger.getLogger(HostPlayer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            
+        }
     }
+    }
+
 
 
 
