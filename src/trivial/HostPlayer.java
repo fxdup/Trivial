@@ -10,8 +10,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,8 +43,8 @@ public class HostPlayer extends Player {
         }
     }
 
-    public String getIp() {
-        return serverSocket.getInetAddress().toString();
+    public String getIp() throws UnknownHostException {
+        return InetAddress.getLocalHost().getHostAddress();
     }
 
     public int getPort() {
@@ -50,15 +52,13 @@ public class HostPlayer extends Player {
     }
 
     
-
-    
-
     class Connection implements Runnable {
         
         @Override
         public void run() {
             try {
-        ServerSocket serverSocket = new ServerSocket(8000);
+        ServerSocket serverSocket = new ServerSocket(0);
+                System.out.println("IP:" + getIp() + "\nPort: " + serverSocket.getLocalPort());
             while (connectedSockets.size() < 40) {
                     
                     Socket socket = serverSocket.accept();
