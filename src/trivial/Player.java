@@ -18,11 +18,13 @@ import java.util.logging.Logger;
  */
 public class Player implements Serializable{
 
-    private final String NAME;
-    private int id;
-    private int score;
-    private int grade;
-    
+    private final String NAME; //Name of the player
+    private int id; //Identifiant of the player
+    private int score; //Current score of the player
+    private int grade; //Current grade of the player
+    private int highestGrade; //Highest grade of the player in the current game
+    private int streak; //How many questions in a row the player has answered without missing. Skipping not included
+    private int highestStreak; //Highest streak of the player in the current game
 
     public Player(String name) {
         this.NAME = name;

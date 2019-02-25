@@ -64,6 +64,7 @@ public class HostPlayer extends Player {
                     Socket socket = serverSocket.accept();
                     connectedSockets.add(socket);
                     ObjectOutputStream output=new ObjectOutputStream(socket.getOutputStream());
+                    output.writeInt(connectedSockets.size());
                     outputs.add(output);
                     new Thread(new DataReceiver(socket));
                 }} catch (IOException ex) {
