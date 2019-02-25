@@ -63,7 +63,7 @@ public class HostPlayer extends Player {
                     Socket socket = serverSocket.accept();
                     connectedSockets.add(socket);
                     ObjectOutputStream output=new ObjectOutputStream(socket.getOutputStream());
-                    outputs.add(new ObjectOutputStream());
+                    outputs.add(output);
                     new Thread(new DataReceiver(socket));
                 }} catch (IOException ex) {
                     System.out.println(ex.getMessage());
