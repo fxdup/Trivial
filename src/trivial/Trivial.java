@@ -23,7 +23,7 @@ public class Trivial {
         if(a==0)
         new HostPlayer("1");
        if(a==1)
-        new ClientPlayer("2",input.next(),input.nextInt());
+        new ClientPlayer("2",input.next(),input.nextInt()).sendData();
     }
 
 }
