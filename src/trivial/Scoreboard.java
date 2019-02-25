@@ -15,10 +15,19 @@ public class Scoreboard extends Pane {
 
     private Player[] players;
 
-    public Scoreboard() {
+    public Scoreboard(Player[] players) {
+        players=new Player[players.length];
+        for(int i=0;i<players.length;i++){
+        this.players[i]=players[i];
+        }
     }
 
     public void exportScore() {
+    PrintWriter pw=new PrintWriter
+        for(Player i: players){
+    
+    
     }
-;
+    
+    }
 }

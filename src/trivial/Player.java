@@ -42,6 +42,30 @@ public class Player implements Serializable{
         return id;
     }
 
+    public int getHighestGrade() {
+        return highestGrade;
+    }
+
+    public void setHighestGrade(int highestGrade) {
+        this.highestGrade = highestGrade;
+    }
+
+    public int getStreak() {
+        return streak;
+    }
+
+    public void setStreak(int streak) {
+        this.streak = streak;
+    }
+
+    public int getHighestStreak() {
+        return highestStreak;
+    }
+
+    public void setHighestStreak(int highestStreak) {
+        this.highestStreak = highestStreak;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -64,6 +88,11 @@ public class Player implements Serializable{
 
     public String getName() {
         return NAME;
+    }
+    public String getStats(){
+    
+        return "Name: "+getName()+"\n Score: "+getScore()+"\n Grade: "+getGrade()+"\n Highest Grade: "+getHighestGrade()+"\n Streak: "+getStreak()+"\n Highest Streak: "+getHighestStreak();
+    
     }
 
     public boolean equals(Object o){
