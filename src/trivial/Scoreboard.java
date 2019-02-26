@@ -5,6 +5,9 @@
  */
 package trivial;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import javafx.scene.layout.Pane;
 
 /**
@@ -22,11 +25,11 @@ public class Scoreboard extends Pane {
         }
     }
 
-    public void exportScore() {
-    PrintWriter pw=new PrintWriter
+    public void exportScore() throws FileNotFoundException{
+    PrintWriter pw=new PrintWriter("Quiz_"+new java.util.Date().toString());
         for(Player i: players){
-    
-    
+            pw.print(i.toString());
+            pw.println();
     }
     
     }
