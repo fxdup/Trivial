@@ -6,22 +6,32 @@
 package trivial;
 
 import java.io.IOException;
+import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  *
  * @author Félix Dupont
  */
-public class Trivial {
+public class Trivial extends Application{
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
-        HostPlayer hPlayer=new HostPlayer("1");
-        System.out.println(hPlayer.getIp());
-        ClientPlayer cPlayer1=new ClientPlayer("2","localhost",7000);
-        ClientPlayer cPlayer2=new ClientPlayer("3","localhost",7000);
-        ClientPlayer cPlayer3=new ClientPlayer("4","localhost",7000);
+    public static void main(String[] args){
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        Game game = new Game();
+        
+        Scene scene = new Scene(game,1920,1080);
+        stage.setScene(scene);
+        stage.setTitle("Elementary Quiz");
+        stage.show();
     }
 
 }
