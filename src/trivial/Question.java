@@ -24,6 +24,19 @@ public class Question {
 
     public Question(int grade) {
         this.grade = grade;
+        int questionType = (int)(Math.random() * 4);
+        selectType(questionType);
+    }
+    
+    public void selectType(int type) {
+        
+        switch(type) {
+            
+            case 0: math();
+            case 1: science(); 
+            case 2: general();
+            case 3: logic();
+        }
     }
 
     public int getType() {
@@ -48,7 +61,7 @@ public class Question {
 
     public void math() {
 
-        int type = (int) (Math.random() * 5);
+        int mathType = (int) (Math.random() * 5);
 
         switch (type) {
 
@@ -142,6 +155,13 @@ public class Question {
 
     }
 
+    /*
+    
+    do 1 file with all questions for each grade. So 1 file for 1st grade for science general and logic... 
+    Then to make sure there is a good ratio for the number of math qusetions VS other questions generated,
+    generate a number, if == 1 --> math question, if > 1 it will be a question of either science general 
+    and logic
+    */
     public void science() {
     }
 
