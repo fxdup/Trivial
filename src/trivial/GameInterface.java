@@ -13,7 +13,7 @@ import javafx.scene.layout.Pane;
  * @author Félix Dupont
  */
 public class GameInterface extends Pane {
-
+    
     private boolean paused;
     private int ownScore;
     private int grade;
@@ -31,6 +31,7 @@ public class GameInterface extends Pane {
     }
 
     public void updateScore() {
+        
     }
 
     public void answer() {
