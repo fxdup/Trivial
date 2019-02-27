@@ -95,7 +95,7 @@ public class Question {
 
                 case 1:
                     String subtraction;
-                    if (x >= y) {
+                    if (x >= y) { //to make sure we have a positive answer
                         subtraction = x - y + "";
                         answer = x - y + ""; //this is the true value of the operation
                     } else {
