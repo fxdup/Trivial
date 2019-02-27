@@ -89,7 +89,7 @@ public class Player implements Serializable{
     public String getName() {
         return NAME;
     }
-    public String getStats(){
+    public String toString(){
     
         return "Name: "+getName()+"\n Score: "+getScore()+"\n Grade: "+getGrade()+"\n Highest Grade: "+getHighestGrade()+"\n Streak: "+getStreak()+"\n Highest Streak: "+getHighestStreak();
     

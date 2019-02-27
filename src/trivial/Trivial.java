@@ -18,12 +18,6 @@ public class Trivial {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        Scanner input=new Scanner(System.in);
-        int a=input.nextInt();
-        if(a==0)
-        new HostPlayer("1");
-       if(a==1)
-        new ClientPlayer("2",input.next(),input.nextInt()).sendData();
     }
 
 }
