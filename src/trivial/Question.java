@@ -93,7 +93,7 @@ public class Question {
             switch (operation) {
 
                 case 0:
-                    String addition = x + " + " +  y;
+                    String addition = x + " + " + y;
                     question = addition; //puts the global variable "question" equal to the addition
                     answer = x + y + ""; //this is the true value of the operation
 
@@ -103,7 +103,7 @@ public class Question {
                         subtraction = x + " - " + y;
                         answer = x - y + ""; //this is the true value of the operation
                     } else { //to make sure we have a positive answer
-                        subtraction = y + " - " + x ;
+                        subtraction = y + " - " + x;
                         answer = y - x + ""; //this is the true value of the operation
                     }
 
@@ -161,10 +161,10 @@ public class Question {
 
                 case 1:
                     String subtraction;
-                    subtraction = x + " - " +  y;
+                    subtraction = x + " - " + y;
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     answer = x - y + ""; //this is the true value of the operation
-                    
+
                 case 2:
                     String multiplication = z + " x " + w;
                     question = multiplication;  //puts the global variable "question" equal to the addition
@@ -172,18 +172,18 @@ public class Question {
             }
 
         }
-        
+
         if (this.grade == 4) {
             //These variables will have 1 decimal place and these 2 variables will be used for addition and subtraction
-            int w = (int)(Math.random() * 1009);
+            int w = (int) (Math.random() * 1009);
             int x = (int) (Math.random() * 1009);
             //These 2 variables will be used for multiplication
             int y = (int) (Math.random() * 13);
             int z = (int) (Math.random() * 13);
             //These 2 variables will be used for division
-            int u = (int) (Math.random() * 13);
-            int v;
-            
+            int u = (int) (Math.random() * 30);
+            int v = (int) ((Math.random() * 30) + 1); // the  "+1" is to make sure there is no division by 0
+
             int operation = (int) (Math.random() * 4);
 
             switch (operation) {
@@ -195,13 +195,81 @@ public class Question {
 
                 case 1:
                     String subtraction;
-                    subtraction = x + " - " + y;
+                    subtraction = (x / 100.0) + " - " + (y / 100.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     answer = x - y + ""; //this is the true value of the operation
+
+                case 2:
+                    String multiplication = y + " x " + z;
+                    question = multiplication;
+                    answer = y * z + "";
+
+                case 3:
+                    //looks for a division that won't have any reminders
+                    while (u % v != 0) {
+                        v = (int) (Math.random() * 13);
+                    }
+
+                    String division = u + " / " + v;
+                    question = division;
+                    answer = u / v + "";
+
+            }
+        }
+
+        if (this.grade == 5) {
+
+            //These variables will have 1 decimal place and these 2 variables will be used for addition and subtraction
+            int w = (int) (Math.random() * 10009);
+            int x = (int) (Math.random() * 10009);
+            //These 2 variables will be used for multiplication
+            int y = (int) (Math.random() * 100);
+            int z = (int) (Math.random() * 13);
+            //These 2 variables will be used for division
+            int u = (int) (Math.random() * 60);
+            int v = (int) ((Math.random() * 60) + 1); // the  "+1" is to make sure there is no division by 0
+
+            int operation = (int) (Math.random() * 4);
+
+            switch (operation) {
+
+                case 0:
+                    String addition = (x / 100.0) + " + " + (y / 100.0);
+                    question = addition; //puts the global variable "question" equal to the addition
+                    answer = x + y + ""; //this is the true value of the operation
+
+                case 1:
+                    String subtraction;
+                    subtraction = (x / 100.0) + " - " + (y / 100.0);
+                    question = subtraction; //puts the global variable "question" equal to the subtaction
+                    answer = x - y + ""; //this is the true value of the operation
+
+                case 2:
+                    //if the first number is greater than 12, the second number has only 1 digit
+                    if (y > 13) {
+                        z -= 3;
+                    }
+                    String multiplication = y + " x " + z;
+                    question = multiplication;
+                    answer = y * z + "";
+
+                case 3:
+                    //looks for a division that won't have any reminders
+                    while (u % v != 0) {
+                        v = (int) (Math.random() * 13);
+                    }
+
+                    String division = u + " / " + v;
+                    question = division;
+                    answer = u / v + "";
+
+            }
+
+        }
+
+        if (this.grade == 6) {
+
             
-            
-            
-            } 
         }
     }
 
@@ -211,6 +279,11 @@ public class Question {
 
     public void fractions() {
 
+        /*check in what grade they start doing fractions. If the player is 
+        not in a grade where they do fractions, it will call the arithmetic()
+        method
+        */
+        
     }
 
     public void shapeCalculation() {
