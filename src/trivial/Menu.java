@@ -5,6 +5,10 @@
  */
 package trivial;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -28,7 +32,7 @@ import javafx.scene.text.Text;
  */
 public class Menu extends StackPane{
     VBox menu = new VBox();
-    
+    HostPlayer me;
     public Menu(){
         
         ImageView back = new ImageView(new Image("file:board.png"));
@@ -127,8 +131,17 @@ public class Menu extends StackPane{
         back.setStyle("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;");
         
         host.setOnMouseClicked(e->{
-            Player me = new Player(name.getText());
-            Hosting();
+            
+            try {
+                me = new HostPlayer(name.getText());
+            } catch (IOException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                Hosting();
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         
         back.setOnMouseClicked(e->{
@@ -160,7 +173,11 @@ public class Menu extends StackPane{
         
         join.setOnMouseClicked(e->{
             Player me = new Player(name.getText());
-            Joining();
+            try {
+                Joining();
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         
         back.setOnMouseClicked(e->{
@@ -176,15 +193,15 @@ public class Menu extends StackPane{
         menu.getChildren().addAll(nm,name,join,back);
     }
     
-    private void Hosting() {
+    private void Hosting() throws UnknownHostException {
         menu.getChildren().clear();
         menu.setSpacing(10);
         Text ip = new Text("IP");
         Text port = new Text("Port");
         Text number_of_players = new Text("Players joined : 1/40");
         Text start = new Text("Start");
-        TextField ipt = new TextField();
-        TextField portt = new TextField();
+        TextField ipt = new TextField(me.getIp());
+        TextField portt = new TextField(""+me.getPort());
         ipt.setStyle("-fx-background-color: transparent;-fx-font: 60px EraserDust;-fx-fill: white;-fx-border-color: white;");
         portt.setStyle("-fx-background-color: transparent;-fx-font: 60px EraserDust;-fx-fill: white;-fx-border-color: white;");
         start.setStyle("-fx-background-color: transparent;-fx-font: 80px EraserDust;-fx-fill: white;-fx-border-color: white;");
@@ -202,7 +219,7 @@ public class Menu extends StackPane{
         });
     }
 
-    private void Joining() {
+    private void Joining() throws UnknownHostException {
         menu.getChildren().clear();
         menu.setSpacing(10);
         Text ip = new Text("IP");
