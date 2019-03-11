@@ -6,7 +6,7 @@
 package trivial;
 
 import java.io.IOException;
-
+ 
 /**
  *
  * @author Félix Dupont
