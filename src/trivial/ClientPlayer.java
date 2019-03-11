@@ -18,55 +18,57 @@ import java.util.logging.Logger;
  */
 public class ClientPlayer extends Player {
 
-    private Socket connectedSocket;
-    private ObjectInputStream input;
-    private ObjectOutputStream output;
+    private Socket connectedSocket;//sokect that is connected with the host
+    private ObjectOutputStream output;//output to the host
 
     public ClientPlayer(String name, String ip, int port) throws IOException {
         super(name);
         connect(ip, port);
-        
+
     }
 
+    //sends the player's information to the host
     public void sendData() throws IOException {
         output.writeObject(this);
     }
 
+    //connects to the host with an IP and port
     public void connect(String ip, int port) throws IOException {
         connectedSocket = new Socket(ip, port);
-        input = new ObjectInputStream(connectedSocket.getInputStream());
+        output = new ObjectOutputStream(connectedSocket.getOutputStream());
         new Thread(new DataReceiver(connectedSocket));
     }
-    
-    
-public class DataReceiver implements Runnable {
+
+    //manages the input from the host
+    public class DataReceiver implements Runnable {
+
         Socket socket;
         ObjectInputStream input;
-        DataReceiver(Socket socket){
-        this.socket=socket;
+
+        DataReceiver(Socket socket) {
+            this.socket = socket;
         }
-        
+
         @Override
         public void run() {
             try {
-            input=new ObjectInputStream(socket.getInputStream());
-            setId(input.readInt());
-            while (true) {
-                
-                    Player player=(Player)input.readObject();
-                    
+                input = new ObjectInputStream(socket.getInputStream());
+                setId(input.readInt());
+                while (true) {
+
+                    Player player = (Player) input.readObject();
+
                     //element.updatescore(player);
-                    
                     if (player.getScore() > 1000) {
                         break;
                     }
-                }} catch (IOException ex) {
-                    Logger.getLogger(ClientPlayer.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(ClientPlayer.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(HostPlayer.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            
         }
     }
 }
