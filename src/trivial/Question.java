@@ -35,11 +35,7 @@ public class Question {
             case 0:
                 math();
             case 1:
-                science();
-            case 2:
-                general();
-            case 3:
-                logic();
+                other();
         }
     }
 
@@ -65,7 +61,7 @@ public class Question {
 
     public void math() {
 
-        int mathType = (int) (Math.random() * 5);
+        int mathType = (int) (Math.random() * 6);
 
         switch (type) {
 
@@ -77,6 +73,8 @@ public class Question {
                 fractions();
             case 4:
                 shapeCalculation();
+            case 5:
+                priorityOperations();
         }
 
     }
@@ -181,8 +179,8 @@ public class Question {
             int y = (int) (Math.random() * 13);
             int z = (int) (Math.random() * 13);
             //These 2 variables will be used for division
-            int u = (int) (Math.random() * 30);
-            int v = (int) ((Math.random() * 30) + 1); // the  "+1" is to make sure there is no division by 0
+            int u = (int) (Math.random() * 5);
+            int v = ((int) ((Math.random() * 10) + 1)) * u;
 
             int operation = (int) (Math.random() * 4);
 
@@ -210,9 +208,9 @@ public class Question {
                         v = (int) (Math.random() * 13);
                     }
 
-                    String division = u + " / " + v;
+                    String division = v + " / " + u;
                     question = division;
-                    answer = u / v + "";
+                    answer = v / u + "";
 
             }
         }
@@ -226,8 +224,8 @@ public class Question {
             int y = (int) (Math.random() * 100);
             int z = (int) (Math.random() * 13);
             //These 2 variables will be used for division
-            int u = (int) (Math.random() * 60);
-            int v = (int) ((Math.random() * 60) + 1); // the  "+1" is to make sure there is no division by 0
+            int u = (int) (Math.random() * 12);
+            int v = ((int) ((Math.random() * 12) + 1)) * u; //makes sure there is no division by 0 and that all answers are round
 
             int operation = (int) (Math.random() * 4);
 
@@ -259,9 +257,9 @@ public class Question {
                         v = (int) (Math.random() * 13);
                     }
 
-                    String division = u + " / " + v;
+                    String division = v + " / " + u;
                     question = division;
-                    answer = u / v + "";
+                    answer = v / u + "";
 
             }
 
@@ -269,8 +267,56 @@ public class Question {
 
         if (this.grade == 6) {
 
-            
+            //These variables will have 1 decimal place and these 2 variables will be used for addition and subtraction
+            int w = (int) (Math.random() * 10099);
+            int x = (int) (Math.random() * 10099);
+            //These 2 variables will be used for multiplication
+            int y = (int) (Math.random() * 1000);
+            int z = (int) (Math.random() * 100);
+            //These 2 variables will be used for division
+            int u = (int) (Math.random() * 20);
+            int v = ((int) ((Math.random() * 12) + 1)) * u;
+
+            int operation = (int) (Math.random() * 4);
+
+            switch (operation) {
+
+                case 0:
+                    String addition = (x / 100.0) + " + " + (y / 100.0);
+                    question = addition; //puts the global variable "question" equal to the addition
+                    answer = x + y + ""; //this is the true value of the operation
+
+                case 1:
+                    String subtraction;
+                    subtraction = (x / 100.0) + " - " + (y / 100.0);
+                    question = subtraction; //puts the global variable "question" equal to the subtaction
+                    answer = x - y + ""; //this is the true value of the operation
+
+                case 2:
+                    //if the first number is greater than 12, the second number has only 1 digit
+                    if (y > 13) {
+                        z -= 3;
+                    }
+                    String multiplication = y + " x " + z;
+                    question = multiplication;
+                    answer = y * z + "";
+
+                case 3:
+                    String division = v + " / " + u;
+                    question = division;
+                    answer = v / u + "";
+
+            }
+
         }
+    }
+
+    public void priorityOperations() {
+        /*
+        check in what grade they start doing fractions. If the player is 
+        not in a grade where they do fractions, it will call the arithmetic()
+        method
+         */
     }
 
     public void geometry() {
@@ -279,11 +325,11 @@ public class Question {
 
     public void fractions() {
 
-        /*check in what grade they start doing fractions. If the player is 
+        /*
+        check in what grade they start doing fractions. If the player is 
         not in a grade where they do fractions, it will call the arithmetic()
         method
-        */
-        
+         */
     }
 
     public void shapeCalculation() {
@@ -291,18 +337,12 @@ public class Question {
     }
 
     /*
-    
     do 1 file with all questions for each grade. So 1 file for 1st grade for science general and logic... 
     Then to make sure there is a good ratio for the number of math qusetions VS other questions generated,
     generate a number, if == 1 --> math question, if > 1 it will be a question of either science general 
     and logic
      */
-    public void science() {
+    public void other() { //this method reads a file with all the questions
     }
 
-    public void general() {
-    }
-
-    public void logic() {
-    }
 }
