@@ -6,6 +6,7 @@
 package trivial;
 
 import java.io.IOException;
+import static java.lang.Integer.parseInt;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,8 +32,8 @@ import javafx.scene.text.Text;
  * @author guill
  */
 public class Menu extends StackPane{
+    Player me;
     VBox menu = new VBox();
-    HostPlayer me;
     public Menu(){
         
         ImageView back = new ImageView(new Image("file:board.png"));
@@ -172,10 +173,12 @@ public class Menu extends StackPane{
         back.setStyle("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;");
         
         join.setOnMouseClicked(e->{
-            Player me = new Player(name.getText());
             try {
+                me = new ClientPlayer(name.getText());
                 Joining();
             } catch (UnknownHostException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
@@ -200,10 +203,12 @@ public class Menu extends StackPane{
         Text port = new Text("Port");
         Text number_of_players = new Text("Players joined : 1/40");
         Text start = new Text("Start");
-        TextField ipt = new TextField(me.getIp());
-        TextField portt = new TextField(""+me.getPort());
-        ipt.setStyle("-fx-background-color: transparent;-fx-font: 60px EraserDust;-fx-fill: white;-fx-border-color: white;");
-        portt.setStyle("-fx-background-color: transparent;-fx-font: 60px EraserDust;-fx-fill: white;-fx-border-color: white;");
+        TextField ipt = new TextField(((HostPlayer)me).getIp());
+        ipt.setEditable(false);
+        TextField portt = new TextField(""+((HostPlayer)me).getPort());
+        portt.setEditable(false);
+        ipt.setStyle("-fx-background-color: transparent;-fx-font: 60px EraserDust;-fx-fill: white;-fx-border-color: white;-fx-text-fill: white;");
+        portt.setStyle("-fx-background-color: transparent;-fx-font: 60px EraserDust;-fx-fill: white;-fx-border-color: white; -fx-text-fill: white;");
         start.setStyle("-fx-background-color: transparent;-fx-font: 80px EraserDust;-fx-fill: white;-fx-border-color: white;");
         number_of_players.setStyle("-fx-background-color: transparent;-fx-font: 80px EraserDust;-fx-fill: white;-fx-border-color: white;");
         ip.setStyle("-fx-font: 60px EraserDust;-fx-stroke: white;-fx-fill: white;");
@@ -227,6 +232,8 @@ public class Menu extends StackPane{
         Text join = new Text("Join");
         TextField ipt = new TextField();
         TextField portt = new TextField();
+        Text error =new Text("");
+        error.setFill(Color.RED);
         ipt.setStyle("-fx-background-color: transparent;-fx-font: 60px EraserDust;-fx-fill: white;-fx-border-color: white;");
         portt.setStyle("-fx-background-color: transparent;-fx-font: 60px EraserDust;-fx-fill: white;-fx-border-color: white;");
         join.setStyle("-fx-background-color: transparent;-fx-font: 80px EraserDust;-fx-fill: white;-fx-border-color: white;");
@@ -234,7 +241,22 @@ public class Menu extends StackPane{
         port.setStyle("-fx-font: 60px EraserDust;-fx-stroke: white;-fx-fill: white;");
         ipt.setMaxWidth(1000);
         portt.setMaxWidth(1000);
-        menu.getChildren().addAll(ip,ipt,port,portt,join);
+        menu.getChildren().addAll(ip,ipt,port,portt,error,join);
+        
+        join.setOnMouseClicked(e->{
+            
+            try {
+                ((ClientPlayer)me).connect(ipt.getText(), parseInt(portt.getText()));
+                ((Game)(getParent())).startGame();
+            GameInterface game = new GameInterface();
+            }catch(NumberFormatException ex){
+                error.setText("The port must be a number with 5 digits");
+            } catch (IOException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+        });
     }
 
     

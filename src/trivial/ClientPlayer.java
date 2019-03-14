@@ -21,10 +21,8 @@ public class ClientPlayer extends Player {
     private Socket connectedSocket;//sokect that is connected with the host
     private ObjectOutputStream output;//output to the host
 
-    public ClientPlayer(String name, String ip, int port) throws IOException {
+    public ClientPlayer(String name) throws IOException {
         super(name);
-        connect(ip, port);
-
     }
 
     //sends the player's information to the host
