@@ -5,6 +5,9 @@
  */
 package trivial;
 
+import java.io.File;
+import java.util.Iterator;
+
 /**
  *
  * @author Félix Dupont
@@ -21,22 +24,69 @@ public class Question {
     private String question;
     private String answer;
     private String[] choices;
+    private int[] countKeeper = {0,0,0,0,0,0}; //keeps the count of which question has been read from the file for each grade.
+    private int iterator = 0;
 
     public Question(int grade) {
         this.grade = grade;
-        int questionType = (int) (Math.random() * 4);
-        selectType(questionType);
+
+        /*
+        This part of the code checks if all pre-made questions for all grades has been put into the array of questions.
+        When all questions have been processed, it creates a math question
+        At the end of the process, all the questions will be shuffled to make sure the quiz is not too easy.
+        */
+        if (grade == 1 && (iterator < countKeeper[grade - 1])) {
+            File file = new File("grade1.txt");
+            readFile(file);
+        }
+        else
+            math();
+
+        if (grade == 2 && (iterator < countKeeper[grade - 1])) {
+            File file = new File("grade2.txt");
+            readFile(file);
+        }
+        else
+            math();
+
+        if (grade == 3 && (iterator < countKeeper[grade - 1])) {
+            File file = new File("grade3.txt");
+            readFile(file);
+        }
+        else
+            math();
+
+        if (grade == 4 && (iterator < countKeeper[grade - 1])) {
+            File file = new File("grade4.txt");
+            readFile(file);
+        }
+        else
+            math();
+
+        if (grade == 5 && (iterator < countKeeper[grade - 1])) {
+            File file = new File("grade5.txt");
+            readFile(file);
+        }
+        else
+            math();
+
+        if (grade == 6 && (iterator < countKeeper[grade - 1])) {
+            File file = new File("grade6.txt");
+            readFile(file);
+        }
+        else
+            math();
     }
 
     public void selectType(int type) {
 
-        switch (type) {
-
-            case 0:
-                math();
-            case 1:
-                other();
-        }
+//        switch (type) {
+//
+//            case 0:
+//                math();
+//            case 1:
+//                other();
+//        }
     }
 
     public int getType() {
@@ -342,7 +392,12 @@ public class Question {
     generate a number, if == 1 --> math question, if > 1 it will be a question of either science general 
     and logic
      */
-    public void other() { //this method reads a file with all the questions
+    public void other(File file) { //this method reads a file with all the questions
+
+    }
+    
+    public void readFile(File file) {
+        
     }
 
 }
