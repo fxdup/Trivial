@@ -6,7 +6,9 @@
 package trivial;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Iterator;
+import java.util.Scanner;
 
 /**
  *
@@ -23,59 +25,60 @@ public class Question {
     private int grade;
     private String question;
     private String answer;
+    private String[][] questions; //this 2 dimensional array stores all the questions for each grade. This array will then be shuffled.
     private String[] choices;
-    private int[] countKeeper = {0,0,0,0,0,0}; //keeps the count of which question has been read from the file for each grade.
-    private int iterator = 0;
+    private int[] countKeeper = {0, 0, 0, 0, 0, 0}; //keeps the count of which question has been read from the file for each grade.
+    private int[] iterator = {0, 0, 0, 0, 0, 0};
 
-    public Question(int grade) {
+    public Question(int grade) throws FileNotFoundException {
         this.grade = grade;
 
         /*
         This part of the code checks if all pre-made questions for all grades has been put into the array of questions.
         When all questions have been processed, it creates a math question
         At the end of the process, all the questions will be shuffled to make sure the quiz is not too easy.
-        */
-        if (grade == 1 && (iterator < countKeeper[grade - 1])) {
+         */
+        if (grade == 1 && (iterator[grade - 1] < countKeeper[grade - 1])) {
             File file = new File("grade1.txt");
             readFile(file);
-        }
-        else
+        } else {
             math();
+        }
 
-        if (grade == 2 && (iterator < countKeeper[grade - 1])) {
+        if (grade == 2 && (iterator[grade - 1] < countKeeper[grade - 1])) {
             File file = new File("grade2.txt");
             readFile(file);
-        }
-        else
+        } else {
             math();
+        }
 
-        if (grade == 3 && (iterator < countKeeper[grade - 1])) {
+        if (grade == 3 && (iterator[grade - 1] < countKeeper[grade - 1])) {
             File file = new File("grade3.txt");
             readFile(file);
-        }
-        else
+        } else {
             math();
+        }
 
-        if (grade == 4 && (iterator < countKeeper[grade - 1])) {
+        if (grade == 4 && (iterator[grade - 1] < countKeeper[grade - 1])) {
             File file = new File("grade4.txt");
             readFile(file);
-        }
-        else
+        } else {
             math();
+        }
 
-        if (grade == 5 && (iterator < countKeeper[grade - 1])) {
+        if (grade == 5 && (iterator[grade - 1] < countKeeper[grade - 1])) {
             File file = new File("grade5.txt");
             readFile(file);
-        }
-        else
+        } else {
             math();
+        }
 
-        if (grade == 6 && (iterator < countKeeper[grade - 1])) {
+        if (grade == 6 && (iterator[grade - 1] < countKeeper[grade - 1])) {
             File file = new File("grade6.txt");
             readFile(file);
-        }
-        else
+        } else {
             math();
+        }
     }
 
     public void selectType(int type) {
@@ -392,12 +395,20 @@ public class Question {
     generate a number, if == 1 --> math question, if > 1 it will be a question of either science general 
     and logic
      */
-    public void other(File file) { //this method reads a file with all the questions
+    public String readFile(File file) throws FileNotFoundException {
 
-    }
-    
-    public void readFile(File file) {
+        Scanner input = new Scanner(file);
+
+        while (iterator[grade - 1] < countKeeper[grade - 1]) {
+
+            input.nextLine();
+            iterator[this.grade - 1] += 1;
+        }
         
+        String question = input.nextLine();
+        countKeeper[grade - 1] += 1;
+        
+        return question;
     }
 
 }
