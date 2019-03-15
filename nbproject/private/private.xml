@@ -3,7 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Félix%20Dupont/Documents/NetBeansProjects/Trivial/.git/config</file>
+            <file>file:/C:/Users/Félix%20Dupont/Documents/Trivial/src/trivial/HostPlayer.java</file>
+            <file>file:/C:/Users/Félix%20Dupont/Documents/Trivial/src/trivial/GameInterface.java</file>
+            <file>file:/C:/Users/Félix%20Dupont/Documents/Trivial/src/trivial/Player.java</file>
+            <file>file:/C:/Users/Félix%20Dupont/Documents/Trivial/src/trivial/Game.java</file>
+            <file>file:/C:/Users/Félix%20Dupont/Documents/Trivial/src/trivial/ClientPlayer.java</file>
+            <file>file:/C:/Users/Félix%20Dupont/Documents/Trivial/src/trivial/Trivial.java</file>
+            <file>file:/C:/Users/Félix%20Dupont/Documents/Trivial/src/trivial/Menu.java</file>
+            <file>file:/C:/Users/Félix%20Dupont/Documents/Trivial/src/trivial/Question.java</file>
+            <file>file:/C:/Users/Félix%20Dupont/Documents/Trivial/src/trivial/QuestionList.java</file>
+            <file>file:/C:/Users/Félix%20Dupont/Documents/Trivial/src/trivial/Scoreboard.java</file>
         </group>
     </open-files>
 </project-private>

@@ -5,15 +5,19 @@
  */
 package trivial;
 
+import static com.sun.javafx.scene.control.skin.Utils.getResource;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 
 /**
  *
  * @author guill
  */
 public class Game extends Pane{
+    
     public Game(){
         Menu menu = new Menu();
+        
         getChildren().add(menu);
     }
     

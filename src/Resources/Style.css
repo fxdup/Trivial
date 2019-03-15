@@ -1,0 +1,29 @@
+.menu{
+    -fx-font: 120px EraserDust;
+    -fx-stroke: white;
+    -fx-fill: white;
+}
+.submenu{
+    -fx-font: 90px EraserDust;
+    -fx-stroke: white;
+    -fx-fill: white;
+}
+.redHover:hover{
+    -fx-stroke: red;
+    -fx-fill: red;
+}
+.blueHover:hover{
+    -fx-stroke: blue;
+    -fx-fill: blue;
+}
+.yellowHover:hover{
+    -fx-stroke: yellow;
+    -fx-fill: yellow;
+}
+.textField{
+    -fx-background-color: transparent;
+    -fx-font: 60px EraserDust;
+    -fx-fill: white;
+    -fx-border-color: white; 
+    -fx-text-fill: white;
+}
