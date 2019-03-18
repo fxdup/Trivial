@@ -47,6 +47,7 @@ public class GameInterface extends Pane{
         
         Rectangle answer1_rectangle = new Rectangle(WIDTH/2,HEIGHT/4-50);
         Text answer1_text = new Text("answer1");
+        answer1_text.getStyleClass().add("inGameGUI");
         StackPane answer1 = new StackPane();
         answer1.getChildren().addAll(answer1_rectangle,answer1_text);
         answer1.setLayoutX(0);
@@ -54,6 +55,7 @@ public class GameInterface extends Pane{
         
         Rectangle answer2_rectangle = new Rectangle(WIDTH/2,HEIGHT/4-50);
         Text answer2_text = new Text("answer2");
+        answer2_text.getStyleClass().add("inGameGUI");
         StackPane answer2 = new StackPane();
         answer2.getChildren().addAll(answer2_rectangle,answer2_text);
         answer2.setLayoutX(WIDTH/2);
@@ -61,6 +63,7 @@ public class GameInterface extends Pane{
         
         Rectangle answer3_rectangle = new Rectangle(WIDTH/2,HEIGHT/4-50);
         Text answer3_text = new Text("answer3");
+        answer3_text.getStyleClass().add("inGameGUI");
         StackPane answer3 = new StackPane();
         answer3.getChildren().addAll(answer3_rectangle,answer3_text);
         answer3.setLayoutX(0);
@@ -68,6 +71,7 @@ public class GameInterface extends Pane{
         
         Rectangle answer4_rectangle = new Rectangle(WIDTH/2,HEIGHT/4-50);
         Text answer4_text = new Text("answer4");
+        answer4_text.getStyleClass().add("inGameGUI");
         StackPane answer4 = new StackPane();
         answer4.getChildren().addAll(answer4_rectangle,answer4_text);
         answer4.setLayoutX(WIDTH/2);
@@ -84,11 +88,11 @@ public class GameInterface extends Pane{
         fillingbar.setFill(Color.rgb(red,green,blue));
         
         Text first_place = new Text("First Place: "+firstPlace);
-        first_place.setStyle("-fx-font: 30px EraserDust;-fx-stroke: white;-fx-fill: white;");
+        first_place.getStyleClass().add("inGameGUI");
         Text current_grade = new Text("Grade "+currentGrade);
-        current_grade.setStyle("-fx-font: 30px EraserDust;-fx-stroke: white;-fx-fill: white;");
+        current_grade.getStyleClass().add("inGameGUI");
         Text your_score = new Text("Your Score: "+score);
-        your_score.setStyle("-fx-font: 30px EraserDust;-fx-stroke: white;-fx-fill: white;");
+        your_score.getStyleClass().add("inGameGUI");
         
         first_place.setY(72);
         first_place.setX(WIDTH-360);

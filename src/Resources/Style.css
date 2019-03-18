@@ -27,3 +27,8 @@
     -fx-border-color: white; 
     -fx-text-fill: white;
 }
+.inGameGUI{
+    -fx-font: 30px EraserDust;
+    -fx-stroke: white;
+    -fx-fill: white;
+}

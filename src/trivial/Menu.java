@@ -198,6 +198,26 @@ public class Menu extends StackPane{
         portt.setMaxWidth(1000);
         menu.getChildren().addAll(ip,ipt,port,portt,number_of_players,start);
         
+        class MultithreadingDemo extends Thread 
+{ 
+    public void run() 
+    { 
+        try
+        { 
+            // Displaying the thread that is running 
+            System.out.println ("Thread " + 
+                  Thread.currentThread().getId() + 
+                  " is running"); 
+  
+        } 
+        catch (Exception e) 
+        { 
+            // Throwing an exception 
+            System.out.println ("Exception is caught"); 
+        } 
+    } 
+}
+        
         start.setOnMouseClicked(e->{
             ((Game)(getParent())).startGame();
         });
