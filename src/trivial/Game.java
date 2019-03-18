@@ -21,9 +21,9 @@ public class Game extends Pane{
         getChildren().add(menu);
     }
     
-    public void startGame(){
+    public void startGame(boolean host){
         getChildren().clear();
-        GameInterface gameInterface = new GameInterface();
+        GameInterface gameInterface = new GameInterface(host);
         getChildren().add(gameInterface);
     }
 }
