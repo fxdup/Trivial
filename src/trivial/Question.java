@@ -25,10 +25,10 @@ public class Question {
     private int grade;
     private String question;
     private String answer;
-    private String[][] questions; //this 2 dimensional array stores all the questions for each grade. This array will then be shuffled.
+    /* do we need this??*/private String[][] questions; //this 2 dimensional array stores all the questions for each grade. This array will then be shuffled.
     private String[] choices;
-    private int[] countKeeper = {0, 0, 0, 0, 0, 0}; //keeps the count of which question has been read from the file for each grade.
-    private int[] iterator = {0, 0, 0, 0, 0, 0};
+    private static int[] countKeeper = {0, 0, 0, 0, 0, 0}; //keeps the count of which question has been read from the file for each grade.
+    private int iterator = 0;
 
     public Question(int grade) throws FileNotFoundException {
         this.grade = grade;
@@ -38,42 +38,42 @@ public class Question {
         When all questions have been processed, it creates a math question
         At the end of the process, all the questions will be shuffled to make sure the quiz is not too easy.
          */
-        if (grade == 1 && (iterator[grade - 1] < countKeeper[grade - 1])) {
+        if (grade == 1 && (iterator < countKeeper[grade - 1])) {
             File file = new File("grade1.txt");
             readFile(file);
         } else {
             math();
         }
 
-        if (grade == 2 && (iterator[grade - 1] < countKeeper[grade - 1])) {
+        if (grade == 2 && (iterator< countKeeper[grade - 1])) {
             File file = new File("grade2.txt");
             readFile(file);
         } else {
             math();
         }
 
-        if (grade == 3 && (iterator[grade - 1] < countKeeper[grade - 1])) {
+        if (grade == 3 && (iterator < countKeeper[grade - 1])) {
             File file = new File("grade3.txt");
             readFile(file);
         } else {
             math();
         }
 
-        if (grade == 4 && (iterator[grade - 1] < countKeeper[grade - 1])) {
+        if (grade == 4 && (iterator < countKeeper[grade - 1])) {
             File file = new File("grade4.txt");
             readFile(file);
         } else {
             math();
         }
 
-        if (grade == 5 && (iterator[grade - 1] < countKeeper[grade - 1])) {
+        if (grade == 5 && (iterator < countKeeper[grade - 1])) {
             File file = new File("grade5.txt");
             readFile(file);
         } else {
             math();
         }
 
-        if (grade == 6 && (iterator[grade - 1] < countKeeper[grade - 1])) {
+        if (grade == 6 && (iterator < countKeeper[grade - 1])) {
             File file = new File("grade6.txt");
             readFile(file);
         } else {
@@ -383,12 +383,47 @@ public class Question {
         not in a grade where they do fractions, it will call the arithmetic()
         method
          */
+        
+        //I will do every operation on fractions here, adjust difficulty later
+        
+        //ADDITION
+        int num1 = (int)(Math.random() * 100);
+        int num2 = (int)(Math.random() * 100);
+        int den1 = (int)(Math.random() * 100);
+        int den2 = (int)(Math.random() * 100);
+        
+        question = num1 + "/" + den1 + " + " + num2 + "/" + den2;
+        answer = (num1 / den1) + (num2 / den2) + "";
+        
+        //SUBTRACTION 
+        
+        question = num1 + "/" + den1 + " - " + num2 + "/" + den2;
+        answer = (num1 / den1) - (num2 / den2) + "";
+        
+        //MULTIPLICATION
+        question = num1 + "/" + den1 + " - " + num2 + "/" + den2;
+        answer = (num1 / den1) * (num2 / den2) + "";
+        
+        //DIVISION
+        question = num1 + "/" + den1 + " - " + num2 + "/" + den2;
+        answer = (num1 / den1) / (num2 / den2) + "";
+        
     }
 
     public void shapeCalculation() {
 
     }
 
+    /*we need a metod to create answers for each category, to simulate to plausible answers. 
+    for arithmetic, i will need to consider decimals
+    for priority of operations, i will have to simulate mistakes if the way the player made a 
+    mistake in the priorities
+    */
+    public void createArithmeticAnswers(double answer) {
+        
+
+        
+    }
     /*
     do 1 file with all questions for each grade. So 1 file for 1st grade for science general and logic... 
     Then to make sure there is a good ratio for the number of math qusetions VS other questions generated,
@@ -399,10 +434,10 @@ public class Question {
 
         Scanner input = new Scanner(file);
 
-        while (iterator[grade - 1] < countKeeper[grade - 1]) {
+        while (iterator < countKeeper[grade - 1]) {
 
             input.nextLine();
-            iterator[this.grade - 1] += 1;
+            iterator += 1;
         }
         
         String question = input.nextLine();
