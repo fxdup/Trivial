@@ -198,28 +198,10 @@ public class Menu extends StackPane{
         portt.setMaxWidth(1000);
         menu.getChildren().addAll(ip,ipt,port,portt,number_of_players,start);
         
-        class MultithreadingDemo extends Thread 
-{ 
-    public void run() 
-    { 
-        try
-        { 
-            // Displaying the thread that is running 
-            System.out.println ("Thread " + 
-                  Thread.currentThread().getId() + 
-                  " is running"); 
-  
-        } 
-        catch (Exception e) 
-        { 
-            // Throwing an exception 
-            System.out.println ("Exception is caught"); 
-        } 
-    } 
-}
+       
         
         start.setOnMouseClicked(e->{
-            ((Game)(getParent())).startGame();
+            ((Game)(getParent())).startGame(true);
         });
     }
 
@@ -247,8 +229,8 @@ public class Menu extends StackPane{
             try {
                 ((ClientPlayer)me).connect(ipt.getText(), parseInt(portt.getText()));
                 waiting();
-            }catch(NumberFormatException | IOException ex){
-                error.setText("Impossible to connect. Ip or Port might be invalid");
+            }catch(IOException | IllegalArgumentException ex){
+                error.setText("Impossible to connect. IP or Port is invalid");
             }
             
             
