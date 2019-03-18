@@ -54,6 +54,7 @@ public class GameInterface extends Pane{
     private Text text_question;
     private Text skip_text;
     
+    private ImageView background;
     private Rectangle leaderbar;
     private Rectangle fillingbar;
     private Rectangle answer1_rectangle;
@@ -75,8 +76,8 @@ public class GameInterface extends Pane{
     private ImageView separation;
 
     public GameInterface(Boolean host){
-        
         this.host=host;
+        
         answer1_rectangle = new Rectangle(WIDTH/2,HEIGHT/4-50);
         answer1_text = new Text("answer1");
         answer1_text.getStyleClass().add("inGameGUI");
@@ -133,6 +134,10 @@ public class GameInterface extends Pane{
         your_score.setY(72);
         your_score.setX(5);
         
+        background = new ImageView(new Image("/Resources/background_image.jpg"));
+        background.setFitWidth(1920);
+        background.setFitHeight(1080);
+        
         
         separation = new ImageView(new Image("file:ChalkLine.png"));
         separation.setFitWidth(WIDTH);
@@ -186,7 +191,7 @@ public class GameInterface extends Pane{
         skip.setLayoutX(WIDTH/2-50);
         skip.setLayoutY(HEIGHT/2+18);
         skip.getChildren().addAll(skip_button,skip_text);
-        getChildren().addAll(answer1,answer2,answer3,answer4,separation,leaderbar,fillingbar,your_score,current_grade,first_place,questionPane,timerbar,skip);
+        getChildren().addAll(background,answer1,answer2,answer3,answer4,separation,leaderbar,fillingbar,your_score,current_grade,first_place,questionPane,timerbar,skip);
     }
 
     public void pause() {

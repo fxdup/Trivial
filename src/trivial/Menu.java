@@ -5,6 +5,7 @@
  */
 package trivial;
 
+import java.io.File;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.net.UnknownHostException;
@@ -36,11 +37,11 @@ public class Menu extends StackPane{
     VBox menu = new VBox();
     public Menu(){
         
-        ImageView back = new ImageView(new Image("file:board.png"));
+        ImageView back = new ImageView(new Image("/Resources/board.png"));
         back.setFitWidth(1920);
         back.setFitHeight(1080);
         
-        ImageView sky = new ImageView(new Image("file:sky.jpg"));
+        ImageView sky = new ImageView(new Image("/Resources/background_image.jpg"));
         sky.setFitWidth(1920);
         sky.setFitHeight(1080);
         
