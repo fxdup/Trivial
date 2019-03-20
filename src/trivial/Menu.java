@@ -6,6 +6,7 @@
 package trivial;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.net.UnknownHostException;
@@ -202,7 +203,11 @@ public class Menu extends StackPane{
        
         
         start.setOnMouseClicked(e->{
-            ((Game)(getParent())).startGame(true);
+            try {
+                ((Game)(getParent())).startGame(true);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 

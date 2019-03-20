@@ -5,6 +5,7 @@
  */
 package trivial;
 
+import java.io.FileNotFoundException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -30,37 +31,30 @@ import javafx.util.Duration;
 
 public class GameInterface extends Pane{
     private StackPane questionPane;
-    private StackPane answer1;
-    private StackPane answer2;
-    private StackPane answer3;
-    private StackPane answer4;
+    private AnswerPane answer1;
+    private AnswerPane answer2;
+    private AnswerPane answer3;
+    private AnswerPane answer4;
     private StackPane skip;
     
     private Player me;
+    private Player[] players;
     private boolean host;
     private String firstPlace;
     private String currentGrade;
-    private String question;
     private int score;
     private QuestionList questionList;
+    private Question question;
     
     private Text first_place;
     private Text current_grade;
     private Text your_score;
-    private Text answer1_text;
-    private Text answer2_text;
-    private Text answer3_text;
-    private Text answer4_text;
     private Text text_question;
     private Text skip_text;
     
     private ImageView background;
     private Rectangle leaderbar;
     private Rectangle fillingbar;
-    private Rectangle answer1_rectangle;
-    private Rectangle answer2_rectangle;
-    private Rectangle answer3_rectangle;
-    private Rectangle answer4_rectangle;
     private Rectangle white_question;
     private Rectangle timerbar;
     private Rectangle skip_button;
@@ -75,45 +69,17 @@ public class GameInterface extends Pane{
     int timerbar_green=255;
     private ImageView separation;
 
-    public GameInterface(Boolean host){
+    public GameInterface(Boolean host) throws FileNotFoundException{
         this.host=host;
+        question=new Question(1);
         
-        answer1_rectangle = new Rectangle(WIDTH/2,HEIGHT/4-50);
-        answer1_text = new Text("answer1");
-        answer1_text.getStyleClass().add("inGameGUI");
-        answer1 = new StackPane();
-        answer1.getChildren().addAll(answer1_rectangle,answer1_text);
-        answer1.setLayoutX(0);
-        answer1.setLayoutY(HEIGHT/2+50);
+        answer1= new AnswerPane(0,HEIGHT/2+50);
+        answer2= new AnswerPane(WIDTH/2,HEIGHT/2+50);
+        answer3= new AnswerPane(0,HEIGHT/2+50+(HEIGHT/4-50));
+        answer4= new AnswerPane(WIDTH/2,HEIGHT/2+50+(HEIGHT/4-50));
         
-        answer2_rectangle = new Rectangle(WIDTH/2,HEIGHT/4-50);
-        answer2_text = new Text("answer2");
-        answer2_text.getStyleClass().add("inGameGUI");
-        answer2 = new StackPane();
-        answer2.getChildren().addAll(answer2_rectangle,answer2_text);
-        answer2.setLayoutX(WIDTH/2);
-        answer2.setLayoutY(HEIGHT/2+50);
         
-        answer3_rectangle = new Rectangle(WIDTH/2,HEIGHT/4-50);
-        answer3_text = new Text("answer3");
-        answer3_text.getStyleClass().add("inGameGUI");
-        answer3 = new StackPane();
-        answer3.getChildren().addAll(answer3_rectangle,answer3_text);
-        answer3.setLayoutX(0);
-        answer3.setLayoutY(HEIGHT/2+50+(HEIGHT/4-50));
         
-        answer4_rectangle = new Rectangle(WIDTH/2,HEIGHT/4-50);
-        answer4_text = new Text("answer4");
-        answer4_text.getStyleClass().add("inGameGUI");
-        answer4 = new StackPane();
-        answer4.getChildren().addAll(answer4_rectangle,answer4_text);
-        answer4.setLayoutX(WIDTH/2);
-        answer4.setLayoutY(HEIGHT/2+50+(HEIGHT/4-50));
-        
-        answer1_rectangle.setFill(Color.rgb(96, 139, 109));
-        answer2_rectangle.setFill(Color.rgb(96, 139, 109));
-        answer3_rectangle.setFill(Color.rgb(96, 139, 109));
-        answer4_rectangle.setFill(Color.rgb(96, 139, 109));
         
         leaderbar = new Rectangle(0,25,WIDTH,18);
         leaderbar.setFill(Color.WHITE);
@@ -146,7 +112,7 @@ public class GameInterface extends Pane{
         separation.setY(HEIGHT/2+50);
         
         questionPane = new StackPane();
-        text_question = new Text("Question");
+        text_question = new Text("");
         white_question = new Rectangle(50,250,WIDTH-100,200);
         white_question.setArcHeight(30);
         white_question.setArcWidth(30);
@@ -155,12 +121,36 @@ public class GameInterface extends Pane{
         questionPane.setLayoutY(250);
         white_question.setFill(Color.WHITE);
         
+        
+        
+        
+        skip_button = new Rectangle();
+        skip_button.setArcHeight(5);
+        skip_button.setArcWidth(5);
+        skip_button.setHeight(40);
+        skip_button.setWidth(100);
+        skip_button.setFill(Color.WHITE);
+        skip_button.setStroke(Color.RED);
+        skip_button.setStrokeWidth(5);
         timerbar = new Rectangle(0,HEIGHT/2+25,WIDTH,30);
+        timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
+        timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
+        skip_text = new Text("Skip");
+        skip = new StackPane();
+        skip.setLayoutX(WIDTH/2-50);
+        skip.setLayoutY(HEIGHT/2+18);
+        skip.getChildren().addAll(skip_button,skip_text);
+        getChildren().addAll(background,answer1,answer2,answer3,answer4,separation,leaderbar,fillingbar,your_score,current_grade,first_place,questionPane,timerbar,skip);
+        
+        
+        
+        nextQuestion();
+        
+    }
+
+    public void timeAnimation(int time){
         Timeline countdown = new Timeline();
-        KeyFrame length = new KeyFrame(Duration.millis(7),e->{
-            if(timerbar.getWidth()>0){
-                timerbar.setWidth(timerbar.getWidth()-2);
-            }});
+        timerbar = new Rectangle(0,HEIGHT/2+25,WIDTH,30);
         KeyFrame color = new KeyFrame(Duration.millis(7),e->{
             if(timerbar_red<254){
                 timerbar_red+=1;
@@ -172,28 +162,15 @@ public class GameInterface extends Pane{
                 timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
                 timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
             }
+            if(timerbar.getWidth()>0){
+                timerbar.setWidth(timerbar.getWidth()-2);
+            }
         });
-        countdown.getKeyFrames().addAll(length,color);
+        countdown.getKeyFrames().add(color);
         countdown.setCycleCount(Animation.INDEFINITE);
         countdown.play();
-        
-        skip_button = new Rectangle();
-        skip_button.setArcHeight(5);
-        skip_button.setArcWidth(5);
-        skip_button.setHeight(40);
-        skip_button.setWidth(100);
-        skip_button.setFill(Color.WHITE);
-        skip_button.setStroke(Color.RED);
-        skip_button.setStrokeWidth(5);
-        
-        skip_text = new Text("Skip");
-        skip = new StackPane();
-        skip.setLayoutX(WIDTH/2-50);
-        skip.setLayoutY(HEIGHT/2+18);
-        skip.getChildren().addAll(skip_button,skip_text);
-        getChildren().addAll(background,answer1,answer2,answer3,answer4,separation,leaderbar,fillingbar,your_score,current_grade,first_place,questionPane,timerbar,skip);
     }
-
+    
     public void pause() {
         paused = true;
     }
@@ -204,11 +181,42 @@ public class GameInterface extends Pane{
 
     public void updateScore() {
         first_place.setText("First Place: "+firstPlace);
+        your_score.setText("Your Score: "+score);
     }
 
-    public void answer() {
+    public void nextQuestion() {
+        text_question.setText(question.getQuestion());
+        answer1.setText(question.getChoices()[0]);
+        answer2.setText(question.getChoices()[1]);
+        answer3.setText(question.getChoices()[2]);
+        answer4.setText(question.getChoices()[3]);
     }
+    
+    
+    class AnswerPane extends StackPane{
+        private Rectangle answer_rectangle;
+        private Text answer_text;
+        
+        AnswerPane(int layoutX,int LayoutY){
+        answer_rectangle = new Rectangle(WIDTH/2,HEIGHT/4-50);
+        answer_rectangle.setFill(Color.rgb(96, 139, 109));
+        answer_text = new Text("");
+        answer_text.getStyleClass().add("inGameGUI");
+        this.getChildren().addAll(answer_rectangle,answer_text);
+        this.setLayoutX(layoutX);
+        this.setLayoutY(LayoutY);
+        
+        answer_rectangle.setOnMouseClicked(e->{
+        if(answer_text.getText().equals(question.getAnswer()))
+            score++;
+        updateScore();
+        });
+        
+        }
 
-    public void generateQuestion() {
-    }
+        public void setText(String text){
+        answer_text.setText(text);
+        }
+        
+}
 }

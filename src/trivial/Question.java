@@ -36,7 +36,7 @@ public class Question {
 
     public Question(int grade) throws FileNotFoundException {
         this.grade = grade;
-
+        choices=new String[4];
         /*
         This part of the code checks if all pre-made questions for all grades has been put into the array of questions.
         When all questions have been processed, it creates a math question
@@ -405,7 +405,7 @@ public class Question {
         int num2 = (int) (Math.random() * 100);
         int den1 = (int) (Math.random() * 100);
         int den2 = (int) (Math.random() * 100);
-
+       
         question = num1 + "/" + den1 + " + " + num2 + "/" + den2;
         answer = (num1 / den1) + (num2 / den2) + "";
 
@@ -418,6 +418,7 @@ public class Question {
         answer = (num1 / den1) * (num2 / den2) + "";
 
         //DIVISION
+        System.out.println(num1+" "+num2+" "+den1+" "+den2);
         question = num1 + "/" + den1 + " - " + num2 + "/" + den2;
         answer = (num1 / den1) / (num2 / den2) + "";
 
@@ -601,7 +602,7 @@ public class Question {
     generate a number, if == 1 --> math question, if > 1 it will be a question of either science general 
     and logic
      */
-    public String readFile(File file) throws FileNotFoundException {
+    public void readFile(File file) throws FileNotFoundException {
 
         Scanner input = new Scanner(file);
 
@@ -645,7 +646,6 @@ public class Question {
         System.out.println("Answer3: " + answer3);
         
 
-        return question;
     }
 
 }

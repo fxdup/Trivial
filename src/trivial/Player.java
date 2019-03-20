@@ -85,6 +85,9 @@ public class Player implements Serializable {
         this.score = score;
     }
 
+    public void addScore(int score){
+        this.score+=score;
+    }
     //returns the name of the player
     public String getName() {
         return NAME;

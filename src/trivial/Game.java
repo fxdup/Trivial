@@ -6,6 +6,7 @@
 package trivial;
 
 import static com.sun.javafx.scene.control.skin.Utils.getResource;
+import java.io.FileNotFoundException;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
@@ -21,7 +22,7 @@ public class Game extends Pane{
         getChildren().add(menu);
     }
     
-    public void startGame(boolean host){
+    public void startGame(boolean host) throws FileNotFoundException{
         getChildren().clear();
         GameInterface gameInterface = new GameInterface(host);
         getChildren().add(gameInterface);
