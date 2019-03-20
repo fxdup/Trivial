@@ -7,6 +7,9 @@ package trivial;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -604,12 +607,43 @@ public class Question {
 
         while (iterator < countKeeper[grade - 1]) {
 
-            input.nextLine();
+            input.nextLine(); //question
+            input.nextLine(); //answer 1
+            input.nextLine();//answer 2
+            input.nextLine();//answer 3
+            input.nextLine();//answer 4
+            iterator += 1;
             iterator += 1;
         }
 
-        String question = input.nextLine();
+        question = input.nextLine();
+        String answer1 = input.nextLine();
+        String answer2 = input.nextLine();
+        String answer3 = input.nextLine();
+        String answer4 = input.nextLine();
+        
+        choices[0] = answer1; //correct answer
+        choices[1] = answer2;
+        choices[2] = answer3;
+        choices[3] = answer4;
+        
+        ArrayList<String> unshuffled = new ArrayList<String>(Arrays.asList(choices));
+        Collections.shuffle(unshuffled);
+        choices = unshuffled.toArray(new String[unshuffled.size()]);
+
+        /*
+        if file has a next line, it will increase countkeeper. This ensures that
+        if the file is over, it will go to the math questions.
+        */
+        if (input.hasNextLine()) { 
         countKeeper[grade - 1] += 1;
+        }
+
+        System.out.println("Question: " + question);
+        System.out.println("Answer1: " + answer1);
+        System.out.println("Answer2: " + answer2);
+        System.out.println("Answer3: " + answer3);
+        
 
         return question;
     }
