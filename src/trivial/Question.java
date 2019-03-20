@@ -39,46 +39,58 @@ public class Question {
         When all questions have been processed, it creates a math question
         At the end of the process, all the questions will be shuffled to make sure the quiz is not too easy.
          */
-        if (grade == 1 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade1.txt");
-            readFile(file);
-        } else {
-            math();
+        if (grade == 1) {
+            if (iterator < countKeeper[grade - 1]) {
+                File file = new File("grade1.txt");
+                readFile(file);
+            } else {
+                math();
+            }
         }
 
-        if (grade == 2 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade2.txt");
-            readFile(file);
-        } else {
-            math();
+        if (grade == 2) {
+            if (iterator < countKeeper[grade - 1]) {
+                File file = new File("grade2.txt");
+                readFile(file);
+            } else {
+                math();
+            }
         }
 
-        if (grade == 3 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade3.txt");
-            readFile(file);
-        } else {
-            math();
+        if (grade == 3) {
+            if (iterator < countKeeper[grade - 1]) {
+                File file = new File("grade3.txt");
+                readFile(file);
+            } else {
+                math();
+            }
         }
 
-        if (grade == 4 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade4.txt");
-            readFile(file);
-        } else {
-            math();
+        if (grade == 4) {
+            if (iterator < countKeeper[grade - 1]) {
+                File file = new File("grade4.txt");
+                readFile(file);
+            } else {
+                math();
+            }
         }
 
-        if (grade == 5 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade5.txt");
-            readFile(file);
-        } else {
-            math();
+        if (grade == 5) {
+            if (iterator < countKeeper[grade - 1]) {
+                File file = new File("grade5.txt");
+                readFile(file);
+            } else {
+                math();
+            }
         }
 
-        if (grade == 6 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade6.txt");
-            readFile(file);
-        } else {
-            math();
+        if (grade == 6) {
+            if (iterator < countKeeper[grade - 1]) {
+                File file = new File("grade6.txt");
+                readFile(file);
+            } else {
+                math();
+            }
         }
     }
 
@@ -322,8 +334,8 @@ public class Question {
         if (this.grade == 6) {
 
             //These variables will have 1 decimal place and these 2 variables will be used for addition and subtraction
-            int w = (int) (Math.random() * 10099);
-            int x = (int) (Math.random() * 10099);
+            int w = (int) (Math.random() * 10000);
+            int x = (int) (Math.random() * 10000);
             //These 2 variables will be used for multiplication
             int y = (int) (Math.random() * 1000);
             int z = (int) (Math.random() * 100);
@@ -457,7 +469,7 @@ public class Question {
         }
 
         if (this.grade == 5) {
-            
+
             if (numericalAnswer < 10.0 && numericalAnswer > 2.0) {
 
                 String c1 = String.format("%.3s", numericalAnswer - 2 + "");
@@ -476,7 +488,7 @@ public class Question {
                 choices[0] = c1;
                 choices[1] = c2;
                 choices[2] = c3;
-            } else if (numericalAnswer > 9.0) {
+            } else if (numericalAnswer > 9.0 && numericalAnswer < 100.0) {
 
                 double minRange = numericalAnswer - (0.2 * numericalAnswer);
                 double maxRange = numericalAnswer + (0.2 * numericalAnswer);
@@ -484,6 +496,53 @@ public class Question {
                 String c1 = String.format("%.4s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
                 String c2 = String.format("%.4s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
                 String c3 = String.format("%.4s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+
+                choices[0] = c1;
+                choices[1] = c2;
+                choices[2] = c3;
+            } else if (numericalAnswer > 99.9 && numericalAnswer < 1001.0) {
+
+                double minRange = numericalAnswer - (0.2 * numericalAnswer);
+                double maxRange = numericalAnswer + (0.2 * numericalAnswer);
+
+                String c1 = String.format("%.6s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+                String c2 = String.format("%.6s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+                String c3 = String.format("%.6s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+
+                choices[0] = c1;
+                choices[1] = c2;
+                choices[2] = c3;
+            }
+
+        }
+
+        if (grade == 6) {
+            if (numericalAnswer < 10.00 && numericalAnswer > 2.00) {
+
+                String c1 = String.format("%.4s", numericalAnswer - 2 + "");
+                String c2 = String.format("%.4s", numericalAnswer - 1 + "");
+                String c3 = String.format("%.4s", numericalAnswer + 1 + "");
+
+                choices[0] = c1;
+                choices[1] = c2;
+                choices[2] = c3;
+            } else if (numericalAnswer < 3.0) {
+
+                String c1 = String.format("%.4s", numericalAnswer + 1 + "");
+                String c2 = String.format("%.4s", numericalAnswer + 1 + "");
+                String c3 = String.format("%.4s", numericalAnswer + 1 + "");
+
+                choices[0] = c1;
+                choices[1] = c2;
+                choices[2] = c3;
+            } else if (numericalAnswer > 9.00 && numericalAnswer < 100.00) {
+
+                double minRange = numericalAnswer - (0.2 * numericalAnswer);
+                double maxRange = numericalAnswer + (0.2 * numericalAnswer);
+
+                String c1 = String.format("%.5s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+                String c2 = String.format("%.5s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+                String c3 = String.format("%.5s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
 
                 choices[0] = c1;
                 choices[1] = c2;
