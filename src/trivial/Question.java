@@ -33,53 +33,53 @@ public class Question {
 
     public Question(int grade) throws FileNotFoundException {
         this.grade = grade;
-
+        choices=new String[4];
         /*
         This part of the code checks if all pre-made questions for all grades has been put into the array of questions.
         When all questions have been processed, it creates a math question
         At the end of the process, all the questions will be shuffled to make sure the quiz is not too easy.
          */
-        if (grade == 1 && (iterator < countKeeper[grade - 1])) {
+        if (true) {//grade == 1 && (iterator < countKeeper[grade - 1])
             File file = new File("grade1.txt");
             readFile(file);
         } else {
             math();
         }
-
-        if (grade == 2 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade2.txt");
-            readFile(file);
-        } else {
-            math();
-        }
-
-        if (grade == 3 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade3.txt");
-            readFile(file);
-        } else {
-            math();
-        }
-
-        if (grade == 4 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade4.txt");
-            readFile(file);
-        } else {
-            math();
-        }
-
-        if (grade == 5 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade5.txt");
-            readFile(file);
-        } else {
-            math();
-        }
-
-        if (grade == 6 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade6.txt");
-            readFile(file);
-        } else {
-            math();
-        }
+//
+//        if (grade == 2 && (iterator < countKeeper[grade - 1])) {
+//            File file = new File("grade2.txt");
+//            readFile(file);
+//        } else {
+//            math();
+//        }
+//
+//        if (grade == 3 && (iterator < countKeeper[grade - 1])) {
+//            File file = new File("grade3.txt");
+//            readFile(file);
+//        } else {
+//            math();
+//        }
+//
+//        if (grade == 4 && (iterator < countKeeper[grade - 1])) {
+//            File file = new File("grade4.txt");
+//            readFile(file);
+//        } else {
+//            math();
+//        }
+//
+//        if (grade == 5 && (iterator < countKeeper[grade - 1])) {
+//            File file = new File("grade5.txt");
+//            readFile(file);
+//        } else {
+//            math();
+//        }
+//
+//        if (grade == 6 && (iterator < countKeeper[grade - 1])) {
+//            File file = new File("grade6.txt");
+//            readFile(file);
+//        } else {
+//            math();
+//        }
     }
 
     public void selectType(int type) {
@@ -390,7 +390,7 @@ public class Question {
         int num2 = (int) (Math.random() * 100);
         int den1 = (int) (Math.random() * 100);
         int den2 = (int) (Math.random() * 100);
-
+       
         question = num1 + "/" + den1 + " + " + num2 + "/" + den2;
         answer = (num1 / den1) + (num2 / den2) + "";
 
@@ -403,6 +403,7 @@ public class Question {
         answer = (num1 / den1) * (num2 / den2) + "";
 
         //DIVISION
+        System.out.println(num1+" "+num2+" "+den1+" "+den2);
         question = num1 + "/" + den1 + " - " + num2 + "/" + den2;
         answer = (num1 / den1) / (num2 / den2) + "";
 
@@ -539,20 +540,24 @@ public class Question {
     generate a number, if == 1 --> math question, if > 1 it will be a question of either science general 
     and logic
      */
-    public String readFile(File file) throws FileNotFoundException {
+    public void readFile(File file) throws FileNotFoundException {
 
         Scanner input = new Scanner(file);
 
-        while (iterator < countKeeper[grade - 1]) {
+//        while (iterator < countKeeper[grade - 1]) {
+//
+//            input.nextLine();
+//            iterator += 1;
+//        }
 
-            input.nextLine();
-            iterator += 1;
-        }
+        question = input.nextLine();
+        choices[0]=input.nextLine();
+        answer=choices[0];
+        choices[1]=input.nextLine();
+        choices[2]=input.nextLine();
+        choices[3]=input.nextLine();
+        countKeeper[grade - 1] += 4;
 
-        String question = input.nextLine();
-        countKeeper[grade - 1] += 1;
-
-        return question;
     }
 
 }

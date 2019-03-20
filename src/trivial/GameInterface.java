@@ -5,6 +5,7 @@
  */
 package trivial;
 
+import java.io.FileNotFoundException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -37,6 +38,7 @@ public class GameInterface extends Pane{
     private StackPane skip;
     
     private Player me;
+    private Player[] players;
     private boolean host;
     private String firstPlace;
     private String currentGrade;
@@ -67,7 +69,7 @@ public class GameInterface extends Pane{
     int timerbar_green=255;
     private ImageView separation;
 
-    public GameInterface(Boolean host){
+    public GameInterface(Boolean host) throws FileNotFoundException{
         this.host=host;
         question=new Question(1);
         
@@ -119,27 +121,8 @@ public class GameInterface extends Pane{
         questionPane.setLayoutY(250);
         white_question.setFill(Color.WHITE);
         
-        timerbar = new Rectangle(0,HEIGHT/2+25,WIDTH,30);
-        Timeline countdown = new Timeline();
-        KeyFrame length = new KeyFrame(Duration.millis(7),e->{
-            if(timerbar.getWidth()>0){
-                timerbar.setWidth(timerbar.getWidth()-2);
-            }});
-        KeyFrame color = new KeyFrame(Duration.millis(7),e->{
-            if(timerbar_red<254){
-                timerbar_red+=1;
-                timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
-                timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
-            }
-            else if(timerbar.getWidth()<WIDTH/2 && timerbar_green>1){
-                timerbar_green-=1;
-                timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
-                timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
-            }
-        });
-        countdown.getKeyFrames().addAll(length,color);
-        countdown.setCycleCount(Animation.INDEFINITE);
-        countdown.play();
+        
+        
         
         skip_button = new Rectangle();
         skip_button.setArcHeight(5);
@@ -149,7 +132,9 @@ public class GameInterface extends Pane{
         skip_button.setFill(Color.WHITE);
         skip_button.setStroke(Color.RED);
         skip_button.setStrokeWidth(5);
-        
+        timerbar = new Rectangle(0,HEIGHT/2+25,WIDTH,30);
+        timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
+        timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
         skip_text = new Text("Skip");
         skip = new StackPane();
         skip.setLayoutX(WIDTH/2-50);
@@ -163,6 +148,29 @@ public class GameInterface extends Pane{
         
     }
 
+    public void timeAnimation(int time){
+        Timeline countdown = new Timeline();
+        timerbar = new Rectangle(0,HEIGHT/2+25,WIDTH,30);
+        KeyFrame color = new KeyFrame(Duration.millis(7),e->{
+            if(timerbar_red<254){
+                timerbar_red+=1;
+                timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
+                timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
+            }
+            else if(timerbar.getWidth()<WIDTH/2 && timerbar_green>1){
+                timerbar_green-=1;
+                timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
+                timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
+            }
+            if(timerbar.getWidth()>0){
+                timerbar.setWidth(timerbar.getWidth()-2);
+            }
+        });
+        countdown.getKeyFrames().add(color);
+        countdown.setCycleCount(Animation.INDEFINITE);
+        countdown.play();
+    }
+    
     public void pause() {
         paused = true;
     }
@@ -173,6 +181,7 @@ public class GameInterface extends Pane{
 
     public void updateScore() {
         first_place.setText("First Place: "+firstPlace);
+        your_score.setText("Your Score: "+score);
     }
 
     public void nextQuestion() {
@@ -197,10 +206,12 @@ public class GameInterface extends Pane{
         this.setLayoutX(layoutX);
         this.setLayoutY(LayoutY);
         
-        this.setOnMouseClicked(e->{
+        answer_rectangle.setOnMouseClicked(e->{
         if(answer_text.getText().equals(question.getAnswer()))
-            me.addScore(1);
+            score++;
+        updateScore();
         });
+        
         }
 
         public void setText(String text){
