@@ -5,6 +5,7 @@
  */
 package trivial;
 
+import java.io.File;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.net.UnknownHostException;
@@ -36,11 +37,11 @@ public class Menu extends StackPane{
     VBox menu = new VBox();
     public Menu(){
         
-        ImageView back = new ImageView(new Image("file:board.png"));
+        ImageView back = new ImageView(new Image("/Resources/board.png"));
         back.setFitWidth(1920);
         back.setFitHeight(1080);
         
-        ImageView sky = new ImageView(new Image("file:sky.jpg"));
+        ImageView sky = new ImageView(new Image("/Resources/background_image.jpg"));
         sky.setFitWidth(1920);
         sky.setFitHeight(1080);
         
@@ -52,19 +53,13 @@ public class Menu extends StackPane{
     public void Back(){
         menu.getChildren().clear();
         Text host = new Text("Host Game");
-        host.setStyle("-fx-font: 120px EraserDust;-fx-stroke: white;-fx-fill: white;");
+        host.getStyleClass().addAll("menu","redHover");
         Text join = new Text("Join Game");
-        join.setStyle("-fx-font: 120px EraserDust;-fx-stroke: white;-fx-fill: white;");
+        join.getStyleClass().addAll("menu","blueHover");
         Text options = new Text("Options");
-        options.setStyle("-fx-font: 120px EraserDust;-fx-stroke: white;-fx-fill: white;");
+        options.getStyleClass().addAll("menu","yellowHover");
         menu.getChildren().addAll(host,join,options);
-        
-        host.setOnMouseEntered(e->{host.setStyle("-fx-font: 120px EraserDust;-fx-stroke: red;-fx-fill: red;");});
-        host.setOnMouseExited(e->{host.setStyle("-fx-font: 120px EraserDust;-fx-stroke: white;-fx-fill: white;");});
-        join.setOnMouseEntered(e->{join.setStyle("-fx-font: 120px EraserDust;-fx-stroke: blue;-fx-fill: blue;");});
-        join.setOnMouseExited(e->{join.setStyle("-fx-font: 120px EraserDust;-fx-stroke: white;-fx-fill: white;");});
-        options.setOnMouseEntered(e->{options.setStyle("-fx-font: 120px EraserDust;-fx-stroke: yellow;-fx-fill: yellow;");});
-        options.setOnMouseExited(e->{options.setStyle("-fx-font: 120px EraserDust;-fx-stroke: white;-fx-fill: white;");});
+
         
         options.setOnMouseClicked(e->{
             menu.getChildren().clear();
@@ -104,12 +99,11 @@ public class Menu extends StackPane{
         });
         
         Text sound = new Text("Sound");
-        sound.setStyle("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;");
+        sound.getStyleClass().add("submenu");
         
         Text back = new Text("Back");
-        back.setStyle("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;");
-        back.setOnMouseEntered(e->{back.setStyle("-fx-font: 90px EraserDust;-fx-stroke: yellow;-fx-fill: yellow;");});
-        back.setOnMouseExited(e->{back.setStyle("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;");});
+        back.getStyleClass().addAll("submenu","yellowHover");
+        
         back.setOnMouseClicked(e->{
             Back();
         });
@@ -121,15 +115,15 @@ public class Menu extends StackPane{
     public void Host(){
         menu.getChildren().clear();
         Text nm = new Text("Name:");
-        nm.setStyle(("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;"));
+        nm.getStyleClass().add("submenu");
         TextField name = new TextField();
-        name.setStyle("-fx-background-color: transparent;-fx-font: 90px EraserDust;-fx-fill: white;-fx-border-color: white;");
+        name.getStyleClass().add("textField");
         name.setMaxWidth(1000);
         
         Text host = new Text("Host");
-        host.setStyle("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;");
+        host.getStyleClass().addAll("submenu","redHover");
         Text back = new Text("Back");
-        back.setStyle("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;");
+        back.getStyleClass().addAll("submenu","yellowHover");
         
         host.setOnMouseClicked(e->{
             
@@ -149,12 +143,6 @@ public class Menu extends StackPane{
             Back();
         });
         
-        host.setOnMouseEntered(e->{host.setStyle("-fx-font: 90px EraserDust;-fx-stroke: blue;-fx-fill: blue;");});
-        host.setOnMouseExited(e->{host.setStyle("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;");});
-        back.setOnMouseEntered(e->{back.setStyle("-fx-font: 90px EraserDust;-fx-stroke: yellow;-fx-fill: yellow;");});
-        back.setOnMouseExited(e->{back.setStyle("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;");});
-        
-        
         menu.getChildren().addAll(nm,name,host,back);
         
     }
@@ -162,15 +150,15 @@ public class Menu extends StackPane{
     private void Join() {
         menu.getChildren().clear();
         Text nm = new Text("Name:");
-        nm.setStyle(("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;"));
+        nm.getStyleClass().add("submenu");
         TextField name = new TextField();
-        name.setStyle("-fx-background-color: transparent;-fx-font: 90px EraserDust;-fx-fill: white;-fx-border-color: white;");
+        name.getStyleClass().add("textField");
         name.setMaxWidth(1000);
         
         Text join = new Text("Join");
-        join.setStyle("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;");
+        join.getStyleClass().addAll("submenu","blueHover");
         Text back = new Text("Back");
-        back.setStyle("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;");
+        back.getStyleClass().addAll("submenu","yellowHover");
         
         join.setOnMouseClicked(e->{
             try {
@@ -187,12 +175,6 @@ public class Menu extends StackPane{
             Back();
         });
         
-        join.setOnMouseEntered(e->{join.setStyle("-fx-font: 90px EraserDust;-fx-stroke: blue;-fx-fill: blue;");});
-        join.setOnMouseExited(e->{join.setStyle("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;");});
-        back.setOnMouseEntered(e->{back.setStyle("-fx-font: 90px EraserDust;-fx-stroke: yellow;-fx-fill: yellow;");});
-        back.setOnMouseExited(e->{back.setStyle("-fx-font: 90px EraserDust;-fx-stroke: white;-fx-fill: white;");});
-        
-        
         menu.getChildren().addAll(nm,name,join,back);
     }
     
@@ -207,20 +189,20 @@ public class Menu extends StackPane{
         ipt.setEditable(false);
         TextField portt = new TextField(""+((HostPlayer)me).getPort());
         portt.setEditable(false);
-        ipt.setStyle("-fx-background-color: transparent;-fx-font: 60px EraserDust;-fx-fill: white;-fx-border-color: white;-fx-text-fill: white;");
-        portt.setStyle("-fx-background-color: transparent;-fx-font: 60px EraserDust;-fx-fill: white;-fx-border-color: white; -fx-text-fill: white;");
-        start.setStyle("-fx-background-color: transparent;-fx-font: 80px EraserDust;-fx-fill: white;-fx-border-color: white;");
-        number_of_players.setStyle("-fx-background-color: transparent;-fx-font: 80px EraserDust;-fx-fill: white;-fx-border-color: white;");
-        ip.setStyle("-fx-font: 60px EraserDust;-fx-stroke: white;-fx-fill: white;");
-        port.setStyle("-fx-font: 60px EraserDust;-fx-stroke: white;-fx-fill: white;");
+        ipt.getStyleClass().add("textField");
+        portt.getStyleClass().add("textField");
+        start.getStyleClass().addAll("textField","redHover");
+        number_of_players.getStyleClass().add("textField");
+        ip.getStyleClass().add("textField");
+        port.getStyleClass().add("textField");
         ipt.setMaxWidth(1000);
         portt.setMaxWidth(1000);
         menu.getChildren().addAll(ip,ipt,port,portt,number_of_players,start);
         
+       
+        
         start.setOnMouseClicked(e->{
-            ((Game)(getParent())).startGame();
-            GameInterface game = new GameInterface();
-            
+            ((Game)(getParent())).startGame(true);
         });
     }
 
@@ -234,11 +216,11 @@ public class Menu extends StackPane{
         TextField portt = new TextField();
         Text error =new Text("");
         error.setFill(Color.RED);
-        ipt.setStyle("-fx-background-color: transparent;-fx-font: 60px EraserDust;-fx-fill: white;-fx-border-color: white;");
-        portt.setStyle("-fx-background-color: transparent;-fx-font: 60px EraserDust;-fx-fill: white;-fx-border-color: white;");
-        join.setStyle("-fx-background-color: transparent;-fx-font: 80px EraserDust;-fx-fill: white;-fx-border-color: white;");
-        ip.setStyle("-fx-font: 60px EraserDust;-fx-stroke: white;-fx-fill: white;");
-        port.setStyle("-fx-font: 60px EraserDust;-fx-stroke: white;-fx-fill: white;");
+        ipt.getStyleClass().add("textField");
+        portt.getStyleClass().add("textField");
+        join.getStyleClass().addAll("textField","blueHover");
+        ip.getStyleClass().add("textField");
+        port.getStyleClass().add("textField");
         ipt.setMaxWidth(1000);
         portt.setMaxWidth(1000);
         menu.getChildren().addAll(ip,ipt,port,portt,error,join);
@@ -247,17 +229,25 @@ public class Menu extends StackPane{
             
             try {
                 ((ClientPlayer)me).connect(ipt.getText(), parseInt(portt.getText()));
-                ((Game)(getParent())).startGame();
-            GameInterface game = new GameInterface();
-            }catch(NumberFormatException ex){
-                error.setText("The port must be a number with 5 digits");
-            } catch (IOException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                waiting();
+            }catch(IOException | IllegalArgumentException ex){
+                error.setText("Impossible to connect. IP or Port is invalid");
             }
             
             
         });
     }
 
-    
+    private void waiting() throws UnknownHostException {
+        menu.getChildren().clear();
+        menu.setSpacing(10);
+        Text text = new Text("You are connected");
+        Text text2 = new Text("Waiting for host to start");
+        text.getStyleClass().add("textField");
+        text2.getStyleClass().add("textField");
+        
+        menu.getChildren().addAll(text,text2);
+        
+        
+    }
 }

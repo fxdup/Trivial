@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class HostPlayer extends Player {
 
-    private ServerSocket serverSocket;
+    private ServerSocket serverSocket = new ServerSocket(0);
     private ArrayList<Socket> connectedSockets;//list of sockets that are connected with other players
     private ArrayList<ObjectOutputStream> outputs;//list of outputs related to the other players
 
@@ -50,7 +50,7 @@ public class HostPlayer extends Player {
         @Override
         public void run() {
             try {
-                serverSocket = new ServerSocket(0);
+                
                 System.out.println("IP:" + getIp() + "\nPort: " + getPort());
 
                 //until there are 40 players connected or the game starts, waits for other players to connect
