@@ -6,9 +6,13 @@
 package trivial;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
@@ -35,7 +39,10 @@ import javafx.scene.text.Text;
 public class Menu extends StackPane{
     Player me;
     VBox menu = new VBox();
-    public Menu(){
+    int resolution=1;
+    double sound=100;
+    
+    public Menu() throws FileNotFoundException {
         
         ImageView back = new ImageView(new Image("/Resources/board.png"));
         back.setFitWidth(1920);
@@ -63,7 +70,11 @@ public class Menu extends StackPane{
         
         options.setOnMouseClicked(e->{
             menu.getChildren().clear();
-            Options();
+            try {
+                Options();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         host.setOnMouseClicked(e->{
             menu.getChildren().clear();
@@ -75,15 +86,35 @@ public class Menu extends StackPane{
         });
     }
 
-    private void Options() {
-       
+    private void Options() throws FileNotFoundException {
+        String resolution_text="x 1";
+        switch(resolution){
+            case 1: resolution_text="x 1";break;
+            case 2: resolution_text="x 1/2";break;
+            case 3: resolution_text="x 1/3";break;
+            case 4: resolution_text="x 1/4";break;
+        }
+        
+        try{
+            File opt = new File("opt.txt");
+            Scanner input = new Scanner(opt);
+            sound=input.nextDouble();
+            resolution=input.nextInt();
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not fuodn");
+            PrintWriter writer = new PrintWriter("opt.txt");
+            writer.println(sound);
+            writer.println(resolution);
+            writer.close();
+        }
         HBox slider = new HBox();
         slider.setAlignment(Pos.CENTER);
         slider.setSpacing(5);
         Slider res = new Slider();
         res.setMin(1);
         res.setMax(100);
-        res.setValue(100);
+        res.setValue(sound);
         res.setMaxSize(600, 60);
         res.setMinSize(600, 60);
         res.setBlockIncrement(1);
@@ -95,6 +126,7 @@ public class Menu extends StackPane{
             public void changed(ObservableValue<? extends Number> ov,
                 Number oldv, Number newv) {
                     reso.setText(Double.toString((double)newv));
+                    sound = (double)newv;
             }
         });
         
@@ -108,8 +140,37 @@ public class Menu extends StackPane{
             Back();
         });
         
+        Text resolution_button = new Text("Size: "+resolution_text);
+        resolution_button.getStyleClass().add("submenu");
+        
+        Text confirm = new Text("Confirm");
+        confirm.getStyleClass().add("submenu");
+        
+        resolution_button.setOnMouseClicked(e->{
+            switch(resolution){
+                case 1: resolution=2;resolution_button.setText("Size: x 1/2");break;
+                case 2: resolution=3;resolution_button.setText("Size: x 1/3");break;
+                case 3: resolution=4;resolution_button.setText("Sixe: x 1/4");break;
+                case 4: resolution=1;resolution_button.setText("Size: x 1");break;
+            }
+        });
+        
+        confirm.setOnMouseClicked(e->{
+            File file = new File("opt.txt");
+            file.delete();
+            PrintWriter writer = null;
+            try {
+                writer = new PrintWriter("opt.txt");
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            writer.println(this.sound);
+            writer.println(resolution);
+            writer.close();
+            Back();
+        });
         slider.getChildren().addAll(res,reso);
-        menu.getChildren().addAll(sound,slider,back);
+        menu.getChildren().addAll(sound,slider,resolution_button,confirm,back);
     }
     
     public void Host(){
