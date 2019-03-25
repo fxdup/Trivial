@@ -26,7 +26,7 @@ public class Game extends Pane{
         getChildren().add(menu);
     }
     
-    public void startGame(boolean host){
+    public void startGame(boolean host) throws FileNotFoundException{
         getChildren().clear();
         GameInterface gameInterface = new GameInterface(host,resfactor);
         getChildren().add(gameInterface);

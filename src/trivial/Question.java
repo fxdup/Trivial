@@ -7,6 +7,9 @@ package trivial;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -33,52 +36,64 @@ public class Question {
 
     public Question(int grade) throws FileNotFoundException {
         this.grade = grade;
-
+        choices=new String[4];
         /*
         This part of the code checks if all pre-made questions for all grades has been put into the array of questions.
         When all questions have been processed, it creates a math question
         At the end of the process, all the questions will be shuffled to make sure the quiz is not too easy.
          */
-        if (grade == 1 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade1.txt");
-            readFile(file);
-        } else {
-            math();
+        if (grade == 1) {
+            if (iterator < countKeeper[grade - 1]) {
+                File file = new File("grade1.txt");
+                readFile(file);
+            } else {
+                math();
+            }
         }
 
-        if (grade == 2 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade2.txt");
-            readFile(file);
-        } else {
-            math();
+        if (grade == 2) {
+            if (iterator < countKeeper[grade - 1]) {
+                File file = new File("grade2.txt");
+                readFile(file);
+            } else {
+                math();
+            }
         }
 
-        if (grade == 3 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade3.txt");
-            readFile(file);
-        } else {
-            math();
+        if (grade == 3) {
+            if (iterator < countKeeper[grade - 1]) {
+                File file = new File("grade3.txt");
+                readFile(file);
+            } else {
+                math();
+            }
         }
 
-        if (grade == 4 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade4.txt");
-            readFile(file);
-        } else {
-            math();
+        if (grade == 4) {
+            if (iterator < countKeeper[grade - 1]) {
+                File file = new File("grade4.txt");
+                readFile(file);
+            } else {
+                math();
+            }
         }
 
-        if (grade == 5 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade5.txt");
-            readFile(file);
-        } else {
-            math();
+        if (grade == 5) {
+            if (iterator < countKeeper[grade - 1]) {
+                File file = new File("grade5.txt");
+                readFile(file);
+            } else {
+                math();
+            }
         }
 
-        if (grade == 6 && (iterator < countKeeper[grade - 1])) {
-            File file = new File("grade6.txt");
-            readFile(file);
-        } else {
-            math();
+        if (grade == 6) {
+            if (iterator < countKeeper[grade - 1]) {
+                File file = new File("grade6.txt");
+                readFile(file);
+            } else {
+                math();
+            }
         }
     }
 
@@ -322,8 +337,8 @@ public class Question {
         if (this.grade == 6) {
 
             //These variables will have 1 decimal place and these 2 variables will be used for addition and subtraction
-            int w = (int) (Math.random() * 10099);
-            int x = (int) (Math.random() * 10099);
+            int w = (int) (Math.random() * 10000);
+            int x = (int) (Math.random() * 10000);
             //These 2 variables will be used for multiplication
             int y = (int) (Math.random() * 1000);
             int z = (int) (Math.random() * 100);
@@ -390,7 +405,7 @@ public class Question {
         int num2 = (int) (Math.random() * 100);
         int den1 = (int) (Math.random() * 100);
         int den2 = (int) (Math.random() * 100);
-
+       
         question = num1 + "/" + den1 + " + " + num2 + "/" + den2;
         answer = (num1 / den1) + (num2 / den2) + "";
 
@@ -403,6 +418,7 @@ public class Question {
         answer = (num1 / den1) * (num2 / den2) + "";
 
         //DIVISION
+        System.out.println(num1+" "+num2+" "+den1+" "+den2);
         question = num1 + "/" + den1 + " - " + num2 + "/" + den2;
         answer = (num1 / den1) / (num2 / den2) + "";
 
@@ -457,7 +473,7 @@ public class Question {
         }
 
         if (this.grade == 5) {
-            
+
             if (numericalAnswer < 10.0 && numericalAnswer > 2.0) {
 
                 String c1 = String.format("%.3s", numericalAnswer - 2 + "");
@@ -476,7 +492,7 @@ public class Question {
                 choices[0] = c1;
                 choices[1] = c2;
                 choices[2] = c3;
-            } else if (numericalAnswer > 9.0) {
+            } else if (numericalAnswer > 9.0 && numericalAnswer < 100.0) {
 
                 double minRange = numericalAnswer - (0.2 * numericalAnswer);
                 double maxRange = numericalAnswer + (0.2 * numericalAnswer);
@@ -484,6 +500,53 @@ public class Question {
                 String c1 = String.format("%.4s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
                 String c2 = String.format("%.4s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
                 String c3 = String.format("%.4s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+
+                choices[0] = c1;
+                choices[1] = c2;
+                choices[2] = c3;
+            } else if (numericalAnswer > 99.9 && numericalAnswer < 1001.0) {
+
+                double minRange = numericalAnswer - (0.2 * numericalAnswer);
+                double maxRange = numericalAnswer + (0.2 * numericalAnswer);
+
+                String c1 = String.format("%.6s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+                String c2 = String.format("%.6s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+                String c3 = String.format("%.6s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+
+                choices[0] = c1;
+                choices[1] = c2;
+                choices[2] = c3;
+            }
+
+        }
+
+        if (grade == 6) {
+            if (numericalAnswer < 10.00 && numericalAnswer > 2.00) {
+
+                String c1 = String.format("%.4s", numericalAnswer - 2 + "");
+                String c2 = String.format("%.4s", numericalAnswer - 1 + "");
+                String c3 = String.format("%.4s", numericalAnswer + 1 + "");
+
+                choices[0] = c1;
+                choices[1] = c2;
+                choices[2] = c3;
+            } else if (numericalAnswer < 3.0) {
+
+                String c1 = String.format("%.4s", numericalAnswer + 1 + "");
+                String c2 = String.format("%.4s", numericalAnswer + 1 + "");
+                String c3 = String.format("%.4s", numericalAnswer + 1 + "");
+
+                choices[0] = c1;
+                choices[1] = c2;
+                choices[2] = c3;
+            } else if (numericalAnswer > 9.00 && numericalAnswer < 100.00) {
+
+                double minRange = numericalAnswer - (0.2 * numericalAnswer);
+                double maxRange = numericalAnswer + (0.2 * numericalAnswer);
+
+                String c1 = String.format("%.5s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+                String c2 = String.format("%.5s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+                String c3 = String.format("%.5s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
 
                 choices[0] = c1;
                 choices[1] = c2;
@@ -539,20 +602,50 @@ public class Question {
     generate a number, if == 1 --> math question, if > 1 it will be a question of either science general 
     and logic
      */
-    public String readFile(File file) throws FileNotFoundException {
+    public void readFile(File file) throws FileNotFoundException {
 
         Scanner input = new Scanner(file);
 
         while (iterator < countKeeper[grade - 1]) {
 
-            input.nextLine();
+            input.nextLine(); //question
+            input.nextLine(); //answer 1
+            input.nextLine();//answer 2
+            input.nextLine();//answer 3
+            input.nextLine();//answer 4
+            iterator += 1;
             iterator += 1;
         }
 
-        String question = input.nextLine();
-        countKeeper[grade - 1] += 1;
+        question = input.nextLine();
+        String answer1 = input.nextLine();
+        String answer2 = input.nextLine();
+        String answer3 = input.nextLine();
+        String answer4 = input.nextLine();
+        
+        choices[0] = answer1; //correct answer
+        choices[1] = answer2;
+        choices[2] = answer3;
+        choices[3] = answer4;
+        
+        ArrayList<String> unshuffled = new ArrayList<String>(Arrays.asList(choices));
+        Collections.shuffle(unshuffled);
+        choices = unshuffled.toArray(new String[unshuffled.size()]);
 
-        return question;
+        /*
+        if file has a next line, it will increase countkeeper. This ensures that
+        if the file is over, it will go to the math questions.
+        */
+        if (input.hasNextLine()) { 
+        countKeeper[grade - 1] += 1;
+        }
+
+        System.out.println("Question: " + question);
+        System.out.println("Answer1: " + answer1);
+        System.out.println("Answer2: " + answer2);
+        System.out.println("Answer3: " + answer3);
+        
+
     }
 
 }

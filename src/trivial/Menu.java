@@ -262,7 +262,11 @@ public class Menu extends StackPane{
        
         
         start.setOnMouseClicked(e->{
-            ((Game)(getParent())).startGame(true);
+            try {
+                ((Game)(getParent())).startGame(true);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 
