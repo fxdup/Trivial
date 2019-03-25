@@ -1,5 +1,128 @@
-Allo
-123
-1324
-233
-444
+How much time will it take for a rabbit to eat 10 carrots, if he eats 2 per day?
+5
+6
+4
+10
+Find the odd number in the following list: 18, 38, 17, 2
+17
+18
+38
+2
+Complete the following sequence: 4,7,10,...
+13
+14
+12
+15
+How many legs does an insect have?
+6
+4
+2
+8
+(!!5!!)Charles has 5 shirts and 2 hats. 3 of his shirts are ripped. How many shirts are left?
+2
+4
+5
+7
+In what season do leaves change color?
+Fall
+Spring
+Summer
+Winter
+How many rectangles are in a rectangular prism with a square base?
+4
+5
+6
+8
+The Great Bear is:
+A constellation
+A star
+A big bear
+A shooting star
+If there are 3 chickens and 1 cow, how many legs are you seeing?
+10
+16
+8
+12
+(!!10!!)There are 5 pirates, 12 prisoners, and 4 goats on a ship? How many people are there?
+17
+5
+21
+12
+What is the symbol for meters?
+m
+mm
+me
+met
+When does summer start?
+June 21
+Mai 11
+Mai 29
+June 24
+How many faces does a cube have?
+6
+8
+4
+10
+Which unit is the largest: centimeter, meter, kilometer, millimeter
+Kilometer
+Centimeter
+Meter
+Millimeter 
+(!!15!!)Which of the following forms is a solid: rectangle, triangle, cone, square
+Cone
+Square
+Rectangle
+Triangle
+Simon has 6 balls. Julie has 3 more than him. How many balls does Julie have?
+9
+3
+6
+8
+Find the even number in the following list: 9,10,3,5
+10
+9
+3
+5
+What is the only mammal capable of flying?
+Bat
+Chicken
+Duck
+Ostrich
+If it is -10°C outside, how will you dress?
+Winter coat
+Jacket
+T-Shirt
+Bathing suit
+(!!20!!)What is necessary for a plant to grow: air, water, light
+All of the above
+Air
+Water
+Light
+Where does salt water come from?
+Ocean
+River
+Lake
+Iceberg
+What shape does the Earth have?
+Circle
+Donut shape
+Flat
+Dome
+Which is the natural satellite of the Earth?
+Moon
+Sun
+International Space Station
+Mars
+In what state does water appear?
+Liquid, Solid, and Gas
+Liquid
+Solid
+Gas
+(!!25!!)What part of your body lets you remember information?
+Brain
+Eyes
+Stomach
+Heart
+
+
+
