@@ -51,6 +51,7 @@ public class GameInterface extends Pane{
     private Text your_score;
     private Text text_question;
     private Text skip_text;
+    private Text startAnimTime;
     
     private ImageView background;
     private Rectangle leaderbar;
@@ -65,13 +66,16 @@ public class GameInterface extends Pane{
     private boolean paused;
     private final int HEIGHT=1080;
     private final int WIDTH=1920;
-    int timerbar_red=0;
-    int timerbar_green=255;
+    int timerbar_red;
+    int timerbar_green;
+    Timeline countdown;
+    Timeline startAnim;
+    KeyFrame color;
     private ImageView separation;
 
     public GameInterface(Boolean host) throws FileNotFoundException{
         this.host=host;
-        question=new Question(1);
+        questionList=new QuestionList();
         
         answer1= new AnswerPane(0,HEIGHT/2+50);
         answer2= new AnswerPane(WIDTH/2,HEIGHT/2+50);
@@ -83,7 +87,7 @@ public class GameInterface extends Pane{
         
         leaderbar = new Rectangle(0,25,WIDTH,18);
         leaderbar.setFill(Color.WHITE);
-        fillingbar = new Rectangle(0,25,WIDTH/2,18);
+        fillingbar = new Rectangle(0,25,0,18);
         fillingbar.setFill(Color.rgb(red,green,blue));
         
         first_place = new Text("First Place: "+firstPlace);
@@ -140,18 +144,36 @@ public class GameInterface extends Pane{
         skip.setLayoutX(WIDTH/2-50);
         skip.setLayoutY(HEIGHT/2+18);
         skip.getChildren().addAll(skip_button,skip_text);
+        
         getChildren().addAll(background,answer1,answer2,answer3,answer4,separation,leaderbar,fillingbar,your_score,current_grade,first_place,questionPane,timerbar,skip);
-        
-        
-        
-        nextQuestion();
-        
+        startAnimation();
+    }
+    
+    public void startAnimation(){
+        startAnimTime = new Text(WIDTH/2,HEIGHT/2,"3");
+        startAnimTime.getStyleClass().add("inGameGUI");
+        startAnim=new Timeline();
+        getChildren().add(startAnimTime);
+        startAnim.getKeyFrames().addAll(new KeyFrame(Duration.seconds(1), e->{
+        if(Integer.parseInt(startAnimTime.getText())-1>0){
+        startAnimTime.setText(Integer.parseInt(startAnimTime.getText())-1+"");
+        }else {
+            getChildren().remove(startAnimTime);
+            nextQuestion();
+            startAnim.stop();}
+        }));
+        startAnim.setCycleCount(Animation.INDEFINITE);
+        startAnim.play();
+        timeAnimation(3);
     }
 
     public void timeAnimation(int time){
-        Timeline countdown = new Timeline();
-        timerbar = new Rectangle(0,HEIGHT/2+25,WIDTH,30);
-        KeyFrame color = new KeyFrame(Duration.millis(7),e->{
+        countdown=new Timeline();
+        double millis=time*2.0/WIDTH;
+        timerbar.setWidth(WIDTH);
+        timerbar_red=0;
+        timerbar_green=255;
+        color = new KeyFrame(Duration.seconds(millis),e->{
             if(timerbar_red<254){
                 timerbar_red+=1;
                 timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
@@ -162,9 +184,9 @@ public class GameInterface extends Pane{
                 timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
                 timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
             }
-            if(timerbar.getWidth()>0){
+            if(timerbar.getWidth()>=0){
                 timerbar.setWidth(timerbar.getWidth()-2);
-            }
+            }else{countdown.getKeyFrames().clear();}
         });
         countdown.getKeyFrames().add(color);
         countdown.setCycleCount(Animation.INDEFINITE);
@@ -182,14 +204,17 @@ public class GameInterface extends Pane{
     public void updateScore() {
         first_place.setText("First Place: "+firstPlace);
         your_score.setText("Your Score: "+score);
+        fillingbar.setWidth(WIDTH*score/1000);
     }
 
     public void nextQuestion() {
+        question=questionList.getQuestion(1);
         text_question.setText(question.getQuestion());
         answer1.setText(question.getChoices()[0]);
         answer2.setText(question.getChoices()[1]);
         answer3.setText(question.getChoices()[2]);
         answer4.setText(question.getChoices()[3]);
+        timeAnimation(question.getTime());
     }
     
     
@@ -208,7 +233,7 @@ public class GameInterface extends Pane{
         
         answer_rectangle.setOnMouseClicked(e->{
         if(answer_text.getText().equals(question.getAnswer()))
-            score++;
+            score+=question.getScore();
         updateScore();
         });
         
