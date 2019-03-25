@@ -5,6 +5,10 @@
  */
 package trivial;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
@@ -22,17 +26,44 @@ public class Trivial extends Application{
     public static void main(String[] args){
         launch(args);
     }
-
+    double sound;
+    double resfactor;
+    int resolution;
+    Game game;
+    
     @Override
     public void start(Stage stage) throws Exception {
-        Game game = new Game();
+        try{
+            File opt = new File("opt.txt");
+            Scanner input = new Scanner(opt);
+            sound=Double.parseDouble(input.next());
+            resolution=input.nextInt();
+            switch(resolution){
+            case 1: this.resfactor=1;break;
+            case 2: this.resfactor=(0.75);break;
+            case 3: this.resfactor=(0.6666666);break;
+            case 4: this.resfactor=(0.5);break;
+        }
         
-        Scene scene = new Scene(game,1920,1080);
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not found");
+            PrintWriter writer = new PrintWriter("opt.txt");
+            writer.println(sound);
+            writer.println(resolution);
+            writer.close();
+        }
+        
+        game = new Game(sound,resolution,resfactor);
+        
+        Scene scene = new Scene(game,1920*resfactor,1080*resfactor);
         Font.loadFont(getClass().getResourceAsStream("/Resources/EraserDust.ttf"), 14);
         scene.getStylesheets().add(getClass().getResource("/Resources/Style.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Elementary Quiz");
         stage.show();
     }
-
+    public static void restart() throws FileNotFoundException{
+        System.exit(0);
+    }
 }
