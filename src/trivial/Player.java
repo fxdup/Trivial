@@ -125,6 +125,10 @@ public class Player implements Serializable,Cloneable {
         return p;
     }
     
+    public void clearPlayers(){
+    players.clear();
+    }
+    
     //returns a string containing the informations of the player
     @Override
     public String toString() {
