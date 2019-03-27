@@ -427,6 +427,7 @@ public class Question {
          */
         //I will do every operation on fractions here, adjust difficulty later
         //ADDITION
+        if(grade == 1) {
         int num1 = (int) (Math.random() * 100);
         int num2 = (int) (Math.random() * 100);
         int den1 = (int) (Math.random() * 100);
@@ -447,6 +448,7 @@ public class Question {
         System.out.println(num1 + " " + num2 + " " + den1 + " " + den2);
         question = num1 + "/" + den1 + " - " + num2 + "/" + den2;
         answer = (num1 / den1) / (num2 / den2) + "";
+        }
 
     }
 
