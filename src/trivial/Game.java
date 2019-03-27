@@ -26,9 +26,13 @@ public class Game extends Pane{
         getChildren().add(menu);
     }
     
-    public void startGame(boolean host) throws FileNotFoundException{
+    public void startGame(boolean host,Player localPlayer) throws FileNotFoundException{
         getChildren().clear();
-        GameInterface gameInterface = new GameInterface(host,resfactor);
+        GameInterface gameInterface = new GameInterface(host,resfactor,localPlayer);
         getChildren().add(gameInterface);
+    }
+    
+    public void leaderboard(){
+    
     }
 }

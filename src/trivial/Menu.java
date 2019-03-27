@@ -15,6 +15,9 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -31,6 +34,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  *
@@ -42,6 +46,7 @@ public class Menu extends StackPane{
     int resolution;
     double resfactor;
     double sound;
+    private boolean waiting=false;
     
     public Menu(double sound, int resolution,double resfactor) throws FileNotFoundException {
         this.sound=sound;
@@ -216,7 +221,7 @@ public class Menu extends StackPane{
         
         join.setOnMouseClicked(e->{
             try {
-                me = new ClientPlayer(name.getText());
+                me = new ClientPlayer(name.getText(),this);
                 Joining();
             } catch (UnknownHostException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
@@ -258,16 +263,22 @@ public class Menu extends StackPane{
         ipt.setMaxWidth(1000*resfactor);
         portt.setMaxWidth(1000*resfactor);
         menu.getChildren().addAll(ip,ipt,port,portt,number_of_players,start);
-        
-       
-        
+        waiting=true;
+        Timeline playerCount=new Timeline(new KeyFrame(Duration.seconds(1),e->{
+        number_of_players.setText("Players joined : "+(me.getPlayers().length+1)+"/40");
+        }));
+        playerCount.setCycleCount(Animation.INDEFINITE);
+        playerCount.play();
         start.setOnMouseClicked(e->{
-            try {
-                ((Game)(getParent())).startGame(true);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            System.out.println(me.getPlayers().length);
+            playerCount.stop();
+            ((HostPlayer)me).sendStart();
+            ((HostPlayer)me).stopConnecting();
+            start(true);
         });
+        
+        
+        
     }
 
     private void Joining() throws UnknownHostException {
@@ -301,13 +312,15 @@ public class Menu extends StackPane{
                 waiting();
             }catch(IOException | IllegalArgumentException ex){
                 error.setText("Impossible to connect. IP or Port is invalid");
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             
         });
     }
 
-    private void waiting() throws UnknownHostException {
+    private void waiting() throws UnknownHostException, InterruptedException, FileNotFoundException {
         menu.getChildren().clear();
         menu.setSpacing(10*resfactor);
         Text text = new Text("You are connected");
@@ -316,11 +329,19 @@ public class Menu extends StackPane{
         text.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
         text2.getStyleClass().add("textField");
         text2.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
+        waiting=true;
         menu.getChildren().addAll(text,text2);
-        
-        
     }
-
+    
+    public void start(boolean host){
+        if(waiting){
+        try {
+            ((Game)(getParent())).startGame(host,me);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+    }
     private void Confirmation() {
         menu.getChildren().clear();
         Text message = new Text("To confirm the settings you will have to launch the application again. Confirm ?");
