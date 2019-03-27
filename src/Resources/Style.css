@@ -1,10 +1,8 @@
 .menu{
-    -fx-font: 120px EraserDust;
     -fx-stroke: white;
     -fx-fill: white;
 }
 .submenu{
-    -fx-font: 90px EraserDust;
     -fx-stroke: white;
     -fx-fill: white;
 }
@@ -22,13 +20,11 @@
 }
 .textField{
     -fx-background-color: transparent;
-    -fx-font: 60px EraserDust;
     -fx-fill: white;
     -fx-border-color: white; 
     -fx-text-fill: white;
 }
 .inGameGUI{
-    -fx-font: 30px EraserDust;
     -fx-stroke: white;
     -fx-fill: white;
 }

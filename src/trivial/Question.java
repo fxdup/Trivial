@@ -25,7 +25,7 @@ public class Question {
     public final int LOGIC = 3;
 
     private int type; //math(0), science(1), general(2), logic(3)
-    private int grade;
+    private int grade;//from 1 to 6
     private String question;
     private String answer;
     /* do we need this??*/
@@ -43,7 +43,7 @@ public class Question {
         At the end of the process, all the questions will be shuffled to make sure the quiz is not too easy.
          */
         if (grade == 1) {
-            if (iterator < countKeeper[grade - 1]) {
+            if (iterator < countKeeper[grade - 1]+1) {
                 File file = new File("grade1.txt");
                 readFile(file);
             } else {
@@ -665,6 +665,7 @@ public class Question {
         String answer4 = input.nextLine();
 
         choices[0] = answer1; //correct answer
+        answer=answer1;
         choices[1] = answer2;
         choices[2] = answer3;
         choices[3] = answer4;
@@ -681,11 +682,30 @@ public class Question {
             countKeeper[grade - 1] += 1;
         }
 
-        System.out.println("Question: " + question);
-        System.out.println("Answer1: " + answer1);
-        System.out.println("Answer2: " + answer2);
-        System.out.println("Answer3: " + answer3);
-
     }
 
+    
+    
+    public int getTime(){
+        switch(grade){
+            case 1 : return 5;
+            case 2 : 
+            case 3 : return 6;
+            case 4 : 
+            case 5 : return 7;
+            case 6 : return 8;
+            default : return -1;
+        }
+    }
+    public int getScore(){
+        switch(grade){
+            case 1 : return 10;
+            case 2 : return 15;
+            case 3 : return 30;
+            case 4 : return 35;
+            case 5 : return 40;
+            case 6 : return 50;
+            default : return -1;
+        }
+    }
 }
