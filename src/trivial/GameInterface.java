@@ -156,7 +156,7 @@ public class GameInterface extends Pane {
                 skipping = true;
                 clearQuestion();
                 countdown.stop();
-                timeAnimation(question.getTime());
+                //timeAnimation(question.getTime());
             }
         });
 
@@ -304,7 +304,7 @@ public class GameInterface extends Pane {
         anstran2.play();
         anstran3.play();
         anstran4.play();
-        localPlayer.addScore(question.getScore());
+        //localPlayer.addScore(question.getScore());
         localPlayer.graduate();
         nextQuestion();
     }
