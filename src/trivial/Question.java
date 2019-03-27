@@ -646,12 +646,12 @@ public class Question {
     
     public int getTime(){
         switch(grade){
-            case 1 : return 5;
+            case 1 : return 7;
             case 2 : 
-            case 3 : return 6;
+            case 3 : return 8;
             case 4 : 
-            case 5 : return 7;
-            case 6 : return 8;
+            case 5 : return 9;
+            case 6 : return 10;
             default : return -1;
         }
     }
