@@ -425,13 +425,16 @@ public class Question {
         not in a grade where they do fractions, it will call the arithmetic()
         method
          */
-        //I will do every operation on fractions here, adjust difficulty later
-        //ADDITION
         if(grade == 1) {
-        int num1 = (int) (Math.random() * 100);
-        int num2 = (int) (Math.random() * 100);
-        int den1 = (int) (Math.random() * 100);
-        int den2 = (int) (Math.random() * 100);
+            
+            math();
+        }
+        
+        if(grade == 2) {
+        int num1 = (int) (Math.random() * 5);
+        int num2 = (int) (Math.random() * 5);
+        int den1 = (int) (Math.random() * 5);
+        int den2 = (int) (Math.random() * 5);
 
         question = num1 + "/" + den1 + " + " + num2 + "/" + den2;
         answer = (num1 / den1) + (num2 / den2) + "";
