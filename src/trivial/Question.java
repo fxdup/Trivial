@@ -36,7 +36,7 @@ public class Question {
 
     public Question(int grade) throws FileNotFoundException {
         this.grade = grade;
-        choices=new String[4];
+        choices = new String[4];
         /*
         This part of the code checks if all pre-made questions for all grades has been put into the array of questions.
         When all questions have been processed, it creates a math question
@@ -136,14 +136,19 @@ public class Question {
 
             case 0:
                 arithmetic();
+                break;
             case 1:
                 geometry();
+                break;
             case 3:
                 fractions();
+                break;
             case 4:
                 shapeCalculation();
+                break;
             case 5:
                 priorityOperations();
+                break;
         }
 
     }
@@ -163,6 +168,7 @@ public class Question {
                     String addition = x + " + " + y;
                     question = addition; //puts the global variable "question" equal to the addition
                     answer = x + y + ""; //this is the true value of the operation
+                    break;
 
                 case 1:
                     String subtraction;
@@ -175,6 +181,7 @@ public class Question {
                     }
 
                     question = subtraction; //puts the global variable "question" equal to the subtaction
+                    break;
             }
         }
 
@@ -191,6 +198,7 @@ public class Question {
                     String addition = x + " + " + y;
                     question = addition; //puts the global variable "question" equal to the addition
                     answer = x + y + ""; //this is the true value of the operation
+                    break;
 
                 case 1:
                     String subtraction;
@@ -199,11 +207,13 @@ public class Question {
                         subtraction = x + " - " + y;
                         question = subtraction; //puts the global variable "question" equal to the subtaction
                         answer = x - y + ""; //this is the true value of the operation
+                        break;
                     } else if (x < y && y < 10) { //to make sure it is a double digit subtracting a single digit resulting in a postive answer
                         y = y + 10;
                         subtraction = y + " - " + x;
                         question = subtraction; //puts the global variable "question" equal to the subtaction
                         answer = y - x + ""; //this is the true value of the operation
+                        break;
                     }
             }
         }
@@ -225,17 +235,20 @@ public class Question {
                     String addition = x + " + " + y;
                     question = addition; //puts the global variable "question" equal to the addition
                     answer = x + y + ""; //this is the true value of the operation
+                    break;
 
                 case 1:
                     String subtraction;
                     subtraction = x + " - " + y;
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     answer = x - y + ""; //this is the true value of the operation
+                    break;
 
                 case 2:
                     String multiplication = z + " x " + w;
                     question = multiplication;  //puts the global variable "question" equal to the addition
                     answer = z * w + ""; //this is the true value of the operation
+                    break;
             }
 
         }
@@ -259,17 +272,20 @@ public class Question {
                     String addition = (x / 10.0) + " + " + (y / 10.0);
                     question = addition; //puts the global variable "question" equal to the addition
                     answer = x + y + ""; //this is the true value of the operation
+                    break;
 
                 case 1:
                     String subtraction;
                     subtraction = (x / 100.0) + " - " + (y / 100.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     answer = x - y + ""; //this is the true value of the operation
+                    break;
 
                 case 2:
                     String multiplication = y + " x " + z;
                     question = multiplication;
                     answer = y * z + "";
+                    break;
 
                 case 3:
                     //looks for a division that won't have any reminders
@@ -280,6 +296,7 @@ public class Question {
                     String division = v + " / " + u;
                     question = division;
                     answer = v / u + "";
+                    break;
 
             }
         }
@@ -304,12 +321,15 @@ public class Question {
                     String addition = (x / 10.0) + " + " + (y / 10.0);
                     question = addition; //puts the global variable "question" equal to the addition
                     answer = x + y + ""; //this is the true value of the operation
+                    break;
 
                 case 1:
                     String subtraction;
                     subtraction = (x / 10.0) + " - " + (y / 10.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     answer = x - y + ""; //this is the true value of the operation
+                    break;
+                 
 
                 case 2:
                     //if the first number is greater than 12, the second number has only 1 digit
@@ -319,6 +339,7 @@ public class Question {
                     String multiplication = y + " x " + z;
                     question = multiplication;
                     answer = y * z + "";
+                    break;
 
                 case 3:
                     //looks for a division that won't have any reminders
@@ -329,6 +350,7 @@ public class Question {
                     String division = v + " / " + u;
                     question = division;
                     answer = v / u + "";
+                    break;
 
             }
 
@@ -354,12 +376,14 @@ public class Question {
                     String addition = (x / 100.0) + " + " + (y / 100.0);
                     question = addition; //puts the global variable "question" equal to the addition
                     answer = x + y + ""; //this is the true value of the operation
+                    break;
 
                 case 1:
                     String subtraction;
                     subtraction = (x / 100.0) + " - " + (y / 100.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     answer = x - y + ""; //this is the true value of the operation
+                    break;
 
                 case 2:
                     //if the first number is greater than 12, the second number has only 1 digit
@@ -369,11 +393,13 @@ public class Question {
                     String multiplication = y + " x " + z;
                     question = multiplication;
                     answer = y * z + "";
+                    break;
 
                 case 3:
                     String division = v + " / " + u;
                     question = division;
                     answer = v / u + "";
+                    break;
 
             }
 
@@ -405,7 +431,7 @@ public class Question {
         int num2 = (int) (Math.random() * 100);
         int den1 = (int) (Math.random() * 100);
         int den2 = (int) (Math.random() * 100);
-       
+
         question = num1 + "/" + den1 + " + " + num2 + "/" + den2;
         answer = (num1 / den1) + (num2 / den2) + "";
 
@@ -418,7 +444,7 @@ public class Question {
         answer = (num1 / den1) * (num2 / den2) + "";
 
         //DIVISION
-        System.out.println(num1+" "+num2+" "+den1+" "+den2);
+        System.out.println(num1 + " " + num2 + " " + den1 + " " + den2);
         question = num1 + "/" + den1 + " - " + num2 + "/" + den2;
         answer = (num1 / den1) / (num2 / den2) + "";
 
@@ -445,18 +471,20 @@ public class Question {
                 String c2 = String.format("%.3s", numericalAnswer - 1 + "");
                 String c3 = String.format("%.3s", numericalAnswer + 1 + "");
 
-                choices[0] = c1;
-                choices[1] = c2;
-                choices[2] = c3;
+                choices[0] = answer;
+                choices[1] = c1;
+                choices[2] = c2;
+                choices[3] = c3;
             } else if (numericalAnswer < 3.0) {
 
                 String c1 = String.format("%.3s", numericalAnswer + 1 + "");
                 String c2 = String.format("%.3s", numericalAnswer + 1 + "");
                 String c3 = String.format("%.3s", numericalAnswer + 1 + "");
 
-                choices[0] = c1;
-                choices[1] = c2;
-                choices[2] = c3;
+                choices[0] = answer;
+                choices[1] = c1;
+                choices[2] = c2;
+                choices[3] = c3;
             } else if (numericalAnswer > 9.0) {
 
                 double minRange = numericalAnswer - (0.2 * numericalAnswer);
@@ -466,9 +494,10 @@ public class Question {
                 String c2 = String.format("%.4s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
                 String c3 = String.format("%.4s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
 
-                choices[0] = c1;
-                choices[1] = c2;
-                choices[2] = c3;
+                choices[0] = answer;
+                choices[1] = c1;
+                choices[2] = c2;
+                choices[3] = c3;
             }
         }
 
@@ -480,18 +509,20 @@ public class Question {
                 String c2 = String.format("%.3s", numericalAnswer - 1 + "");
                 String c3 = String.format("%.3s", numericalAnswer + 1 + "");
 
-                choices[0] = c1;
-                choices[1] = c2;
-                choices[2] = c3;
+                choices[0] = answer;
+                choices[1] = c1;
+                choices[2] = c2;
+                choices[3] = c3;
             } else if (numericalAnswer < 3.0) {
 
                 String c1 = String.format("%.3s", numericalAnswer + 1 + "");
                 String c2 = String.format("%.3s", numericalAnswer + 1 + "");
                 String c3 = String.format("%.3s", numericalAnswer + 1 + "");
 
-                choices[0] = c1;
-                choices[1] = c2;
-                choices[2] = c3;
+                choices[0] = answer;
+                choices[1] = c1;
+                choices[2] = c2;
+                choices[3] = c3;
             } else if (numericalAnswer > 9.0 && numericalAnswer < 100.0) {
 
                 double minRange = numericalAnswer - (0.2 * numericalAnswer);
@@ -501,9 +532,10 @@ public class Question {
                 String c2 = String.format("%.4s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
                 String c3 = String.format("%.4s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
 
-                choices[0] = c1;
-                choices[1] = c2;
-                choices[2] = c3;
+                choices[0] = answer;
+                choices[1] = c1;
+                choices[2] = c2;
+                choices[3] = c3;
             } else if (numericalAnswer > 99.9 && numericalAnswer < 1001.0) {
 
                 double minRange = numericalAnswer - (0.2 * numericalAnswer);
@@ -513,9 +545,10 @@ public class Question {
                 String c2 = String.format("%.6s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
                 String c3 = String.format("%.6s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
 
-                choices[0] = c1;
-                choices[1] = c2;
-                choices[2] = c3;
+                choices[0] = answer;
+                choices[1] = c1;
+                choices[2] = c2;
+                choices[3] = c3;
             }
 
         }
@@ -527,18 +560,20 @@ public class Question {
                 String c2 = String.format("%.4s", numericalAnswer - 1 + "");
                 String c3 = String.format("%.4s", numericalAnswer + 1 + "");
 
-                choices[0] = c1;
-                choices[1] = c2;
-                choices[2] = c3;
+                choices[0] = answer;
+                choices[1] = c1;
+                choices[2] = c2;
+                choices[3] = c3;
             } else if (numericalAnswer < 3.0) {
 
                 String c1 = String.format("%.4s", numericalAnswer + 1 + "");
                 String c2 = String.format("%.4s", numericalAnswer + 1 + "");
                 String c3 = String.format("%.4s", numericalAnswer + 1 + "");
 
-                choices[0] = c1;
-                choices[1] = c2;
-                choices[2] = c3;
+                choices[0] = answer;
+                choices[1] = c1;
+                choices[2] = c2;
+                choices[3] = c3;
             } else if (numericalAnswer > 9.00 && numericalAnswer < 100.00) {
 
                 double minRange = numericalAnswer - (0.2 * numericalAnswer);
@@ -548,9 +583,10 @@ public class Question {
                 String c2 = String.format("%.5s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
                 String c3 = String.format("%.5s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
 
-                choices[0] = c1;
-                choices[1] = c2;
-                choices[2] = c3;
+                choices[0] = answer;
+                choices[1] = c1;
+                choices[2] = c2;
+                choices[3] = c3;
             }
 
         }
@@ -567,18 +603,20 @@ public class Question {
             String c2 = numericalAnswer - 1 + "";
             String c3 = numericalAnswer + 1 + "";
 
-            choices[0] = c1;
-            choices[1] = c2;
-            choices[2] = c3;
+            choices[0] = answer;
+            choices[1] = c1;
+            choices[2] = c2;
+            choices[3] = c3;
         } else if (numericalAnswer < 3) {
 
             String c1 = numericalAnswer + 1 + "";
             String c2 = numericalAnswer + 2 + "";
             String c3 = numericalAnswer + 3 + "";
 
-            choices[0] = c1;
-            choices[1] = c2;
-            choices[2] = c3;
+            choices[0] = answer;
+            choices[1] = c1;
+            choices[2] = c2;
+            choices[3] = c3;
         } else if (numericalAnswer > 9) {
 
             int range = (int) (0.2 * numericalAnswer);
@@ -589,9 +627,10 @@ public class Question {
             String c2 = ((int) (Math.random() * maxRange)) - ((int) (Math.random() * minRange)) + "";
             String c3 = ((int) (Math.random() * maxRange)) - ((int) (Math.random() * minRange)) + "";
 
-            choices[0] = c1;
-            choices[1] = c2;
-            choices[2] = c3;
+            choices[0] = answer;
+            choices[1] = c1;
+            choices[2] = c2;
+            choices[3] = c3;
         }
 
     }
@@ -622,12 +661,12 @@ public class Question {
         String answer2 = input.nextLine();
         String answer3 = input.nextLine();
         String answer4 = input.nextLine();
-        
+
         choices[0] = answer1; //correct answer
         choices[1] = answer2;
         choices[2] = answer3;
         choices[3] = answer4;
-        
+
         ArrayList<String> unshuffled = new ArrayList<String>(Arrays.asList(choices));
         Collections.shuffle(unshuffled);
         choices = unshuffled.toArray(new String[unshuffled.size()]);
@@ -635,16 +674,15 @@ public class Question {
         /*
         if file has a next line, it will increase countkeeper. This ensures that
         if the file is over, it will go to the math questions.
-        */
-        if (input.hasNextLine()) { 
-        countKeeper[grade - 1] += 1;
+         */
+        if (input.hasNextLine()) {
+            countKeeper[grade - 1] += 1;
         }
 
         System.out.println("Question: " + question);
         System.out.println("Answer1: " + answer1);
         System.out.println("Answer2: " + answer2);
         System.out.println("Answer3: " + answer3);
-        
 
     }
 
