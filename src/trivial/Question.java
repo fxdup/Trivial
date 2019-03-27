@@ -43,7 +43,7 @@ public class Question {
         At the end of the process, all the questions will be shuffled to make sure the quiz is not too easy.
          */
         if (grade == 1) {
-            if (iterator < countKeeper[grade - 1]+1) {
+            if (iterator < countKeeper[grade - 1] + 1) {
                 File file = new File("grade1.txt");
                 readFile(file);
             } else {
@@ -97,16 +97,6 @@ public class Question {
         }
     }
 
-    public void selectType(int type) {
-
-//        switch (type) {
-//
-//            case 0:
-//                math();
-//            case 1:
-//                other();
-//        }
-    }
 
     public int getType() {
         return type;
@@ -168,6 +158,7 @@ public class Question {
                     String addition = x + " + " + y;
                     question = addition; //puts the global variable "question" equal to the addition
                     answer = x + y + ""; //this is the true value of the operation
+                    arithmeticIntegerAnswers(answer);
                     break;
 
                 case 1:
@@ -181,6 +172,7 @@ public class Question {
                     }
 
                     question = subtraction; //puts the global variable "question" equal to the subtaction
+                    arithmeticIntegerAnswers(answer);
                     break;
             }
         }
@@ -198,6 +190,7 @@ public class Question {
                     String addition = x + " + " + y;
                     question = addition; //puts the global variable "question" equal to the addition
                     answer = x + y + ""; //this is the true value of the operation
+                    arithmeticIntegerAnswers(answer);
                     break;
 
                 case 1:
@@ -207,12 +200,14 @@ public class Question {
                         subtraction = x + " - " + y;
                         question = subtraction; //puts the global variable "question" equal to the subtaction
                         answer = x - y + ""; //this is the true value of the operation
+                        arithmeticIntegerAnswers(answer);
                         break;
                     } else if (x < y && y < 10) { //to make sure it is a double digit subtracting a single digit resulting in a postive answer
                         y = y + 10;
                         subtraction = y + " - " + x;
                         question = subtraction; //puts the global variable "question" equal to the subtaction
                         answer = y - x + ""; //this is the true value of the operation
+                        arithmeticIntegerAnswers(answer);
                         break;
                     }
             }
@@ -235,6 +230,7 @@ public class Question {
                     String addition = x + " + " + y;
                     question = addition; //puts the global variable "question" equal to the addition
                     answer = x + y + ""; //this is the true value of the operation
+                    arithmeticIntegerAnswers(answer);
                     break;
 
                 case 1:
@@ -242,12 +238,14 @@ public class Question {
                     subtraction = x + " - " + y;
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     answer = x - y + ""; //this is the true value of the operation
+                    arithmeticIntegerAnswers(answer);
                     break;
 
                 case 2:
                     String multiplication = z + " x " + w;
                     question = multiplication;  //puts the global variable "question" equal to the addition
                     answer = z * w + ""; //this is the true value of the operation
+                    arithmeticIntegerAnswers(answer);
                     break;
             }
 
@@ -272,6 +270,7 @@ public class Question {
                     String addition = (x / 10.0) + " + " + (y / 10.0);
                     question = addition; //puts the global variable "question" equal to the addition
                     answer = x + y + ""; //this is the true value of the operation
+                    arithmeticDoubleAnswers(answer);
                     break;
 
                 case 1:
@@ -279,12 +278,14 @@ public class Question {
                     subtraction = (x / 100.0) + " - " + (y / 100.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     answer = x - y + ""; //this is the true value of the operation
+                    arithmeticDoubleAnswers(answer);
                     break;
 
                 case 2:
                     String multiplication = y + " x " + z;
                     question = multiplication;
                     answer = y * z + "";
+                    arithmeticIntegerAnswers(answer);
                     break;
 
                 case 3:
@@ -296,6 +297,7 @@ public class Question {
                     String division = v + " / " + u;
                     question = division;
                     answer = v / u + "";
+                    arithmeticIntegerAnswers(answer);
                     break;
 
             }
@@ -321,6 +323,7 @@ public class Question {
                     String addition = (x / 10.0) + " + " + (y / 10.0);
                     question = addition; //puts the global variable "question" equal to the addition
                     answer = x + y + ""; //this is the true value of the operation
+                    arithmeticDoubleAnswers(answer);
                     break;
 
                 case 1:
@@ -328,8 +331,8 @@ public class Question {
                     subtraction = (x / 10.0) + " - " + (y / 10.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     answer = x - y + ""; //this is the true value of the operation
+                    arithmeticDoubleAnswers(answer);
                     break;
-                 
 
                 case 2:
                     //if the first number is greater than 12, the second number has only 1 digit
@@ -339,6 +342,7 @@ public class Question {
                     String multiplication = y + " x " + z;
                     question = multiplication;
                     answer = y * z + "";
+                    arithmeticIntegerAnswers(answer);
                     break;
 
                 case 3:
@@ -350,6 +354,7 @@ public class Question {
                     String division = v + " / " + u;
                     question = division;
                     answer = v / u + "";
+                    arithmeticIntegerAnswers(answer);
                     break;
 
             }
@@ -376,6 +381,7 @@ public class Question {
                     String addition = (x / 100.0) + " + " + (y / 100.0);
                     question = addition; //puts the global variable "question" equal to the addition
                     answer = x + y + ""; //this is the true value of the operation
+                    arithmeticDoubleAnswers(answer);
                     break;
 
                 case 1:
@@ -383,6 +389,7 @@ public class Question {
                     subtraction = (x / 100.0) + " - " + (y / 100.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     answer = x - y + ""; //this is the true value of the operation
+                    arithmeticDoubleAnswers(answer);
                     break;
 
                 case 2:
@@ -393,12 +400,14 @@ public class Question {
                     String multiplication = y + " x " + z;
                     question = multiplication;
                     answer = y * z + "";
+                    arithmeticIntegerAnswers(answer);
                     break;
 
                 case 3:
                     String division = v + " / " + u;
                     question = division;
                     answer = v / u + "";
+                    arithmeticIntegerAnswers(answer);
                     break;
 
             }
@@ -420,37 +429,172 @@ public class Question {
 
     public void fractions() {
 
-        /*
-        check in what grade they start doing fractions. If the player is 
-        not in a grade where they do fractions, it will call the arithmetic()
-        method
-         */
-        if(grade == 1) {
-            
+        if (grade == 1) {
+
             math();
         }
+
+        if (grade == 2) {
+
+            int num1 = (int) (Math.random() * 6);
+            int num2 = (int) (Math.random() * 6);
+            int den1 = (int) (Math.random() * 6);
+
+            int operation = (int) (Math.random() * 2);
+
+            switch (operation) {
+                case 0:
+                    question = num1 + "/" + den1 + " + " + num2 + "/" + den1;
+                    answer = (num1 / den1) + (num2 / den1) + "";
+                    break;
+
+                //SUBTRACTION 
+                case 1:
+                    if ((num1 / den1) > (num2 / den1)) {
+                        question = num1 + "/" + den1 + " - " + num2 + "/" + den1;
+                        answer = (num1 / den1) - (num2 / den1) + "";
+                    } else {
+                        question = num2 + "/" + den1 + " - " + num1 + "/" + den1;
+                        answer = (num2 / den1) - (num1 / den1) + "";
+                    }
+                    break;
+            }
+
+        }
+
+        if (grade == 3) {
+
+            int num1 = (int) (Math.random() * 6);
+            int num2 = (int) (Math.random() * 6);
+            int den1 = (int) (Math.random() * 6) + 1; //to avoid division by 0
+            int den2 = (int) (Math.random() * 6) + 1; //to avoid division by 0
+
+            int operation = (int) (Math.random() * 3);
+
+            switch (operation) {
+                //ADDITION  
+                case 0:
+                    question = num1 + "/" + den1 + " + " + num2 + "/" + den1;
+                    answer = (num1 / den1) + (num2 / den1) + "";
+                    break;
+
+                //SUBTRACTION 
+                case 1:
+                    if ((num1 / den1) > (num2 / den1)) {
+                        question = num1 + "/" + den1 + " - " + num2 + "/" + den1;
+                        answer = (num1 / den1) - (num2 / den1) + "";
+                    } else {
+                        question = num2 + "/" + den1 + " - " + num1 + "/" + den1;
+                        answer = (num2 / den1) - (num1 / den1) + "";
+                    }
+
+                //MULTIPLICATION
+                case 2:
+                    question = num1 + "/" + den1 + " x " + num2 + "/" + den2;
+                    answer = (num1 / den1) * (num2 / den2) + "";
+
+            }
+
+        }
+
+        if (grade == 4) {
+
+            int num1 = (int) (Math.random() * 6);
+            int num2 = (int) (Math.random() * 6);
+            int den1 = (int) (Math.random() * 6) + 1; //to avoid division by 0
+            int den2 = (int) (Math.random() * 6) + 1; //to avoid division by 0
+
+            int operation = (int) (Math.random() * 3);
+
+            switch (operation) {
+                case 0:
+                    question = num1 + "/" + den1 + " + " + num2 + "/" + den1;
+                    answer = (num1 / den1) + (num2 / den2) + "";
+                    break;
+
+                //SUBTRACTION 
+                case 1:
+                    question = num1 + "/" + den1 + " - " + num2 + "/" + den1;
+                    answer = (num1 / den1) - (num2 / den2) + "";
+                    break;
+
+                //MULTIPLICATION
+                case 2:
+                    question = num1 + "/" + den1 + " x " + num2 + "/" + den2;
+                    answer = (num1 / den1) * (num2 / den2) + "";
+                    break;
+
+            }
+        }
+
+        if (grade == 5) {
+            int num1 = (int) (Math.random() *11);
+            int num2 = (int) (Math.random() * 10) + 1;
+            int den1 = (int) (Math.random() * 10) + 1; //to avoid division by 0
+            int den2 = (int) (Math.random() * 10) + 1; //to avoid division by 0
+
+            int operation = (int) (Math.random() * 4);
+
+            switch (operation) {
+                case 0:
+                    question = num1 + "/" + den1 + " + " + num2 + "/" + den1;
+                    answer = (num1 / den1) + (num2 / den2) + "";
+                    break;
+
+                //SUBTRACTION 
+                case 1:
+                    question = num1 + "/" + den1 + " - " + num2 + "/" + den1;
+                    answer = (num1 / den1) - (num2 / den2) + "";
+                    break;
+
+                //MULTIPLICATION
+                case 2:
+                    question = num1 + "/" + den1 + " x " + num2 + "/" + den2;
+                    answer = (num1 / den1) * (num2 / den2) + "";
+                    break;
+
+                //DIVISION
+                case 3:
+                    question = num1 + "/" + den1 + " / " + num2 + "/" + den2;
+                    answer = (num1 / den1) / (num2 / den2) + "";
+                    break;
+
+            }
+        }
         
-        if(grade == 2) {
-        int num1 = (int) (Math.random() * 5);
-        int num2 = (int) (Math.random() * 5);
-        int den1 = (int) (Math.random() * 5);
-        int den2 = (int) (Math.random() * 5);
+        if (grade == 6) {
+            int num1 = (int) (Math.random() *16);
+            int num2 = (int) (Math.random() * 15) + 1;
+            int den1 = (int) (Math.random() * 15) + 1; //to avoid division by 0
+            int den2 = (int) (Math.random() * 15) + 1; //to avoid division by 0
 
-        question = num1 + "/" + den1 + " + " + num2 + "/" + den2;
-        answer = (num1 / den1) + (num2 / den2) + "";
+            int operation = (int) (Math.random() * 4);
 
-        //SUBTRACTION 
-        question = num1 + "/" + den1 + " - " + num2 + "/" + den2;
-        answer = (num1 / den1) - (num2 / den2) + "";
+            switch (operation) {
+                case 0:
+                    question = num1 + "/" + den1 + " + " + num2 + "/" + den1;
+                    answer = (num1 / den1) + (num2 / den2) + "";
+                    break;
 
-        //MULTIPLICATION
-        question = num1 + "/" + den1 + " - " + num2 + "/" + den2;
-        answer = (num1 / den1) * (num2 / den2) + "";
+                //SUBTRACTION 
+                case 1:
+                    question = num1 + "/" + den1 + " - " + num2 + "/" + den1;
+                    answer = (num1 / den1) - (num2 / den2) + "";
+                    break;
 
-        //DIVISION
-        System.out.println(num1 + " " + num2 + " " + den1 + " " + den2);
-        question = num1 + "/" + den1 + " - " + num2 + "/" + den2;
-        answer = (num1 / den1) / (num2 / den2) + "";
+                //MULTIPLICATION
+                case 2:
+                    question = num1 + "/" + den1 + " x " + num2 + "/" + den2;
+                    answer = (num1 / den1) * (num2 / den2) + "";
+                    break;
+
+                //DIVISION
+                case 3:
+                    question = num1 + "/" + den1 + " / " + num2 + "/" + den2;
+                    answer = (num1 / den1) / (num2 / den2) + "";
+                    break;
+
+            }
         }
 
     }
@@ -668,7 +812,7 @@ public class Question {
         String answer4 = input.nextLine();
 
         choices[0] = answer1; //correct answer
-        answer=answer1;
+        answer = answer1;
         choices[1] = answer2;
         choices[2] = answer3;
         choices[3] = answer4;
@@ -687,28 +831,39 @@ public class Question {
 
     }
 
-    
-    
-    public int getTime(){
-        switch(grade){
-            case 1 : return 5;
-            case 2 : 
-            case 3 : return 6;
-            case 4 : 
-            case 5 : return 7;
-            case 6 : return 8;
-            default : return -1;
+    public int getTime() {
+        switch (grade) {
+            case 1:
+                return 5;
+            case 2:
+            case 3:
+                return 6;
+            case 4:
+            case 5:
+                return 7;
+            case 6:
+                return 8;
+            default:
+                return -1;
         }
     }
-    public int getScore(){
-        switch(grade){
-            case 1 : return 10;
-            case 2 : return 15;
-            case 3 : return 30;
-            case 4 : return 35;
-            case 5 : return 40;
-            case 6 : return 50;
-            default : return -1;
+
+    public int getScore() {
+        switch (grade) {
+            case 1:
+                return 10;
+            case 2:
+                return 15;
+            case 3:
+                return 30;
+            case 4:
+                return 35;
+            case 5:
+                return 40;
+            case 6:
+                return 50;
+            default:
+                return -1;
         }
     }
 }
