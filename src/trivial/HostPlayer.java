@@ -105,7 +105,6 @@ public class HostPlayer extends Player implements Serializable {
         public void run() {
             try {
                 input = new ObjectInputStream(socket.getInputStream());
-
                 while (true) {
                     
                     Object o = input.readObject();
