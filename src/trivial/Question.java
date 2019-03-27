@@ -639,9 +639,30 @@ public class Question {
         if (input.hasNextLine()) { 
         countKeeper[grade - 1] += 1;
         }
-        System.out.println("Answer3: " + answer3);
-        
+    }
 
+    
+    public int getTime(){
+        switch(grade){
+            case 1 : return 7;
+            case 2 : 
+            case 3 : return 8;
+            case 4 : 
+            case 5 : return 9;
+            case 6 : return 10;
+            default : return -1;
+        }
+    }
+    public int getScore(){
+        switch(grade){
+            case 1 : return 10;
+            case 2 : return 15;
+            case 3 : return 30;
+            case 4 : return 35;
+            case 5 : return 40;
+            case 6 : return 50;
+            default : return -1;
+        }
     }
 
 }
