@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 
 /**
  *
@@ -18,23 +19,30 @@ import java.util.logging.Logger;
  */
 public class ClientPlayer extends Player {
 
-    private Socket connectedSocket;//sokect that is connected with the host
-    private ObjectOutputStream output;//output to the host
+    private transient Socket connectedSocket;//sokect that is connected with the host
+    private transient ObjectOutputStream output;//output to the host
+    private transient Menu menu;
 
-    public ClientPlayer(String name) throws IOException {
+    public ClientPlayer(String name, Menu menu) throws IOException {
         super(name);
+        this.menu=menu;
     }
 
     //sends the player's information to the host
     public void sendData() throws IOException {
-        output.writeObject(this);
+        output.writeUnshared(this);
     }
 
     //connects to the host with an IP and port
     public void connect(String ip, int port) throws IOException {
         connectedSocket = new Socket(ip, port);
         output = new ObjectOutputStream(connectedSocket.getOutputStream());
-        new Thread(new DataReceiver(connectedSocket));
+        new Thread(new DataReceiver(connectedSocket)).start();
+        sendData();
+    }
+    
+    public void addPlayer(Player p){
+    super.addPlayer(p);
     }
 
     //manages the input from the host
@@ -42,6 +50,7 @@ public class ClientPlayer extends Player {
 
         Socket socket;
         ObjectInputStream input;
+        private boolean read=true;
 
         DataReceiver(Socket socket) {
             this.socket = socket;
@@ -52,13 +61,14 @@ public class ClientPlayer extends Player {
             try {
                 input = new ObjectInputStream(socket.getInputStream());
                 setId(input.readInt());
-                while (true) {
-
-                    Player player = (Player) input.readObject();
-
-                    //element.updatescore(player);
-                    if (player.getScore() > 1000) {
-                        break;
+                
+                while (read) {
+                    Object o = input.readObject();
+                    if(o instanceof Player){
+                    Player player = (Player) o;
+                    addPlayer(player);
+                    }
+                    else{Platform.runLater(()->menu.start(false));
                     }
                 }
             } catch (IOException ex) {
