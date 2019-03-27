@@ -14,17 +14,25 @@ import javafx.scene.text.Font;
  *
  * @author guill
  */
+
 public class Game extends Pane{
-    
-    public Game(){
-        Menu menu = new Menu();
+    int resolution;
+    double resfactor;
+    public Game(double sound, int resolution,double resfactor) throws FileNotFoundException{
+        this.resolution=resolution;
+        this.resfactor=resfactor;
+        Menu menu = new Menu(sound,resolution,resfactor);
         
         getChildren().add(menu);
     }
     
-    public void startGame(boolean host) throws FileNotFoundException{
+    public void startGame(boolean host,Player localPlayer) throws FileNotFoundException{
         getChildren().clear();
-        GameInterface gameInterface = new GameInterface(host);
+        GameInterface gameInterface = new GameInterface(host,resfactor,localPlayer);
         getChildren().add(gameInterface);
+    }
+    
+    public void leaderboard(){
+    
     }
 }
