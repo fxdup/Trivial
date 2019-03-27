@@ -51,7 +51,6 @@ public class GameInterface extends Pane{
     private Text your_score;
     private Text text_question;
     private Text skip_text;
-    private Text startAnimTime;
     
     private ImageView background;
     private Rectangle leaderbar;
@@ -67,14 +66,8 @@ public class GameInterface extends Pane{
     private double resfactor;
     private double HEIGHT;
     private double WIDTH;
-
-
-    int timerbar_red;
-    int timerbar_green;
-    Timeline countdown;
-    Timeline startAnim;
-    KeyFrame color;
-
+    int timerbar_red=0;
+    int timerbar_green=255;
     private ImageView separation;
 
     public GameInterface(Boolean host,double resfactor) throws FileNotFoundException{
@@ -84,7 +77,7 @@ public class GameInterface extends Pane{
         System.out.println(HEIGHT);
         System.out.println(WIDTH);
         this.host=host;
-        questionList=new QuestionList();
+        //question=new Question(1);
         
         answer1= new AnswerPane(0,HEIGHT/2+50);
         answer2= new AnswerPane(WIDTH/2,HEIGHT/2+50);
@@ -98,7 +91,6 @@ public class GameInterface extends Pane{
         leaderbar = new Rectangle(0,25*resfactor,WIDTH,18*resfactor);
         leaderbar.setFill(Color.WHITE);
         fillingbar = new Rectangle(0,25*resfactor,WIDTH/2,18*resfactor);
-
         fillingbar.setFill(Color.rgb(red,green,blue));
         
         first_place = new Text("First Place: "+firstPlace);
@@ -152,36 +144,18 @@ public class GameInterface extends Pane{
         skip.setLayoutX(WIDTH/2-50*resfactor);
         skip.setLayoutY(HEIGHT/2+18*resfactor);
         skip.getChildren().addAll(skip_button,skip_text);
-        
         getChildren().addAll(background,answer1,answer2,answer3,answer4,separation,leaderbar,fillingbar,your_score,current_grade,first_place,questionPane,timerbar,skip);
-        startAnimation();
-    }
-    
-    public void startAnimation(){
-        startAnimTime = new Text(WIDTH/2,HEIGHT/2,"3");
-        startAnimTime.getStyleClass().add("inGameGUI");
-        startAnim=new Timeline();
-        getChildren().add(startAnimTime);
-        startAnim.getKeyFrames().addAll(new KeyFrame(Duration.seconds(1), e->{
-        if(Integer.parseInt(startAnimTime.getText())-1>0){
-        startAnimTime.setText(Integer.parseInt(startAnimTime.getText())-1+"");
-        }else {
-            getChildren().remove(startAnimTime);
-            nextQuestion();
-            startAnim.stop();}
-        }));
-        startAnim.setCycleCount(Animation.INDEFINITE);
-        startAnim.play();
-        timeAnimation(3);
+        
+        
+        
+        nextQuestion();
+        
     }
 
     public void timeAnimation(int time){
-        countdown=new Timeline();
-        double millis=time*2.0/WIDTH;
-        timerbar.setWidth(WIDTH);
-        timerbar_red=0;
-        timerbar_green=255;
-        color = new KeyFrame(Duration.seconds(millis),e->{
+        Timeline countdown = new Timeline();
+        timerbar = new Rectangle(0,HEIGHT/2+25,WIDTH,30);
+        KeyFrame color = new KeyFrame(Duration.millis(7),e->{
             if(timerbar_red<254){
                 timerbar_red+=1;
                 timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
@@ -192,9 +166,9 @@ public class GameInterface extends Pane{
                 timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
                 timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
             }
-            if(timerbar.getWidth()>=0){
-                timerbar.setWidth(timerbar.getWidth()-2);
-            }else{countdown.getKeyFrames().clear();}
+            if(timerbar.getWidth()>0){
+                timerbar.setWidth(timerbar.getWidth()-2*resfactor);
+            }
         });
         countdown.getKeyFrames().add(color);
         countdown.setCycleCount(Animation.INDEFINITE);
@@ -212,17 +186,14 @@ public class GameInterface extends Pane{
     public void updateScore() {
         first_place.setText("First Place: "+firstPlace);
         your_score.setText("Your Score: "+score);
-        fillingbar.setWidth(WIDTH*score/1000);
     }
 
     public void nextQuestion() {
-        question=questionList.getQuestion(1);
         text_question.setText(question.getQuestion());
         answer1.setText(question.getChoices()[0]);
         answer2.setText(question.getChoices()[1]);
         answer3.setText(question.getChoices()[2]);
         answer4.setText(question.getChoices()[3]);
-        timeAnimation(question.getTime());
     }
     
     
@@ -231,7 +202,7 @@ public class GameInterface extends Pane{
         private Text answer_text;
         
         AnswerPane(double layoutX,double LayoutY){
-        answer_rectangle = new Rectangle(WIDTH/2,HEIGHT/4-50);
+        answer_rectangle = new Rectangle(WIDTH/2,HEIGHT/4-50*resfactor);
         answer_rectangle.setFill(Color.rgb(96, 139, 109));
         answer_text = new Text("");
         answer_text.getStyleClass().add("inGameGUI");
@@ -241,7 +212,7 @@ public class GameInterface extends Pane{
         
         answer_rectangle.setOnMouseClicked(e->{
         if(answer_text.getText().equals(question.getAnswer()))
-            score+=question.getScore();
+            score++;
         updateScore();
         });
         
