@@ -639,10 +639,6 @@ public class Question {
         if (input.hasNextLine()) { 
         countKeeper[grade - 1] += 1;
         }
-
-        System.out.println("Question: " + question);
-        System.out.println("Answer1: " + answer1);
-        System.out.println("Answer2: " + answer2);
         System.out.println("Answer3: " + answer3);
         
 
