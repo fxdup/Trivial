@@ -38,7 +38,6 @@ public class ClientPlayer extends Player {
         connectedSocket = new Socket(ip, port);
         output = new ObjectOutputStream(connectedSocket.getOutputStream());
         new Thread(new DataReceiver(connectedSocket)).start();
-        sendData();
     }
     
     public void addPlayer(Player p){
@@ -61,7 +60,7 @@ public class ClientPlayer extends Player {
             try {
                 input = new ObjectInputStream(socket.getInputStream());
                 setId(input.readInt());
-                
+                sendData();
                 while (read) {
                     Object o = input.readObject();
                     if(o instanceof Player){
