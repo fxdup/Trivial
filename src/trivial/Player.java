@@ -1,8 +1,10 @@
 package trivial;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import javafx.scene.paint.Color;
 
-public class Player implements Serializable {
+public class Player implements Serializable,Cloneable {
 
     private final String NAME; //Name of the player
     private int id; //Identifiant of the player
@@ -11,17 +13,20 @@ public class Player implements Serializable {
     private int highestGrade; //Highest grade of the player in the current game
     private int streak; //How many questions in a row the player has answered without missing. Skipping not included
     private int highestStreak; //Highest streak of the player in the current game
+    private ArrayList<Player> players;
+    private int red =(int) (Math.random() * 200 + 50);
+    private int green =(int) (Math.random() * 200 + 50);
+    private int blue =(int) (Math.random() * 200 + 50);        
 
     public Player(String name) {
         this.NAME = name;
+        players=new ArrayList<>();
         score = 0;
         grade = 1;
     }
 
     public Player(String name, int id) {
-        this.NAME = name;
-        score = 0;
-        grade = 1;
+        this(name);
         this.id = id;
     }
 
@@ -102,12 +107,29 @@ public class Player implements Serializable {
     public void resetGrade() {
         grade = 1;
     }
-
+    
+    public Color getColor(){
+    return Color.rgb(red, green, blue);
+    }
+    
+    public void addPlayer(Player player){
+    if(!players.contains(player))
+        players.add(player);
+    else players.set(players.indexOf(player),player);
+    }
+    
+    public Player[] getPlayers(){
+    Player[] p=new Player[players.size()];
+        for(int i=0;i<p.length;i++)
+            p[i]=players.get(i);
+        return p;
+    }
+    
     //returns a string containing the informations of the player
     @Override
     public String toString() {
 
-        return "Name: " + getName() + "\n Score: " + getScore() + "\n Grade: " + getGrade() + "\n Highest Grade: " + getHighestGrade() + "\n Streak: " + getStreak() + "\n Highest Streak: " + getHighestStreak();
+        return "Name: " + getId() + "\n Score: " + getScore() + "\n Grade: " + getGrade() + "\n Highest Grade: " + getHighestGrade() + "\n Streak: " + getStreak() + "\n Highest Streak: " + getHighestStreak()+"\n RGB"+red+" "+blue+" "+green;
 
     }
 

@@ -3,6 +3,7 @@ package trivial;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,11 +12,12 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class HostPlayer extends Player {
+public class HostPlayer extends Player implements Serializable {
 
-    private ServerSocket serverSocket = new ServerSocket(0);
-    private ArrayList<Socket> connectedSockets;//list of sockets that are connected with other players
-    private ArrayList<ObjectOutputStream> outputs;//list of outputs related to the other players
+    private transient ServerSocket serverSocket = new ServerSocket(0);
+    private transient ArrayList<Socket> connectedSockets;//list of sockets that are connected with other players
+    private transient ArrayList<ObjectOutputStream> outputs;//list of outputs related to the other players
+    private boolean connecting=true;
 
     public HostPlayer(String name) throws IOException {
         super(name);
@@ -25,13 +27,28 @@ public class HostPlayer extends Player {
 
     }
 
+    public void sendStart(){
+    for (int i = 0; i < outputs.size(); i++) {
+        try {
+            outputs.get(i).writeObject("start");
+        } catch (IOException ex) {
+            Logger.getLogger(HostPlayer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+    }
+    
     //sends the player's information to the other players connected
     public void sendData(Player player) throws IOException {
         for (int i = 0; i < outputs.size(); i++) {
             if (i + 1 != player.getId()) {
-                outputs.get(i).writeObject(player);
+                outputs.get(i).writeUnshared(player);
             }
         }
+    }
+    
+    public void sendPlayerList(){
+    
+    
     }
 
     //returns the local ip address of the host
@@ -44,9 +61,12 @@ public class HostPlayer extends Player {
         return serverSocket.getLocalPort();
     }
 
+    public void stopConnecting(){
+        connecting=false;
+        }
     //creates the link between the players connected and the host
     class Connection implements Runnable {
-
+        
         @Override
         public void run() {
             try {
@@ -54,19 +74,21 @@ public class HostPlayer extends Player {
                 System.out.println("IP:" + getIp() + "\nPort: " + getPort());
 
                 //until there are 40 players connected or the game starts, waits for other players to connect
-                while (connectedSockets.size() < 40) {
+                while (connectedSockets.size() < 40&&connecting) {
 
                     Socket socket = serverSocket.accept();
                     connectedSockets.add(socket);
                     ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
-                    output.writeInt(connectedSockets.size());
                     outputs.add(output);
-                    new Thread(new DataReceiver(socket));
+                    new Thread(new DataReceiver(socket)).start();
+                    output.writeInt(connectedSockets.size());
                 }
+                serverSocket.close();
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
         }
+        
     }
 
     //manages the input from an other player
@@ -85,13 +107,12 @@ public class HostPlayer extends Player {
                 input = new ObjectInputStream(socket.getInputStream());
 
                 while (true) {
-
-                    Player player = (Player) input.readObject();
+                    
+                    Object o = input.readObject();
+                    if(o instanceof Player){
+                    Player player = (Player) o;
+                    addPlayer(player);
                     sendData(player);
-                    //element.updatescore(player);
-
-                    if (player.getScore() > 1000) {
-                        break;
                     }
                 }
             } catch (IOException ex) {
