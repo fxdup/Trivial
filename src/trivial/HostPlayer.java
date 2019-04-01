@@ -41,7 +41,8 @@ public class HostPlayer extends Player implements Serializable {
     public void sendData(Player player) throws IOException {
         for (int i = 0; i < outputs.size(); i++) {
             if (i + 1 != player.getId()) {
-                outputs.get(i).writeUnshared(player);
+                outputs.get(i).reset();
+                outputs.get(i).writeObject(player);
             }
         }
     }
@@ -80,8 +81,9 @@ public class HostPlayer extends Player implements Serializable {
                     connectedSockets.add(socket);
                     ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
                     outputs.add(output);
-                    new Thread(new DataReceiver(socket)).start();
                     output.writeInt(connectedSockets.size());
+                    System.out.println("a");
+                    new Thread(new DataReceiver(socket)).start();
                 }
                 serverSocket.close();
             } catch (IOException ex) {
@@ -111,8 +113,12 @@ public class HostPlayer extends Player implements Serializable {
                     Object o = input.readObject();
                     if(o instanceof Player){
                     Player player = (Player) o;
+                    System.out.println(player.toString());
+                    if(player.getId()!=0){
+                        
                     addPlayer(player);
                     sendData(player);
+                    }
                     }
                 }
             } catch (IOException ex) {

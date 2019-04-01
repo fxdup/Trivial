@@ -20,7 +20,7 @@ public class QuestionList {
         }
 
         //Creating the questions in the different ArrayLists
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 25; i++) {
             gradeQuestions[0].add(new Question(1));
 //            gradeQuestions[5].add(new Question(6));
 //            if (i < 50) {

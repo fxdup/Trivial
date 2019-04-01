@@ -30,15 +30,19 @@ public class ClientPlayer extends Player {
 
     //sends the player's information to the host
     public void sendData() throws IOException {
-        output.writeUnshared(this);
+        output.writeUnshared(((Player)this));
     }
 
     //connects to the host with an IP and port
     public void connect(String ip, int port) throws IOException {
         connectedSocket = new Socket(ip, port);
         output = new ObjectOutputStream(connectedSocket.getOutputStream());
-        new Thread(new DataReceiver(connectedSocket)).start();
+        ObjectInputStream input = new ObjectInputStream(connectedSocket.getInputStream());
+        setId(input.readInt());
+        System.out.println(getId());
         sendData();
+        input.close();
+        new Thread(new DataReceiver(connectedSocket)).start();
     }
     
     public void addPlayer(Player p){
@@ -59,8 +63,6 @@ public class ClientPlayer extends Player {
         @Override
         public void run() {
             try {
-                input = new ObjectInputStream(socket.getInputStream());
-                setId(input.readInt());
                 
                 while (read) {
                     Object o = input.readObject();

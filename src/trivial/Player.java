@@ -20,6 +20,7 @@ public class Player implements Serializable,Cloneable {
 
     public Player(String name) {
         this.NAME = name;
+        id=-1;
         players=new ArrayList<>();
         score = 0;
         grade = 1;

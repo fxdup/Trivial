@@ -270,7 +270,6 @@ public class Menu extends StackPane{
         playerCount.setCycleCount(Animation.INDEFINITE);
         playerCount.play();
         start.setOnMouseClicked(e->{
-            System.out.println(me.getPlayers().length);
             playerCount.stop();
             ((HostPlayer)me).sendStart();
             ((HostPlayer)me).stopConnecting();

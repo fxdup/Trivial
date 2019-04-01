@@ -253,7 +253,7 @@ public class GameInterface extends Pane {
         icons[0].setCenterX(WIDTH * localPlayer.getScore() / 1000);
         for(int i=1;i<icons.length;i++){
         icons[i].setCenterX(WIDTH * localPlayer.getPlayers()[i-1].getScore() / 1000);
-            System.out.println(localPlayer.getPlayers().length);
+//            System.out.println(localPlayer.getPlayers()[i-1].getId());
         }
     }
 
