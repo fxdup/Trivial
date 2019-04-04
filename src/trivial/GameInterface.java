@@ -121,7 +121,7 @@ public class GameInterface extends Pane {
         separation.setFitWidth(WIDTH);
         separation.setFitHeight(HEIGHT / 2 - 100 * resfactor);
         separation.setX(0);
-        separation.setY(HEIGHT / 2 + 100 * resfactor);
+        separation.setY(HEIGHT / 2 + 50 * resfactor);
 
         questionPane = new StackPane();
         text_question = new Text("");
@@ -142,13 +142,13 @@ public class GameInterface extends Pane {
         skip_button.setStroke(Color.RED);
         skip_button.setStrokeWidth(2);
 
-        timerbar = new Rectangle(0, HEIGHT / 2 + 50-25*resfactor, WIDTH, 30*resfactor);
+        timerbar = new Rectangle(0, HEIGHT / 2 +55*resfactor-skip_button.getHeight()/2, WIDTH, 30*resfactor);
         timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
         timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
         skip_text = new Text("Skip");
         skip = new StackPane();
-        skip.setLayoutX(WIDTH / 2 - 50 * resfactor);
-        skip.setLayoutY(HEIGHT / 2+50*resfactor);
+        skip.setLayoutX(WIDTH / 2 - skip_button.getWidth()/2);
+        skip.setLayoutY(HEIGHT / 2 +50*resfactor-skip_button.getHeight()/2);
         skip.getChildren().addAll(skip_button, skip_text);
         skip.setOnMouseClicked(e -> {
             if (!skipping) {
@@ -181,8 +181,6 @@ public class GameInterface extends Pane {
             } else {
                 drawCircles();
                 getChildren().remove(startAnimTime);
-                skipping = false;
-                nextQuestion();
                 startAnim.stop();
                 updateScoreAnimation.play();
             }
@@ -225,11 +223,9 @@ public class GameInterface extends Pane {
                 if (skipping) {
                     skipping = false;
                     skip_button.setFill(Color.WHITE);
-                    countdown.stop();
                 } else {
-                    countdown.stop();
                     badAnswer();
-                }                
+                }  countdown.stop();         
                     nextQuestion();
             }
         });
@@ -320,7 +316,7 @@ public class GameInterface extends Pane {
         anstran2.play();
         anstran3.play();
         anstran4.play();
-        //localPlayer.addScore(question.getScore());
+        localPlayer.addScore(question.getScore());
         localPlayer.graduate();
         nextQuestion();
     }
