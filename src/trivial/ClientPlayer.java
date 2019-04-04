@@ -37,11 +37,6 @@ public class ClientPlayer extends Player {
     public void connect(String ip, int port) throws IOException {
         connectedSocket = new Socket(ip, port);
         output = new ObjectOutputStream(connectedSocket.getOutputStream());
-        ObjectInputStream input = new ObjectInputStream(connectedSocket.getInputStream());
-        setId(input.readInt());
-        System.out.println(getId());
-        sendData();
-        input.close();
         new Thread(new DataReceiver(connectedSocket)).start();
     }
     
@@ -63,7 +58,9 @@ public class ClientPlayer extends Player {
         @Override
         public void run() {
             try {
-                
+                input = new ObjectInputStream(socket.getInputStream());
+                setId(input.readInt());
+                sendData();
                 while (read) {
                     Object o = input.readObject();
                     if(o instanceof Player){
