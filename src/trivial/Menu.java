@@ -265,12 +265,11 @@ public class Menu extends StackPane{
         menu.getChildren().addAll(ip,ipt,port,portt,number_of_players,start);
         waiting=true;
         Timeline playerCount=new Timeline(new KeyFrame(Duration.seconds(1),e->{
-        number_of_players.setText("Players joined : "+(me.getPlayers().length+1)+"/40");
+        number_of_players.setText("Players joined : "+(((HostPlayer)me).getPlayerSize()+1)+"/40");
         }));
         playerCount.setCycleCount(Animation.INDEFINITE);
         playerCount.play();
         start.setOnMouseClicked(e->{
-            System.out.println(me.getPlayers().length);
             playerCount.stop();
             ((HostPlayer)me).sendStart();
             ((HostPlayer)me).stopConnecting();

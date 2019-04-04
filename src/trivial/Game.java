@@ -32,7 +32,9 @@ public class Game extends Pane{
         getChildren().add(gameInterface);
     }
     
-    public void leaderboard(){
-    
+    public void leaderboard(Player[] playerList){
+    getChildren().clear();
+        Leaderboard leaderboard=new Leaderboard(playerList);
+        getChildren().add(leaderboard);
     }
 }

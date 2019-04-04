@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
-public class Player implements Serializable,Cloneable {
+public class Player implements Serializable, Cloneable {
 
     private final String NAME; //Name of the player
     private int id; //Identifiant of the player
@@ -14,13 +14,14 @@ public class Player implements Serializable,Cloneable {
     private int streak; //How many questions in a row the player has answered without missing. Skipping not included
     private int highestStreak; //Highest streak of the player in the current game
     private ArrayList<Player> players;
-    private int red =(int) (Math.random() * 200 + 50);
-    private int green =(int) (Math.random() * 200 + 50);
-    private int blue =(int) (Math.random() * 200 + 50);        
+    private int red = (int) (Math.random() * 200 + 50);
+    private int green = (int) (Math.random() * 200 + 50);
+    private int blue = (int) (Math.random() * 200 + 50);
 
     public Player(String name) {
         this.NAME = name;
-        players=new ArrayList<>();
+        id = -1;
+        players = new ArrayList<>();
         score = 0;
         grade = 1;
     }
@@ -67,7 +68,9 @@ public class Player implements Serializable,Cloneable {
 
     //sets the id of the player
     public void setId(int id) {
+        players.remove(this);
         this.id = id;
+        players.add(this);
     }
 
     //returns the grade the player is currently in
@@ -90,14 +93,19 @@ public class Player implements Serializable,Cloneable {
         this.score = score;
     }
 
-    public void addScore(int score){
-        this.score+=score;
+    public void addScore(int score) {
+        this.score += score;
     }
+
     //returns the name of the player
     public String getName() {
         return NAME;
     }
 
+   public int getPlayerSize(){
+   return players.size();
+   }
+    
     public void graduate() {
         if (grade < 6) {
             grade++;
@@ -107,33 +115,38 @@ public class Player implements Serializable,Cloneable {
     public void resetGrade() {
         grade = 1;
     }
-    
-    public Color getColor(){
-    return Color.rgb(red, green, blue);
+
+    public Color getColor() {
+        return Color.rgb(red, green, blue);
     }
-    
-    public void addPlayer(Player player){
-    if(!players.contains(player))
-        players.add(player);
-    else players.set(players.indexOf(player),player);
+
+    public void addPlayer(Player player) {
+        if(player.getId()==-1)
+            return;
+        if (!players.contains(player)) {
+            players.add(player);
+        } else {
+            players.set(players.indexOf(player), player);
+        }
     }
-    
-    public Player[] getPlayers(){
-    Player[] p=new Player[players.size()];
-        for(int i=0;i<p.length;i++)
-            p[i]=players.get(i);
+
+    public Player[] getPlayers() {
+        Player[] p = new Player[players.size()];
+        for (int i = 0; i < p.length; i++) {
+            p[i] = players.get(i);
+        }
         return p;
     }
-    
-    public void clearPlayers(){
-    players.clear();
+
+    public void clearPlayers() {
+        players.clear();
     }
-    
+
     //returns a string containing the informations of the player
     @Override
     public String toString() {
 
-        return "Name: " + getId() + "\n Score: " + getScore() + "\n Grade: " + getGrade() + "\n Highest Grade: " + getHighestGrade() + "\n Streak: " + getStreak() + "\n Highest Streak: " + getHighestStreak()+"\n RGB"+red+" "+blue+" "+green;
+        return "Name: " + getId() + "\n Score: " + getScore() + "\n Grade: " + getGrade() + "\n Highest Grade: " + getHighestGrade() + "\n Streak: " + getStreak() + "\n Highest Streak: " + getHighestStreak() + "\n RGB" + red + " " + blue + " " + green;
 
     }
 

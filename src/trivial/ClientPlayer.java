@@ -30,7 +30,7 @@ public class ClientPlayer extends Player {
 
     //sends the player's information to the host
     public void sendData() throws IOException {
-        output.writeUnshared(this);
+        output.writeUnshared(((Player)this));
     }
 
     //connects to the host with an IP and port
