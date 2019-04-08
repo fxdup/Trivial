@@ -85,7 +85,11 @@ public class GameInterface extends Pane {
         WIDTH = 1920 * resfactor;
         skipping = true;
         
-        questionList = new QuestionList();
+        try {
+            questionList = new QuestionList();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GameInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         answer1= new AnswerPane(0,HEIGHT/2+50);
         answer2= new AnswerPane(WIDTH/2,HEIGHT/2+50);

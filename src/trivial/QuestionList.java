@@ -11,7 +11,7 @@ public class QuestionList {
 
     private Iterator<Question>[] gradeIterators;//List iterator for all grades
 
-    public QuestionList(){
+    public QuestionList() throws FileNotFoundException{
 
         //Initializing the array
         gradeQuestions = new ArrayList[6];
