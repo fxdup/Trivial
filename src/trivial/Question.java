@@ -76,16 +76,16 @@ public class Question {
 
             Scanner input = new Scanner(file);
 
-            while (input.hasNext()) {
-
-                input.hasNext();
-                input.hasNext();
-                input.hasNext();
-                input.hasNext();
-                input.hasNext();
-
-                numberOfQuestions[grade - 1]++;
-            }
+//            while (input.hasNext()) {
+//
+//                input.hasNext();
+//                input.hasNext();
+//                input.hasNext();
+//                input.hasNext();
+//                input.hasNext();
+//
+//                numberOfQuestions[grade - 1]++;
+//            }
 
         }
         if (grade == 1) {
