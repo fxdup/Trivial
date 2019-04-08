@@ -31,6 +31,10 @@ public class Player implements Serializable, Cloneable {
         this.id = id;
     }
 
+    public Player getThis(){
+    return this;
+    }
+    
     //returns the id of the player
     public int getId() {
         return id;
@@ -130,6 +134,7 @@ public class Player implements Serializable, Cloneable {
         }
     }
 
+    
     public Player[] getPlayers() {
         Player[] p = new Player[players.size()];
         for (int i = 0; i < p.length; i++) {

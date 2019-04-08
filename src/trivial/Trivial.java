@@ -11,9 +11,12 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -30,7 +33,6 @@ public class Trivial extends Application{
     double resfactor;
     int resolution;
     Game game;
-    
     @Override
     public void start(Stage stage) throws Exception {
         try{
@@ -62,6 +64,12 @@ public class Trivial extends Application{
         stage.setScene(scene);
         stage.setTitle("Elementary Quiz");
         stage.show();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent t) {
+        Platform.exit();
+        System.exit(0);
+    }
+});
     }
     public static void restart() throws FileNotFoundException{
         System.exit(0);

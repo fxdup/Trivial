@@ -77,7 +77,7 @@ public class GameInterface extends Pane {
 
     private ImageView separation;
 
-    public GameInterface(Boolean host, double resfactor, Player localPlayer) throws FileNotFoundException {
+    public GameInterface(Boolean host, double resfactor, Player localPlayer){
         this.localPlayer = localPlayer;
         this.resfactor = resfactor;
         this.host = host;
@@ -156,13 +156,13 @@ public class GameInterface extends Pane {
                 skipping = true;
                 clearQuestion();
                 countdown.stop();
-                //timeAnimation(question.getTime());
+                timeAnimation(question.getTime());
             }
         });
 
         getChildren().addAll(background, answer1, answer2, answer3, answer4, separation, leaderbar, fillingbar, your_score, current_grade, first_place, questionPane, timerbar, skip);
         startAnimation();
-        updateScoreAnimation = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+        updateScoreAnimation = new Timeline(new KeyFrame(Duration.seconds(0.25), e -> {
             updateScore();
         }));
         updateScoreAnimation.setCycleCount(Animation.INDEFINITE);
@@ -218,14 +218,16 @@ public class GameInterface extends Pane {
                 timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
             }
             if (timerbar.getWidth() >= 0) {
-                timerbar.setWidth(timerbar.getWidth() - 2*resfactor);
+                timerbar.setWidth(timerbar.getWidth() - 2);
             } else {
                 if (skipping) {
                     skipping = false;
+                    countdown.stop();  
                     skip_button.setFill(Color.WHITE);
                 } else {
+                    countdown.stop();  
                     badAnswer();
-                }  countdown.stop();         
+                }         
                     nextQuestion();
             }
         });
@@ -276,6 +278,7 @@ public class GameInterface extends Pane {
         answer2.setText(question.getChoices()[1]);
         answer3.setText(question.getChoices()[2]);
         answer4.setText(question.getChoices()[3]);
+        timeAnimation(question.getTime());
     }
 
     public void sendData(){

@@ -183,7 +183,7 @@ public class Menu extends StackPane{
         host.setOnMouseClicked(e->{
             
             try {
-                me = new HostPlayer(name.getText());
+                me = new HostPlayer(name.getText(),((Game)(getParent())));
             } catch (IOException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -221,7 +221,7 @@ public class Menu extends StackPane{
         
         join.setOnMouseClicked(e->{
             try {
-                me = new ClientPlayer(name.getText(),this);
+                me = new ClientPlayer(name.getText(),((Game)(getParent())));
                 Joining();
             } catch (UnknownHostException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
@@ -271,8 +271,8 @@ public class Menu extends StackPane{
         playerCount.play();
         start.setOnMouseClicked(e->{
             playerCount.stop();
-            ((HostPlayer)me).sendStart();
             ((HostPlayer)me).stopConnecting();
+            ((HostPlayer)me).sendStart();
             start(true);
         });
         
@@ -334,11 +334,7 @@ public class Menu extends StackPane{
     
     public void start(boolean host){
         if(waiting){
-        try {
             ((Game)(getParent())).startGame(host,me);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }
         }
     }
     private void Confirmation() {

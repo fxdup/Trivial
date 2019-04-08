@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,7 +36,7 @@ public class Question {
     private static int[] countKeeper = {0, 0, 0, 0, 0, 0}; //keeps the count of which question has been read from the file for each grade.
     private int iterator = 0;
 
-    public Question(int grade) throws FileNotFoundException {
+    public Question(int grade){
         this.grade = grade;
         choices = new String[4];
         /*
@@ -790,43 +792,47 @@ public class Question {
     generate a number, if == 1 --> math question, if > 1 it will be a question of either science general 
     and logic
      */
-    public void readFile(File file) throws FileNotFoundException {
+    public void readFile(File file){
 
-        Scanner input = new Scanner(file);
-
-        while (iterator < countKeeper[grade - 1]) {
-
-            input.nextLine(); //question
-            input.nextLine(); //answer 1
-            input.nextLine();//answer 2
-            input.nextLine();//answer 3
-            input.nextLine();//answer 4
-            iterator += 1;
-            iterator += 1;
-        }
-
-        question = input.nextLine();
-        String answer1 = input.nextLine();
-        String answer2 = input.nextLine();
-        String answer3 = input.nextLine();
-        String answer4 = input.nextLine();
-
-        choices[0] = answer1; //correct answer
-        answer = answer1;
-        choices[1] = answer2;
-        choices[2] = answer3;
-        choices[3] = answer4;
-
-        ArrayList<String> unshuffled = new ArrayList<String>(Arrays.asList(choices));
-        Collections.shuffle(unshuffled);
-        choices = unshuffled.toArray(new String[unshuffled.size()]);
-
-        /*
-        if file has a next line, it will increase countkeeper. This ensures that
-        if the file is over, it will go to the math questions.
-         */
-        if (input.hasNextLine()) {
-            countKeeper[grade - 1] += 1;
+        try {
+            Scanner input = new Scanner(file);
+            
+            while (iterator < countKeeper[grade - 1]) {
+                
+                input.nextLine(); //question
+                input.nextLine(); //answer 1
+                input.nextLine();//answer 2
+                input.nextLine();//answer 3
+                input.nextLine();//answer 4
+                iterator += 1;
+                iterator += 1;
+            }
+            
+            question = input.nextLine();
+            String answer1 = input.nextLine();
+            String answer2 = input.nextLine();
+            String answer3 = input.nextLine();
+            String answer4 = input.nextLine();
+            
+            choices[0] = answer1; //correct answer
+            answer = answer1;
+            choices[1] = answer2;
+            choices[2] = answer3;
+            choices[3] = answer4;
+            
+            ArrayList<String> unshuffled = new ArrayList<String>(Arrays.asList(choices));
+            Collections.shuffle(unshuffled);
+            choices = unshuffled.toArray(new String[unshuffled.size()]);
+            
+            /*
+            if file has a next line, it will increase countkeeper. This ensures that
+            if the file is over, it will go to the math questions.
+            */
+            if (input.hasNextLine()) {
+                countKeeper[grade - 1] += 1;
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println(file.toString()+"was not found");
         }
 
     }

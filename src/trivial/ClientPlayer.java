@@ -5,6 +5,7 @@
  */
 package trivial;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -21,11 +22,11 @@ public class ClientPlayer extends Player {
 
     private transient Socket connectedSocket;//sokect that is connected with the host
     private transient ObjectOutputStream output;//output to the host
-    private transient Menu menu;
+    private transient Game game;
 
-    public ClientPlayer(String name, Menu menu) throws IOException {
+    public ClientPlayer(String name, Game game) throws IOException {
         super(name);
-        this.menu=menu;
+        this.game=game;
     }
 
     //sends the player's information to the host
@@ -44,6 +45,7 @@ public class ClientPlayer extends Player {
     super.addPlayer(p);
     }
 
+    
     //manages the input from the host
     public class DataReceiver implements Runnable {
 
@@ -66,8 +68,12 @@ public class ClientPlayer extends Player {
                     if(o instanceof Player){
                     Player player = (Player) o;
                     addPlayer(player);
+//                    ((GameInterface)game.getChildren().get(0)).updateScore();
                     }
-                    else{Platform.runLater(()->menu.start(false));
+                    else if(o instanceof String){Platform.runLater(()->{
+                            game.startGame(false,getThis());
+                            
+                    });
                     }
                 }
             } catch (IOException ex) {
