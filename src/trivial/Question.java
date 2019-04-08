@@ -19,10 +19,11 @@ import java.util.Scanner;
  */
 public class Question {
 
-    public final int MATH = 0;
-    public final int SCIENCE = 1;
-    public final int GENERAL = 2;
-    public final int LOGIC = 3;
+    //USED FOR FRACTION ANSWERS
+    public final int ADDITION = 0;
+    public final int SUBTRACTION = 1;
+    public final int MULTIPLICATION = 2;
+    public final int DIVISION = 3;
 
     private int type; //math(0), science(1), general(2), logic(3)
     private int grade;//from 1 to 6
@@ -33,6 +34,7 @@ public class Question {
     private String[] choices;
     private static int[] countKeeper = {0, 0, 0, 0, 0, 0}; //keeps the count of which question has been read from the file for each grade.
     private int iterator = 0;
+    private static int[] numberOfQuestions = {-1, -1, -1, -1, -1, -1};
 
     public Question(int grade) throws FileNotFoundException {
         this.grade = grade;
@@ -42,8 +44,50 @@ public class Question {
         When all questions have been processed, it creates a math question
         At the end of the process, all the questions will be shuffled to make sure the quiz is not too easy.
          */
+        if (numberOfQuestions[grade - 1] == -1) {
+            File file = null;
+
+            if (grade == 1) {
+                numberOfQuestions[grade - 1]++; //bring the value to 0
+                file = new File("grade1.txt");
+            }
+            if (grade == 2) {
+                numberOfQuestions[grade - 1]++; //bring the value to 0
+                file = new File("grade2.txt");
+            }
+            if (grade == 3) {
+                numberOfQuestions[grade - 1]++; //bring the value to 0
+                file = new File("grade3.txt");
+            }
+            if (grade == 4) {
+                numberOfQuestions[grade - 1]++; //bring the value to 0
+                file = new File("grade4.txt");
+            }
+            if (grade == 5) {
+                numberOfQuestions[grade - 1]++; //bring the value to 0
+                file = new File("grade5.txt");
+            }
+            if (grade == 6) {
+                numberOfQuestions[grade - 1]++; //bring the value to 0
+                file = new File("grade6.txt");
+            }
+
+            Scanner input = new Scanner(file);
+
+            while (input.hasNext()) {
+
+                input.hasNext();
+                input.hasNext();
+                input.hasNext();
+                input.hasNext();
+                input.hasNext();
+
+                numberOfQuestions[grade - 1]++;
+            }
+
+        }
         if (grade == 1) {
-            if (iterator < countKeeper[grade - 1] + 1) {
+            if (countKeeper[grade - 1] + 1 < numberOfQuestions[grade - 1]) {
                 File file = new File("grade1.txt");
                 readFile(file);
             } else {
@@ -97,7 +141,6 @@ public class Question {
         }
     }
 
-
     public int getType() {
         return type;
     }
@@ -116,6 +159,10 @@ public class Question {
 
     public String getAnswer() {
         return answer;
+    }
+
+    public static void setNumberOfQuestions(int[] numberOfQuestions) {
+
     }
 
     public void math() {
@@ -435,28 +482,37 @@ public class Question {
         }
 
         if (grade == 2) {
-
+            /*
+            Addition = 0
+            Subtaction = 1
+            Multiplication = 2
+            Division = 3
+             */
             int num1 = (int) (Math.random() * 6);
             int num2 = (int) (Math.random() * 6);
             int den1 = (int) (Math.random() * 6);
+            int den2 = den1;
 
             int operation = (int) (Math.random() * 2);
 
             switch (operation) {
+                //ADDITION
                 case 0:
                     question = num1 + "/" + den1 + " + " + num2 + "/" + den1;
-                    answer = (num1 / den1) + (num2 / den1) + "";
+                    answer = (num1 / den1) + "+" + (num2 / den2);
+                    fractionAnswers(answer, 0, num1, num2, den1, den2);
                     break;
 
                 //SUBTRACTION 
                 case 1:
                     if ((num1 / den1) > (num2 / den1)) {
                         question = num1 + "/" + den1 + " - " + num2 + "/" + den1;
-                        answer = (num1 / den1) - (num2 / den1) + "";
+                        answer = (num1 / den1) + "-" + (num2 / den2);
                     } else {
                         question = num2 + "/" + den1 + " - " + num1 + "/" + den1;
-                        answer = (num2 / den1) - (num1 / den1) + "";
+                        answer = (num2 / den1) + "-" + (num1 / den2);
                     }
+                    fractionAnswers(answer, 1, num1, num2, den1, den2);
                     break;
             }
 
@@ -475,23 +531,28 @@ public class Question {
                 //ADDITION  
                 case 0:
                     question = num1 + "/" + den1 + " + " + num2 + "/" + den1;
-                    answer = (num1 / den1) + (num2 / den1) + "";
+                    answer = (num1 / den1) + "+" + (num2 / den1);
+                    fractionAnswers(answer, 0, num1, num2, den1, den2);
                     break;
 
                 //SUBTRACTION 
                 case 1:
                     if ((num1 / den1) > (num2 / den1)) {
                         question = num1 + "/" + den1 + " - " + num2 + "/" + den1;
-                        answer = (num1 / den1) - (num2 / den1) + "";
+                        answer = (num1 / den1) + "-" + (num2 / den1);
                     } else {
                         question = num2 + "/" + den1 + " - " + num1 + "/" + den1;
-                        answer = (num2 / den1) - (num1 / den1) + "";
+                        answer = (num2 / den1) + "-" + (num1 / den1);
                     }
+                    fractionAnswers(answer, 1, num1, num2, den1, den2);
+                    break;
 
                 //MULTIPLICATION
                 case 2:
                     question = num1 + "/" + den1 + " x " + num2 + "/" + den2;
-                    answer = (num1 / den1) * (num2 / den2) + "";
+                    answer = (num1 / den1) + "*" + (num2 / den2);
+                    fractionAnswers(answer, 2, num1, num2, den1, den2);
+                    break;
 
             }
 
@@ -507,28 +568,32 @@ public class Question {
             int operation = (int) (Math.random() * 3);
 
             switch (operation) {
+                //ADDITION
                 case 0:
                     question = num1 + "/" + den1 + " + " + num2 + "/" + den1;
-                    answer = (num1 / den1) + (num2 / den2) + "";
+                    answer = (num1 / den1) + "+" + (num2 / den2);
+                    fractionAnswers(answer, 0, num1, num2, den1, den2);
                     break;
 
                 //SUBTRACTION 
                 case 1:
                     question = num1 + "/" + den1 + " - " + num2 + "/" + den1;
-                    answer = (num1 / den1) - (num2 / den2) + "";
+                    answer = (num1 / den1) + "-" + (num2 / den2);
+                    fractionAnswers(answer, 1, num1, num2, den1, den2);
                     break;
 
                 //MULTIPLICATION
                 case 2:
                     question = num1 + "/" + den1 + " x " + num2 + "/" + den2;
-                    answer = (num1 / den1) * (num2 / den2) + "";
+                    answer = (num1 / den1) + "*" + (num2 / den2);
+                    fractionAnswers(answer, 2, num1, num2, den1, den2);
                     break;
 
             }
         }
 
         if (grade == 5) {
-            int num1 = (int) (Math.random() *11);
+            int num1 = (int) (Math.random() * 11);
             int num2 = (int) (Math.random() * 10) + 1;
             int den1 = (int) (Math.random() * 10) + 1; //to avoid division by 0
             int den2 = (int) (Math.random() * 10) + 1; //to avoid division by 0
@@ -536,34 +601,39 @@ public class Question {
             int operation = (int) (Math.random() * 4);
 
             switch (operation) {
+                //ADDITION
                 case 0:
                     question = num1 + "/" + den1 + " + " + num2 + "/" + den1;
-                    answer = (num1 / den1) + (num2 / den2) + "";
+                    answer = (num1 / den1) + "+" + (num2 / den2);
+                    fractionAnswers(answer, 0, num1, num2, den1, den2);
                     break;
 
                 //SUBTRACTION 
                 case 1:
                     question = num1 + "/" + den1 + " - " + num2 + "/" + den1;
-                    answer = (num1 / den1) - (num2 / den2) + "";
+                    answer = (num1 / den1) + "-" + (num2 / den2);
+                    fractionAnswers(answer, 1, num1, num2, den1, den2);
                     break;
 
                 //MULTIPLICATION
                 case 2:
                     question = num1 + "/" + den1 + " x " + num2 + "/" + den2;
-                    answer = (num1 / den1) * (num2 / den2) + "";
+                    answer = (num1 / den1) + "*" + (num2 / den2);
+                    fractionAnswers(answer, 2, num1, num2, den1, den2);
                     break;
 
                 //DIVISION
                 case 3:
                     question = num1 + "/" + den1 + " / " + num2 + "/" + den2;
-                    answer = (num1 / den1) / (num2 / den2) + "";
+                    answer = (num1 / den1) + "/" + (num2 / den2);
+                    fractionAnswers(answer, 3, num1, num2, den1, den2);
                     break;
 
             }
         }
-        
+
         if (grade == 6) {
-            int num1 = (int) (Math.random() *16);
+            int num1 = (int) (Math.random() * 16);
             int num2 = (int) (Math.random() * 15) + 1;
             int den1 = (int) (Math.random() * 15) + 1; //to avoid division by 0
             int den2 = (int) (Math.random() * 15) + 1; //to avoid division by 0
@@ -571,32 +641,69 @@ public class Question {
             int operation = (int) (Math.random() * 4);
 
             switch (operation) {
+                //ADDITION
                 case 0:
                     question = num1 + "/" + den1 + " + " + num2 + "/" + den1;
-                    answer = (num1 / den1) + (num2 / den2) + "";
+                    answer = (num1 / den1) + "+" + (num2 / den2); 
+                    fractionAnswers(answer, 0, num1, num2, den1, den2);
                     break;
 
                 //SUBTRACTION 
                 case 1:
                     question = num1 + "/" + den1 + " - " + num2 + "/" + den1;
-                    answer = (num1 / den1) - (num2 / den2) + "";
+                    answer = (num1 / den1) + "-" + (num2 / den2);
+                    fractionAnswers(answer, 1, num1, num2, den1, den2);
                     break;
 
                 //MULTIPLICATION
                 case 2:
                     question = num1 + "/" + den1 + " x " + num2 + "/" + den2;
-                    answer = (num1 / den1) * (num2 / den2) + "";
+                    answer = (num1 / den1) + "*" + (num2 / den2);
+                    fractionAnswers(answer, 2, num1, num2, den1, den2);
                     break;
 
                 //DIVISION
                 case 3:
                     question = num1 + "/" + den1 + " / " + num2 + "/" + den2;
-                    answer = (num1 / den1) / (num2 / den2) + "";
+                    answer = (num1 / den1) + "/" + (num2 / den2);
+                    fractionAnswers(answer, 3, num1, num2, den1, den2);
                     break;
 
             }
         }
 
+    }
+
+    public void fractionAnswers(String answer, int type, int num1, int num2, int den1, int den2) {
+
+        if (grade == 2) {
+
+            if (type == 0) {
+                String c1 = (num1 + num2) + "/" + (den1 + den2);
+                String c2 = (num1 + num2 + 1) + "/" + den1;
+                String c3 = (Math.max(num1, num2) - Math.min(num1, num2)) + "/" + den1;
+                
+                choices[0] = answer;
+                choices[1] = c1;
+                choices[2] = c2;
+                choices[3] = c3;
+            }
+            
+            if (type == 1) {
+                String c1 = (num1 - num2) + "/" + (den1 + den2);
+                String c2 = (num1 - num2 + 1) + "/" + den1;
+                String c3 = (num1 + num2) + "/" + den1;
+                
+                choices[0] = answer;
+                choices[1] = c1;
+                choices[2] = c2;
+                choices[3] = c3;
+            }
+        }
+        
+        if (grade == 3) {
+            
+        }
     }
 
     public void shapeCalculation() {
@@ -802,7 +909,7 @@ public class Question {
             input.nextLine();//answer 3
             input.nextLine();//answer 4
             iterator += 1;
-            iterator += 1;
+
         }
 
         question = input.nextLine();
