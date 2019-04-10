@@ -361,7 +361,7 @@ public class Question {
             int y = (int) (Math.random() * 100);
             int z = (int) (Math.random() * 13);
             //These 2 variables will be used for division
-            int u = (int) (Math.random() * 12);
+            int u = (int) (Math.random() * 12) + 1;
             int v = ((int) ((Math.random() * 12) + 1)) * u; //makes sure there is no division by 0 and that all answers are round
 
             int operation = (int) (Math.random() * 4);
