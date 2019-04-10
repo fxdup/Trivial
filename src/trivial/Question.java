@@ -309,7 +309,7 @@ public class Question {
             int z = (int) (Math.random() * 13);
             //These 2 variables will be used for division
             int u = (int) (Math.random() * 5);
-            int v = ((int) ((Math.random() * 10) + 1)) * u;
+            int v = ((int) ((Math.random() * 10) + 1));
 
             int operation = (int) (Math.random() * 4);
 
@@ -340,7 +340,7 @@ public class Question {
                 case 3:
                     //looks for a division that won't have any reminders
                     while (u % v != 0) {
-                        v = (int) (Math.random() * 13);
+                        v = (int) (Math.random() * 13)+1;
                     }
 
                     String division = v + " / " + u;

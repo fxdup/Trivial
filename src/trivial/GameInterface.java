@@ -277,7 +277,7 @@ public class GameInterface extends Pane {
         updateScore();
         sendData();
         countdown.stop();
-        question = questionList.getQuestion(1);
+        question = questionList.getQuestion(localPlayer.getGrade());
         text_question.setText(question.getQuestion());
         answer1.setText(question.getChoices()[0]);
         answer2.setText(question.getChoices()[1]);
