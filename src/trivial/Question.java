@@ -340,12 +340,12 @@ public class Question {
                 case 3:
                     //looks for a division that won't have any reminders
                     while (u % v != 0) {
-                        v = (int) (Math.random() * 13)+1;
+                        v = (int) (Math.random() * 10)+1;
                     }
 
-                    String division = v + " / " + u;
+                    String division = u + " / " + v;
                     question = division;
-                    answer = v / u + "";
+                    answer = u / v + "";
                     arithmeticIntegerAnswers(answer);
                     break;
 
@@ -362,7 +362,7 @@ public class Question {
             int z = (int) (Math.random() * 13);
             //These 2 variables will be used for division
             int u = (int) (Math.random() * 12);
-            int v = ((int) ((Math.random() * 12) + 1)) * u; //makes sure there is no division by 0 and that all answers are round
+            int v = ((int) (Math.random() * 12)) + 1; //makes sure there is no division by 0 and that all answers are round
 
             int operation = (int) (Math.random() * 4);
 
@@ -397,12 +397,12 @@ public class Question {
                 case 3:
                     //looks for a division that won't have any reminders
                     while (u % v != 0) {
-                        v = (int) (Math.random() * 13);
+                        v = (int) (Math.random() * 12)+1;
                     }
 
-                    String division = v + " / " + u;
+                    String division = u + " / " + v;
                     question = division;
-                    answer = v / u + "";
+                    answer = u / v + "";
                     arithmeticIntegerAnswers(answer);
                     break;
 
@@ -420,7 +420,7 @@ public class Question {
             int z = (int) (Math.random() * 100);
             //These 2 variables will be used for division
             int u = (int) (Math.random() * 20);
-            int v = ((int) ((Math.random() * 12) + 1)) * u;
+            int v = ((int) ((Math.random() * 12)) + 1);
 
             int operation = (int) (Math.random() * 4);
 
@@ -453,9 +453,9 @@ public class Question {
                     break;
 
                 case 3:
-                    String division = v + " / " + u;
+                    String division = u + " / " + v;
                     question = division;
-                    answer = v / u + "";
+                    answer = u / v + "";
                     arithmeticIntegerAnswers(answer);
                     break;
 
