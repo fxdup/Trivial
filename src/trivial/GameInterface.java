@@ -166,7 +166,7 @@ public class GameInterface extends Pane {
 
         getChildren().addAll(background, answer1, answer2, answer3, answer4, separation, leaderbar, fillingbar, your_score, current_grade, first_place, questionPane, timerbar, skip);
         startAnimation();
-        updateScoreAnimation = new Timeline(new KeyFrame(Duration.seconds(0.25), e -> {
+        updateScoreAnimation = new Timeline(new KeyFrame(Duration.seconds(0.01), e -> {
             updateScore();
         }));
         updateScoreAnimation.setCycleCount(Animation.INDEFINITE);
@@ -267,6 +267,7 @@ public class GameInterface extends Pane {
     public void winner(){
         for (Player i : localPlayer.getPlayers()) {
             if (i.getScore() >= 1000) {
+                updateScoreAnimation.stop();
                 sendData();
                 ((Game)(getParent())).leaderboard(localPlayer.getPlayers());
             }
