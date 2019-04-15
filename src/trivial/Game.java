@@ -8,6 +8,7 @@ package trivial;
 import static com.sun.javafx.scene.control.skin.Utils.getResource;
 import java.io.FileNotFoundException;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 
 /**
@@ -15,7 +16,7 @@ import javafx.scene.text.Font;
  * @author guill
  */
 
-public class Game extends Pane{
+public class Game extends StackPane{
     int resolution;
     double resfactor;
     public Game(double sound, int resolution,double resfactor) throws FileNotFoundException{
@@ -33,8 +34,8 @@ public class Game extends Pane{
     }
     
     public void leaderboard(Player[] playerList){
-    getChildren().clear();
-        Leaderboard leaderboard=new Leaderboard(playerList);
+        getChildren().clear();
+        Leaderboard leaderboard=new Leaderboard(playerList, resfactor);
         getChildren().add(leaderboard);
     }
 }

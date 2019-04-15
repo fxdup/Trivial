@@ -29,8 +29,8 @@ public class Trivial extends Application{
     public static void main(String[] args){
         launch(args);
     }
-    double sound;
-    double resfactor;
+    double sound=100;
+    double resfactor=1;
     int resolution;
     Game game;
     @Override

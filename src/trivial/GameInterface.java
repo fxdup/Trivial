@@ -67,6 +67,7 @@ public class GameInterface extends Pane {
     private double resfactor;
     private double HEIGHT;
     private double WIDTH;
+    private boolean win=false;
 
     int timerbar_red;
     int timerbar_green;
@@ -74,6 +75,7 @@ public class GameInterface extends Pane {
     Timeline startAnim;
     Timeline updateScoreAnimation;
     KeyFrame color;
+    
 
     private ImageView separation;
 
@@ -105,10 +107,13 @@ public class GameInterface extends Pane {
         
         first_place = new Text();
         first_place.getStyleClass().add("inGameGUI");
+        first_place.setStyle("-fx-font: "+30*resfactor+"px EraserDust;");
         current_grade = new Text();
         current_grade.getStyleClass().add("inGameGUI");
+        current_grade.setStyle("-fx-font: "+30*resfactor+"px EraserDust;");
         your_score = new Text();
         your_score.getStyleClass().add("inGameGUI");
+        your_score.setStyle("-fx-font: "+30*resfactor+" EraserDust;");
 
         first_place.setY(72 * resfactor);
         first_place.setX(WIDTH - 360 * resfactor);
@@ -166,7 +171,7 @@ public class GameInterface extends Pane {
 
         getChildren().addAll(background, answer1, answer2, answer3, answer4, separation, leaderbar, fillingbar, your_score, current_grade, first_place, questionPane, timerbar, skip);
         startAnimation();
-        updateScoreAnimation = new Timeline(new KeyFrame(Duration.seconds(0.25), e -> {
+        updateScoreAnimation = new Timeline(new KeyFrame(Duration.seconds(0.01), e -> {
             updateScore();
         }));
         updateScoreAnimation.setCycleCount(Animation.INDEFINITE);
@@ -250,11 +255,14 @@ public class GameInterface extends Pane {
 
     public void updateScore() {
         first_place.setText("First Place: " + getFirstPlace());
+        
         your_score.setText("Your Score: " + localPlayer.getScore());
         current_grade.setText("Grade " + localPlayer.getGrade());
         fillingbar.setWidth(WIDTH * localPlayer.getScore() / 1000);
         updateIcons();
-        winner();
+        if(!win){
+            winner();
+        }
     }
     
     public void updateIcons(){
@@ -266,7 +274,9 @@ public class GameInterface extends Pane {
 
     public void winner(){
         for (Player i : localPlayer.getPlayers()) {
-            if (i.getScore() >= 1000) {
+            if (i.getScore() >= 100) {
+                win=true;
+                updateScoreAnimation.stop();
                 sendData();
                 ((Game)(getParent())).leaderboard(localPlayer.getPlayers());
             }
@@ -349,6 +359,7 @@ public class GameInterface extends Pane {
             answer_rectangle = new Rectangle(WIDTH / 2, HEIGHT / 4 - 50*resfactor,Color.rgb(96, 139, 109));
             answer_text = new Text();
             answer_text.getStyleClass().add("inGameGUI");
+            answer_text.setStyle("-fx-font: "+40*resfactor+"px EraserDust;");
             this.getChildren().addAll(answer_rectangle, answer_text);
             this.setLayoutX(layoutX);
             this.setLayoutY(LayoutY);
