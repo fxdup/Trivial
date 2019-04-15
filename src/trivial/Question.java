@@ -226,7 +226,7 @@ public class Question {
             }
         }
 
-        if (this.grade == 2) {
+        if (this.grade == 2) { //MISTAKE HERE
 
             int x = (int) (Math.random() * 100);//variable 1 for calculations. This variable will be 2 digits
             int y = (int) (Math.random() * 10); //variable 2 for calculations. This variable will be 1 digit
@@ -244,14 +244,14 @@ public class Question {
 
                 case 1:
                     String subtraction;
-                    if (x >= y && x < 10) { //to make sure it is a double digit subtracting a single digit resulting in a postive answer
+                    if (x >= y) { //to make sure it is a double digit subtracting a single digit resulting in a postive answer
                         x = x + 10;
                         subtraction = x + " - " + y;
                         question = subtraction; //puts the global variable "question" equal to the subtaction
                         answer = x - y + ""; //this is the true value of the operation
                         arithmeticIntegerAnswers(answer);
                         break;
-                    } else if (x < y && y < 10) { //to make sure it is a double digit subtracting a single digit resulting in a postive answer
+                    } else if (x < y) { //to make sure it is a double digit subtracting a single digit resulting in a postive answer
                         y = y + 10;
                         subtraction = y + " - " + x;
                         question = subtraction; //puts the global variable "question" equal to the subtaction
@@ -801,7 +801,7 @@ public class Question {
             }
         }
 
-        if (this.grade == 5) {
+        if (this.grade == 5) { //MISTAKE HERE
 
             if (numericalAnswer < 10.0 && numericalAnswer > 2.0) {
 
@@ -813,7 +813,9 @@ public class Question {
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
-            } else if (numericalAnswer < 3.0) {
+                
+                //System.out.println("mistake A:");
+            } else if (numericalAnswer <= 2.0) {
 
                 String c1 = String.format("%.3s", numericalAnswer + 1 + "");
                 String c2 = String.format("%.3s", numericalAnswer + 1 + "");
@@ -823,7 +825,10 @@ public class Question {
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
-            } else if (numericalAnswer > 9.0 && numericalAnswer < 100.0) {
+                
+                //System.out.println("mistake B:");
+                
+            } else if (numericalAnswer > 9.9 && numericalAnswer < 100.0) {
 
                 double minRange = numericalAnswer - (0.2 * numericalAnswer);
                 double maxRange = numericalAnswer + (0.2 * numericalAnswer);
@@ -836,7 +841,10 @@ public class Question {
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
-            } else if (numericalAnswer > 99.9 && numericalAnswer < 1001.0) {
+                
+                //System.out.println("mistake C:");
+                
+            } else if (numericalAnswer > 99.9 ) {
 
                 double minRange = numericalAnswer - (0.2 * numericalAnswer);
                 double maxRange = numericalAnswer + (0.2 * numericalAnswer);
@@ -849,11 +857,12 @@ public class Question {
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
+                
+                //System.out.println("mistake D:");
             }
-
         }
 
-        if (grade == 6) {
+        if (grade == 6) { //MISTAKE HERE
             if (numericalAnswer < 10.00 && numericalAnswer > 2.00) {
 
                 String c1 = String.format("%.4s", numericalAnswer - 2 + "");
@@ -882,6 +891,21 @@ public class Question {
                 String c1 = String.format("%.5s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
                 String c2 = String.format("%.5s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
                 String c3 = String.format("%.5s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+
+                choices[0] = answer;
+                choices[1] = c1;
+                choices[2] = c2;
+                choices[3] = c3;
+            }
+            
+            else if(numericalAnswer > 99.99) {
+                
+                double minRange = numericalAnswer - (0.2 * numericalAnswer);
+                double maxRange = numericalAnswer + (0.2 * numericalAnswer);
+
+                String c1 = String.format("%.6s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+                String c2 = String.format("%.6s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
+                String c3 = String.format("%.6s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
 
                 choices[0] = answer;
                 choices[1] = c1;
