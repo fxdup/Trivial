@@ -52,7 +52,6 @@ public class Menu extends StackPane{
         this.sound=sound;
         this.resolution=resolution;
         this.resfactor=resfactor;
-        System.out.println(resfactor);
         ImageView back = new ImageView(new Image("/Resources/board.png"));
         back.setFitWidth(1920*resfactor);
         back.setFitHeight(1080*resfactor);

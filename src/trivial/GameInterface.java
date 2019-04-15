@@ -63,6 +63,8 @@ public class GameInterface extends Pane {
     private Rectangle timerbar;
     private Rectangle skip_button;
     private Circle[] icons;
+    private ImageView[] streakIcons;
+    private ImageView crown;
     private boolean paused;
     private double resfactor;
     private double HEIGHT;
@@ -166,10 +168,10 @@ public class GameInterface extends Pane {
 
         getChildren().addAll(background, answer1, answer2, answer3, answer4, separation, leaderbar, fillingbar, your_score, current_grade, first_place, questionPane, timerbar, skip);
         startAnimation();
-        updateScoreAnimation = new Timeline(new KeyFrame(Duration.seconds(0.01), e -> {
-            updateScore();
-        }));
-        updateScoreAnimation.setCycleCount(Animation.INDEFINITE);
+//        updateScoreAnimation = new Timeline(new KeyFrame(Duration.seconds(0.01), e -> {
+//            updateScore();
+//        }));
+//        updateScoreAnimation.setCycleCount(Animation.INDEFINITE);
         
     }
 
@@ -186,7 +188,7 @@ public class GameInterface extends Pane {
                 drawCircles();
                 getChildren().remove(startAnimTime);
                 startAnim.stop();
-                updateScoreAnimation.play();
+//                updateScoreAnimation.play();
             }
         }));
         startAnim.setCycleCount(Animation.INDEFINITE);
@@ -196,13 +198,20 @@ public class GameInterface extends Pane {
     }
     
     public void drawCircles(){
-    icons = new Circle[localPlayer.getPlayers().length+1];
-    for (int i=1;i<icons.length;i++) {
-            icons[i]=new Circle(fillingbar.getX()+fillingbar.getWidth()/2,fillingbar.getY()+fillingbar.getHeight()/2,fillingbar.getHeight()*2/3,localPlayer.getPlayers()[i-1].getColor());
-            getChildren().add(icons[i]);
+    crown = new ImageView(new Image("/Resources/crown.png"));
+    icons = new Circle[localPlayer.getPlayers().length];
+    streakIcons=new ImageView[localPlayer.getPlayers().length];
+    for (int i=0;i<icons.length;i++) {
+            icons[i]=new Circle(fillingbar.getX()+fillingbar.getWidth()/2,fillingbar.getY()+fillingbar.getHeight()/2,fillingbar.getHeight()*2/3,localPlayer.getPlayers()[i].getColor());
+            streakIcons[i] = new ImageView(new Image("/Resources/Streak_star.png"));
+            streakIcons[i].setX(icons[i].getCenterX()-icons[i].getRadius());
+            streakIcons[i].setY(icons[i].getCenterY()-icons[i].getRadius());
+            streakIcons[i].setVisible(false);
+            getChildren().addAll(icons[i],streakIcons[i]);
         }
-        icons[0]=new Circle(fillingbar.getX()+fillingbar.getWidth()/2,fillingbar.getY()+fillingbar.getHeight()/2,fillingbar.getHeight()*2/3,localPlayer.getColor());
-        getChildren().add(icons[0]);
+        crown.setY(fillingbar.getY()-33*19/20);
+        crown.setX(icons[0].getCenterX()-43/2);
+        getChildren().add(crown);
     }
 
     public void timeAnimation(int time) {
@@ -249,7 +258,7 @@ public class GameInterface extends Pane {
     }
 
     public void updateScore() {
-        first_place.setText("First Place: " + getFirstPlace());
+        first_place.setText("First Place: " + getFirstPlace().getName());
         your_score.setText("Your Score: " + localPlayer.getScore());
         current_grade.setText("Grade " + localPlayer.getGrade());
         fillingbar.setWidth(WIDTH * localPlayer.getScore() / 1000);
@@ -258,9 +267,17 @@ public class GameInterface extends Pane {
     }
     
     public void updateIcons(){
-        icons[0].setCenterX(WIDTH * localPlayer.getScore() / 1000);
-        for(int i=1;i<icons.length;i++){
-        icons[i].setCenterX(WIDTH * localPlayer.getPlayers()[i-1].getScore() / 1000);
+
+        for(int i=0;i<icons.length;i++){
+        icons[i].setCenterX(WIDTH * localPlayer.getPlayers()[i].getScore() / 1000);
+        if(localPlayer.getPlayers()[i].getGrade()==6){
+            streakIcons[i].setX(icons[i].getCenterX()-icons[i].getRadius());
+            streakIcons[i].setVisible(true);
+        }
+        else if(streakIcons[i].isVisible())
+            streakIcons[i].setVisible(false);
+        if(localPlayer.getPlayers()[i].equals(getFirstPlace()))
+        crown.setX(icons[i].getCenterX()-43/2);
         }
     }
 
@@ -274,8 +291,8 @@ public class GameInterface extends Pane {
         }
     }
     public void nextQuestion() {
-        updateScore();
-        sendData();
+//        updateScore();
+//        sendData();
         countdown.stop();
         question = questionList.getQuestion(localPlayer.getGrade());
         text_question.setText(question.getQuestion());
@@ -305,14 +322,14 @@ public class GameInterface extends Pane {
         answer4.setText("");
     }
 
-    public String getFirstPlace() {
+    public Player getFirstPlace() {
         Player max = localPlayer;
         for (Player i : localPlayer.getPlayers()) {
             if (i.getScore() > max.getScore()) {
                 max = i;
             }
         }
-        return max.getName();
+        return max;
     }
 
     public void goodAnswer() {
@@ -326,6 +343,8 @@ public class GameInterface extends Pane {
         anstran4.play();
         localPlayer.addScore(question.getScore());
         localPlayer.graduate();
+        sendData();
+        updateScore();
         nextQuestion();
     }
 
@@ -339,6 +358,8 @@ public class GameInterface extends Pane {
         anstran3.play();
         anstran4.play();
         localPlayer.resetGrade();
+        sendData();
+        updateScore();
     }
 
     class AnswerPane extends StackPane {

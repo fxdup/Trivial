@@ -68,7 +68,8 @@ public class ClientPlayer extends Player {
                     if(o instanceof Player){
                     Player player = (Player) o;
                     addPlayer(player);
-//                    ((GameInterface)game.getChildren().get(0)).updateScore();
+                    if(game.isPlaying())
+                    ((GameInterface)game.getChildren().get(0)).updateScore();
                     }
                     else if(o instanceof String){Platform.runLater(()->{
                             game.startGame(false,getThis());
@@ -76,6 +77,19 @@ public class ClientPlayer extends Player {
                     });
                     }
                 }
+            }
+                catch (java.net.SocketException ex) {
+                
+                        read=false;
+                        Platform.runLater(()->{
+
+                            try {
+                                game.disconnected(getThis());
+                            } catch (FileNotFoundException ex1) {
+                                Logger.getLogger(ClientPlayer.class.getName()).log(Level.SEVERE, null, ex1);
+                            }
+                    });
+                
             } catch (IOException ex) {
                 Logger.getLogger(ClientPlayer.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

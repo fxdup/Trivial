@@ -35,6 +35,7 @@ public class QuestionList {
             if (i < 35) {
                 gradeQuestions[4].add(new Question(5));
             }
+            System.out.println(gradeQuestions[5].get(i).getChoices()[0]);
         }
 
         //Shuffuling the questions

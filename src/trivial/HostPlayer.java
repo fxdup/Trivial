@@ -1,5 +1,6 @@
 package trivial;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,6 +12,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 
 public class HostPlayer extends Player implements Serializable {
 
@@ -110,6 +112,7 @@ public class HostPlayer extends Player implements Serializable {
         ObjectInputStream input;
         ObjectOutputStream output;
         Player player;
+        boolean read=true;
 
         DataReceiver(Socket socket, ObjectOutputStream output) {
             this.socket = socket;
@@ -121,20 +124,31 @@ public class HostPlayer extends Player implements Serializable {
             try {
                 input = new ObjectInputStream(socket.getInputStream());
                 output.writeInt(outputs.indexOf(output) + 1);
-                while (true) {
+                while (read) {
                     Object o = input.readObject();
                     if (o instanceof Player) {
                         player= (Player) o;
                         addPlayer(player);
                         sendData(player);
+                        if(game.isPlaying())
+                            ((GameInterface)game.getChildren().get(0)).updateScore();
                     }
                 }
             } catch (java.net.SocketException ex) {
-                outputs.remove(output);
-                try {
-                    output.close();
-                } catch (IOException ex1) {
-                    Logger.getLogger(HostPlayer.class.getName()).log(Level.SEVERE, null, ex1);
+                read=false;
+                outputs.remove(outputs.indexOf(output));
+                connectedSockets.remove(socket);
+                if(game.isPlaying()){
+                if(outputs.size()<1){
+                    Platform.runLater(()->{
+
+                            try {
+                                game.disconnected(getThis());
+                            } catch (FileNotFoundException ex1) {
+                                Logger.getLogger(ClientPlayer.class.getName()).log(Level.SEVERE, null, ex1);
+                            }
+                    });
+                }
                 }
                 
             }catch (IOException ex) {

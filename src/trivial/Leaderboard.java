@@ -12,7 +12,7 @@ public class Leaderboard extends Pane {
     private Player[] players;
 
     public Leaderboard(Player[] players){
-        players = new Player[players.length];
+        this.players = new Player[players.length];
         System.arraycopy(players, 0, this.players, 0, players.length);
         try {
             exportScore();

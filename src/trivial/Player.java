@@ -133,6 +133,10 @@ public class Player implements Serializable, Cloneable {
             players.set(players.indexOf(player), player);
         }
     }
+    
+    public void removePlayer(Player player){
+    players.remove(player);
+    }
 
     
     public Player[] getPlayers() {
