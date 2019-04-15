@@ -274,8 +274,7 @@ public class GameInterface extends Pane {
 
     public void winner(){
         for (Player i : localPlayer.getPlayers()) {
-            if (i.getScore() >= 100) {
-                win=true;
+            if (i.getScore() >= 1000) {
                 updateScoreAnimation.stop();
                 sendData();
                 ((Game)(getParent())).leaderboard(localPlayer.getPlayers());
@@ -286,7 +285,7 @@ public class GameInterface extends Pane {
         updateScore();
         sendData();
         countdown.stop();
-        question = questionList.getQuestion(1);
+        question = questionList.getQuestion(localPlayer.getGrade());
         text_question.setText(question.getQuestion());
         answer1.setText(question.getChoices()[0]);
         answer2.setText(question.getChoices()[1]);
