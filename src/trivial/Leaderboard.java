@@ -19,7 +19,7 @@ public class Leaderboard extends VBox {
 
     private Player[] players;
     private double resfactor;
-
+    
     public Leaderboard(Player[] player, double resfactor){
         this.resfactor=resfactor;
         this.players = new Player[player.length];

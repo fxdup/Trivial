@@ -31,8 +31,6 @@ public class Question {
     private int grade;
     private String question;
     private String answer;
-    /* do we need this??*/
-    private String[][] questions; //this 2 dimensional array stores all the questions for each grade. This array will then be shuffled.
     private String[] choices;
     private static int[] countKeeper = {0, 0, 0, 0, 0, 0}; //keeps the count of which question has been read from the file for each grade.
     private int iterator = 0;
@@ -170,7 +168,6 @@ public class Question {
     public void math() {
 
         int mathType = (int) (Math.random() * 6);
-
         switch (type) {
 
             case 0:
@@ -746,6 +743,11 @@ public class Question {
             String c1 = (num1 * num2) + "/" + (den1 * den2);
             String c2 = (num1 * den1) + "/" + (num2 * den2);
             String c3 = (den1 * den2) + "/" + (num1 * num2);
+            
+            choices[0] = answer;
+            choices[1] = c1;
+            choices[2] = c2;
+            choices[3] = c3;
         }
         //shuffles the order of the answers 
         shuffle();
@@ -856,7 +858,6 @@ public class Question {
 
         if (grade == 6) {
             if (numericalAnswer < 10.00 && numericalAnswer > 2.00) {
-
                 String c1 = String.format("%.4s", numericalAnswer - 2 + "");
                 String c2 = String.format("%.4s", numericalAnswer - 1 + "");
                 String c3 = String.format("%.4s", numericalAnswer + 1 + "");
@@ -866,7 +867,7 @@ public class Question {
                 choices[2] = c2;
                 choices[3] = c3;
             } else if (numericalAnswer < 3.0) {
-
+                System.out.println("b");
                 String c1 = String.format("%.4s", numericalAnswer + 1 + "");
                 String c2 = String.format("%.4s", numericalAnswer + 1 + "");
                 String c3 = String.format("%.4s", numericalAnswer + 1 + "");
@@ -876,10 +877,10 @@ public class Question {
                 choices[2] = c2;
                 choices[3] = c3;
             } else if (numericalAnswer > 9.00 && numericalAnswer < 100.00) {
-
+                System.out.println("c");
                 double minRange = numericalAnswer - (0.2 * numericalAnswer);
                 double maxRange = numericalAnswer + (0.2 * numericalAnswer);
-
+                
                 String c1 = String.format("%.5s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
                 String c2 = String.format("%.5s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
                 String c3 = String.format("%.5s", (Math.random() * maxRange) - (Math.random() * minRange) + "");
