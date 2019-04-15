@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -91,7 +92,9 @@ public class Leaderboard extends VBox {
                 podium.getChildren().addAll(first_text,second_text,third_text);
             }
         }
-        VBox listingNames = new VBox();
+        GridPane listingNames = new GridPane();
+        listingNames.setHgap(600*resfactor);
+        listingNames.setVgap(10*resfactor);
         ScrollPane scroll = new ScrollPane();
         scroll.setPrefSize(920*resfactor, 650*resfactor);
         scroll.setMaxHeight(620*resfactor);
@@ -99,16 +102,12 @@ public class Leaderboard extends VBox {
         scroll.setContent(listingNames);
         Text[] names = new Text[players.length];
         Text[] scores = new Text[players.length];
-        HBox[] names_scores = new HBox[players.length];
         for(int i=0;i<players.length;i++){
             names[i] = new Text(players[i].getName());
             names[i].setStyle("-fx-font: "+45*resfactor+"px EraserDust;");
             scores[i] = new Text(Integer.toString(players[i].getScore()));
             scores[i].setStyle("-fx-font: "+45*resfactor+"px EraserDust;");
-            names_scores[i] = new HBox();
-            names_scores[i].getChildren().addAll(names[i],scores[i]);
-            names_scores[i].setSpacing(100*resfactor);
-            listingNames.getChildren().add(names_scores[i]);
+            listingNames.addRow(i, names[i],scores[i]);
         }
         
         
