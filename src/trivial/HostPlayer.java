@@ -139,7 +139,7 @@ public class HostPlayer extends Player implements Serializable {
                 outputs.remove(outputs.indexOf(output));
                 connectedSockets.remove(socket);
                 if(game.isPlaying()){
-                if(outputs.size()<1){
+                if(connectedSockets.size()<1){
                     Platform.runLater(()->{
 
                             try {

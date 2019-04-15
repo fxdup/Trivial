@@ -36,7 +36,7 @@ public class Question {
     private int iterator = 0;
     private static int[] numberOfQuestions = {-1, -1, -1, -1, -1, -1};
 
-    public Question(int grade) throws FileNotFoundException{
+    public Question(int grade) throws FileNotFoundException {
         this.grade = grade;
         choices = new String[4];
         /*
@@ -84,7 +84,6 @@ public class Question {
 //
 //                numberOfQuestions[grade - 1]++;
 //            }
-
         }
         if (grade == 1) {
             if (iterator < countKeeper[grade - 1]) {
@@ -337,7 +336,7 @@ public class Question {
                 case 3:
                     //looks for a division that won't have any reminders
                     while (u % v != 0) {
-                        v = (int) (Math.random() * 10)+1;
+                        v = (int) (Math.random() * 10) + 1;
                     }
 
                     String division = u + " / " + v;
@@ -395,7 +394,7 @@ public class Question {
                 case 3:
                     //looks for a division that won't have any reminders
                     while (u % v != 0) {
-                        v = (int) (Math.random() * 12)+1;
+                        v = (int) (Math.random() * 12) + 1;
                     }
 
                     String division = u + " / " + v;
@@ -451,6 +450,9 @@ public class Question {
                     break;
 
                 case 3:
+                    while (u % v != 0) {
+                        v = (int) (Math.random() * 12) + 1;
+                    }
                     String division = u + " / " + v;
                     question = division;
                     answer = u / v + "";
@@ -714,12 +716,12 @@ public class Question {
 
         }
         //creating wrong answers for subtraction of fractions for grades 3 and over
-        if(grade >= 3 && type == 1) {
-            
+        if (grade >= 3 && type == 1) {
+
             String c1 = (num1 - num2) + "/" + (den1 * den2);
             String c2 = (num1 - num2) + "/" + (den1 - den2);
             String c3 = ((num1 * den1) - (num2 * den2)) + "/" + (den1 * den2);
-            
+
             choices[0] = answer;
             choices[1] = c1;
             choices[2] = c2;
@@ -727,19 +729,19 @@ public class Question {
         }
         //creating wrong answers for multiplication of fractions for grades 3 and over
         if (grade >= 3 && type == 2) {
-            
+
             String c1 = (num1 * num2) + "/" + (den1 + den2);
             String c2 = (num1 + num2) + "/" + (den1 + den2);
             String c3 = ((num1 * den2) + (num2 * den1)) + "/" + (den1 * den2);
-            
+
             choices[0] = answer;
             choices[1] = c1;
             choices[2] = c2;
             choices[3] = c3;
-        } 
-        
-        if (grade >=3 && type == 3) {
-            
+        }
+
+        if (grade >= 3 && type == 3) {
+
             String c1 = (num1 * num2) + "/" + (den1 * den2);
             String c2 = (num1 * den1) + "/" + (num2 * den2);
             String c3 = (den1 * den2) + "/" + (num1 * num2);
@@ -816,7 +818,7 @@ public class Question {
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
-                
+
                 //System.out.println("mistake A:");
             } else if (numericalAnswer <= 2.0) {
 
@@ -828,9 +830,8 @@ public class Question {
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
-                
+
                 //System.out.println("mistake B:");
-                
             } else if (numericalAnswer > 9.9 && numericalAnswer < 100.0) {
 
                 double minRange = numericalAnswer - (0.2 * numericalAnswer);
@@ -844,10 +845,9 @@ public class Question {
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
-                
+
                 //System.out.println("mistake C:");
-                
-            } else if (numericalAnswer > 99.9 ) {
+            } else if (numericalAnswer > 99.9) {
 
                 double minRange = numericalAnswer - (0.2 * numericalAnswer);
                 double maxRange = numericalAnswer + (0.2 * numericalAnswer);
@@ -860,7 +860,7 @@ public class Question {
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
-                
+
                 //System.out.println("mistake D:");
             }
         }
@@ -898,10 +898,8 @@ public class Question {
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
-            }
-            
-            else if(numericalAnswer > 99.99) {
-                
+            } else if (numericalAnswer > 99.99) {
+
                 double minRange = numericalAnswer - (0.2 * numericalAnswer);
                 double maxRange = numericalAnswer + (0.2 * numericalAnswer);
 
@@ -916,7 +914,7 @@ public class Question {
             }
 
         }
-        
+
         shuffle(); //shuffles the order of the answers so that the answer is not always at the same place
 
     }
@@ -959,10 +957,9 @@ public class Question {
             choices[1] = c1;
             choices[2] = c2;
             choices[3] = c3;
-            
-            
+
         }
-        
+
         shuffle(); //shuffles the order of the answers so that the answer is not always at the same place
 
     }
@@ -973,7 +970,6 @@ public class Question {
     generate a number, if == 1 --> math question, if > 1 it will be a question of either science general 
     and logic
      */
-
     public void readFile(File file) throws FileNotFoundException {
 
         Scanner input = new Scanner(file);
@@ -1013,24 +1009,30 @@ public class Question {
         }
 
     }
-    public int getTime(){
-        switch(grade){
-            case 1 : return 7;
-            case 2 : 
-            case 3 : return 8;
-            case 4 : 
-            case 5 : return 9;
-            case 6 : return 10;
-            default : return -1;
+
+    public int getTime() {
+        switch (grade) {
+            case 1:
+                return 7;
+            case 2:
+            case 3:
+                return 8;
+            case 4:
+            case 5:
+                return 9;
+            case 6:
+                return 10;
+            default:
+                return -1;
         }
     }
+
     public void shuffle() {
 
         ArrayList<String> unshuffled = new ArrayList<String>(Arrays.asList(choices));
         Collections.shuffle(unshuffled);
         choices = unshuffled.toArray(new String[unshuffled.size()]);
     }
-    
 
     public int getScore() {
         switch (grade) {
