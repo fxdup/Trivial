@@ -209,13 +209,17 @@ public class GameInterface extends Pane {
     for (int i=0;i<icons.length;i++) {
             icons[i]=new Circle(fillingbar.getX()+fillingbar.getWidth()/2,fillingbar.getY()+fillingbar.getHeight()/2,fillingbar.getHeight()*2/3,localPlayer.getPlayers()[i].getColor());
             streakIcons[i] = new ImageView(new Image("/Resources/Streak_star.png"));
+            streakIcons[i].setFitHeight(24*resfactor);
+            streakIcons[i].setFitWidth(24*resfactor);
             streakIcons[i].setX(icons[i].getCenterX()-icons[i].getRadius());
             streakIcons[i].setY(icons[i].getCenterY()-icons[i].getRadius());
             streakIcons[i].setVisible(false);
             getChildren().addAll(icons[i],streakIcons[i]);
         }
-        crown.setY(fillingbar.getY()-33*19/20);
-        crown.setX(icons[0].getCenterX()-43/2);
+        crown.setFitWidth(43*resfactor);
+        crown.setFitHeight(33*resfactor);
+        crown.setY(fillingbar.getY()-crown.getFitHeight()*19/20);
+        crown.setX(icons[0].getCenterX()-crown.getFitWidth()/2);
         getChildren().add(crown);
     }
 
@@ -284,7 +288,7 @@ public class GameInterface extends Pane {
         else if(streakIcons[i].isVisible())
             streakIcons[i].setVisible(false);
         if(localPlayer.getPlayers()[i].equals(getFirstPlace()))
-        crown.setX(icons[i].getCenterX()-43/2);
+        crown.setX(icons[i].getCenterX()-crown.getFitWidth()/2);
         }
     }
 
@@ -292,6 +296,7 @@ public class GameInterface extends Pane {
         for (Player i : localPlayer.getPlayers()) {
             if (i.getScore() >= 1000) {
 //                updateScoreAnimation.stop();
+                win=true;
                 sendData();
                 ((Game)(getParent())).leaderboard(localPlayer.getPlayers());
             }
