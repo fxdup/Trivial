@@ -128,7 +128,7 @@ public class GameInterface extends Pane {
         background.setFitWidth(1920 * resfactor);
         background.setFitHeight(1080 * resfactor);
 
-        separation = new ImageView(new Image("file:ChalkLine.png"));
+        separation = new ImageView(new Image("/Resources/ChalkLine.png"));
         separation.setFitWidth(WIDTH);
         separation.setFitHeight(HEIGHT / 2 - 100 * resfactor);
         separation.setX(0);
