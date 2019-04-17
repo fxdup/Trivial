@@ -102,6 +102,7 @@ public class Leaderboard extends VBox {
         scroll.setContent(listingNames);
         Text[] names = new Text[players.length];
         Text[] scores = new Text[players.length];
+        
         for(int i=0;i<players.length;i++){
             names[i] = new Text(players[i].getName());
             names[i].setStyle("-fx-font: "+45*resfactor+"px EraserDust;");
