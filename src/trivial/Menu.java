@@ -127,7 +127,7 @@ public class Menu extends StackPane{
         });
         
         Text sound = new Text("Sound");
-        sound.getStyleClass().add("submenu");
+        sound.getStyleClass().addAll("submenu");
         sound.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
         
         Text back = new Text("Back");
@@ -139,11 +139,11 @@ public class Menu extends StackPane{
         });
         
         Text resolution_button = new Text("Size: "+resolution_text);
-        resolution_button.getStyleClass().add("submenu");
+        resolution_button.getStyleClass().addAll("submenu","redHover");
         resolution_button.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
         
         Text confirm = new Text("Confirm");
-        confirm.getStyleClass().add("submenu");
+        confirm.getStyleClass().addAll("submenu","blueHover");
         confirm.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
         
         resolution_button.setOnMouseClicked(e->{
@@ -261,7 +261,12 @@ public class Menu extends StackPane{
         port.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
         ipt.setMaxWidth(1000*resfactor);
         portt.setMaxWidth(1000*resfactor);
-        menu.getChildren().addAll(ip,ipt,port,portt,number_of_players,start);
+        Text back = new Text("Back");
+        HBox startback = new HBox();
+        startback.getChildren().addAll(start,back);
+        startback.setAlignment(Pos.CENTER);
+        startback.setSpacing(40*resfactor);
+        menu.getChildren().addAll(ip,ipt,port,portt,number_of_players,startback);
         waiting=true;
         Timeline playerCount=new Timeline(new KeyFrame(Duration.seconds(1),e->{
         number_of_players.setText("Players joined : "+(((HostPlayer)me).getPlayerSize()+1)+"/40");
@@ -275,8 +280,11 @@ public class Menu extends StackPane{
             start(true);
         });
         
-        
-        
+        back.getStyleClass().addAll("submenu","yellowHover");
+        back.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
+        back.setOnMouseClicked(e->{
+            Host();
+        });
     }
 
     private void Joining() throws UnknownHostException {
@@ -301,7 +309,12 @@ public class Menu extends StackPane{
         port.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
         ipt.setMaxWidth(1000*resfactor);
         portt.setMaxWidth(1000*resfactor);
-        menu.getChildren().addAll(ip,ipt,port,portt,error,join);
+        Text back = new Text("Back");
+        HBox joinback = new HBox();
+        joinback.getChildren().addAll(join,back);
+        joinback.setAlignment(Pos.CENTER);
+        joinback.setSpacing(40*resfactor);
+        menu.getChildren().addAll(ip,ipt,port,portt,error,joinback);
         
         join.setOnMouseClicked(e->{
             
@@ -315,6 +328,13 @@ public class Menu extends StackPane{
             }
             
             
+        });
+        
+        
+        back.getStyleClass().addAll("submenu","yellowHover");
+        back.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
+        back.setOnMouseClicked(e->{
+            Join();
         });
     }
 
