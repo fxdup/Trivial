@@ -124,11 +124,11 @@ public class GameInterface extends Pane {
         your_score.setY(72 * resfactor);
         your_score.setX(5 * resfactor);
 
-        background = new ImageView(new Image("/Resources/background_image.jpg"));
+        background = new ImageView(new Image("/Resources/Images/background_image.jpg"));
         background.setFitWidth(1920 * resfactor);
         background.setFitHeight(1080 * resfactor);
 
-        separation = new ImageView(new Image("/Resources/ChalkLine.png"));
+        separation = new ImageView(new Image("/Resources/Images/ChalkLine.png"));
         separation.setFitWidth(WIDTH);
         separation.setFitHeight(HEIGHT / 2 - 100 * resfactor);
         separation.setX(0);
@@ -197,12 +197,12 @@ public class GameInterface extends Pane {
     }
     
     public void drawCircles(){
-    crown = new ImageView(new Image("/Resources/crown.png"));
+    crown = new ImageView(new Image("/Resources/Images/crown.png"));
     icons = new Circle[localPlayer.getPlayers().length];
     streakIcons=new ImageView[localPlayer.getPlayers().length];
     for (int i=0;i<icons.length;i++) {
             icons[i]=new Circle(fillingbar.getX()+fillingbar.getWidth()/2,fillingbar.getY()+fillingbar.getHeight()/2,fillingbar.getHeight()*2/3,localPlayer.getPlayers()[i].getColor());
-            streakIcons[i] = new ImageView(new Image("/Resources/Streak_star.png"));
+            streakIcons[i] = new ImageView(new Image("/Resources/Images/Streak_star.png"));
             streakIcons[i].setFitHeight(24*resfactor);
             streakIcons[i].setFitWidth(24*resfactor);
             streakIcons[i].setX(icons[i].getCenterX()-icons[i].getRadius());

@@ -52,11 +52,11 @@ public class Menu extends StackPane{
         this.sound=sound;
         this.resolution=resolution;
         this.resfactor=resfactor;
-        ImageView back = new ImageView(new Image("/Resources/board.png"));
+        ImageView back = new ImageView(new Image("/Resources/Images/board.png"));
         back.setFitWidth(1920*resfactor);
         back.setFitHeight(1080*resfactor);
         
-        ImageView sky = new ImageView(new Image("/Resources/background_image.jpg"));
+        ImageView sky = new ImageView(new Image("/Resources/Images/background_image.jpg"));
         sky.setFitWidth(1920*resfactor);
         sky.setFitHeight(1080*resfactor);
         
@@ -280,7 +280,7 @@ public class Menu extends StackPane{
             start(true);
         });
         
-        back.getStyleClass().addAll("submenu","yellowHover");
+        back.getStyleClass().addAll("textField","yellowHover");
         back.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
         back.setOnMouseClicked(e->{
             playerCount.stop();
@@ -338,7 +338,7 @@ public class Menu extends StackPane{
         });
         
         
-        back.getStyleClass().addAll("submenu","yellowHover");
+        back.getStyleClass().addAll("textField","yellowHover");
         back.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
         back.setOnMouseClicked(e->{
             Join();

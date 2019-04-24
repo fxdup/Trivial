@@ -53,27 +53,27 @@ public class Question {
 
             if (grade == 1) {
                 numberOfQuestions[grade - 1]++; //bring the value to 0
-                file = new File("grade1.txt");
+                file = new File("src/Resources/Questions/grade1.txt");
             }
             if (grade == 2) {
                 numberOfQuestions[grade - 1]++; //bring the value to 0
-                file = new File("grade2.txt");
+                file = new File("src/Resources/Questions/grade2.txt");
             }
             if (grade == 3) {
                 numberOfQuestions[grade - 1]++; //bring the value to 0
-                file = new File("grade3.txt");
+                file = new File("src/Resources/Questions/grade3.txt");
             }
             if (grade == 4) {
                 numberOfQuestions[grade - 1]++; //bring the value to 0
-                file = new File("grade4.txt");
+                file = new File("src/Resources/Questions/grade4.txt");
             }
             if (grade == 5) {
                 numberOfQuestions[grade - 1]++; //bring the value to 0
-                file = new File("grade5.txt");
+                file = new File("src/Resources/Questions/grade5.txt");
             }
             if (grade == 6) {
                 numberOfQuestions[grade - 1]++; //bring the value to 0
-                file = new File("grade6.txt");
+                file = new File("src/Resources/Questions/grade6.txt");
             }
 
             Scanner input = new Scanner(file);
@@ -91,7 +91,7 @@ public class Question {
         }
         if (grade == 1) {
             if (iterator < countKeeper[grade - 1]) {
-                File file = new File("grade1.txt");
+                File file = new File("src/Resources/Questions/grade1.txt");
                 readFile(file);
             } else {
                 math();
@@ -100,7 +100,7 @@ public class Question {
 
         if (grade == 2) {
             if (iterator < countKeeper[grade - 1]) {
-                File file = new File("grade2.txt");
+                File file = new File("src/Resources/Questions/grade2.txt");
                 readFile(file);
             } else {
                 math();
@@ -109,7 +109,7 @@ public class Question {
 
         if (grade == 3) {
             if (iterator < countKeeper[grade - 1]) {
-                File file = new File("grade3.txt");
+                File file = new File("src/Resources/Questions/grade3.txt");
                 readFile(file);
             } else {
                 math();
@@ -118,7 +118,7 @@ public class Question {
 
         if (grade == 4) {
             if (iterator < countKeeper[grade - 1]) {
-                File file = new File("grade4.txt");
+                File file = new File("src/Resources/Questions/grade4.txt");
                 readFile(file);
             } else {
                 math();
@@ -127,7 +127,7 @@ public class Question {
 
         if (grade == 5) {
             if (iterator < countKeeper[grade - 1]) {
-                File file = new File("grade5.txt");
+                File file = new File("src/Resources/Questions/grade5.txt");
                 readFile(file);
             } else {
                 math();
@@ -136,7 +136,7 @@ public class Question {
 
         if (grade == 6) {
             if (iterator < countKeeper[grade - 1]) {
-                File file = new File("grade6.txt");
+                File file = new File("src/Resources/Questions/grade6.txt");
                 readFile(file);
             } else {
                 math();
