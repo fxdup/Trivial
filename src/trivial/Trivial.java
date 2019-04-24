@@ -36,7 +36,7 @@ public class Trivial extends Application{
     @Override
     public void start(Stage stage) throws Exception {
         try{
-            File opt = new File("opt.txt");
+            File opt = new File("src/Resources/opt.txt");
             Scanner input = new Scanner(opt);
             sound=Double.parseDouble(input.next());
             resolution=input.nextInt();
@@ -50,7 +50,7 @@ public class Trivial extends Application{
         }
         catch(FileNotFoundException e){
             System.out.println("File not found");
-            PrintWriter writer = new PrintWriter("opt.txt");
+            PrintWriter writer = new PrintWriter("src/Resources/opt.txt");
             writer.println(sound);
             writer.println(resolution);
             writer.close();
@@ -62,7 +62,7 @@ public class Trivial extends Application{
         Font.loadFont(getClass().getResourceAsStream("/Resources/EraserDust.ttf"), 14);
         scene.getStylesheets().add(getClass().getResource("/Resources/Style.css").toExternalForm());
         stage.setScene(scene);
-        stage.setTitle("Elementary Quiz");
+        stage.setTitle("Trivial");
         stage.show();
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent t) {
