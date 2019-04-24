@@ -335,6 +335,7 @@ public class Question {
             //These 2 variables will be used for division
             int u = (int) (Math.random() * 5);
             int v = ((int) ((Math.random() * 10) + 1));
+            
 
             int operation = (int) (Math.random() * 4);
 
@@ -344,7 +345,7 @@ public class Question {
                     String addition = (x / 10.0) + " + " + (w / 10.0);
                     question = addition; //puts the global variable "question" equal to the addition
                     dAnswer = (x / 10.0) + (w / 10.0); //this is the true value of the operation
-                    answer = nf1.format(dAnswer) + "";
+                    answer = nf1.format(dAnswer);
                     arithmeticDoubleAnswers(dAnswer);
                     System.out.println("Addition: " + question + " = " + dAnswer);
                     break;
@@ -354,7 +355,7 @@ public class Question {
                     subtraction = (x / 10.0) + " - " + (w / 10.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     dAnswer = (x / 10.0) - (w / 10.0); //this is the true value of the operation
-                    answer = nf1.format(dAnswer) + "";
+                    answer = nf1.format(dAnswer);
                     arithmeticDoubleAnswers(dAnswer);
                     System.out.println("Subtraction: " + question + " = " + dAnswer);
                     break;
@@ -408,7 +409,7 @@ public class Question {
                     String addition = (x / 10.0) + " + " + (w / 10.0);
                     question = addition; //puts the global variable "question" equal to the addition
                     dAnswer = (x / 10.0) + (w / 10.0); //this is the true value of the operation
-                    answer = nf1.format(dAnswer) + "";
+                    answer = nf1.format(dAnswer);
                     arithmeticDoubleAnswers(dAnswer);
                     break;
 
@@ -417,7 +418,7 @@ public class Question {
                     subtraction = (x / 10.0) + " - " + (w / 10.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     dAnswer = (x / 10.0) - (w / 10.0); //this is the true value of the operation
-                    answer = nf1.format(dAnswer) + "";
+                    answer = nf1.format(dAnswer);
                     arithmeticDoubleAnswers(dAnswer);
                     break;
 
@@ -473,7 +474,7 @@ public class Question {
                     String addition = (x / 100.00) + " + " + (w / 100.00);
                     question = addition; //puts the global variable "question" equal to the addition
                     dAnswer = (x / 100.00) + (w / 100.00); //this is the true value of the operation
-                    answer = nf1.format(dAnswer) + "";
+                    answer = nf1.format(dAnswer);
                     arithmeticDoubleAnswers(dAnswer);
                     break;
 
@@ -482,7 +483,7 @@ public class Question {
                     subtraction = (x / 100.0) + " - " + (w / 100.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     dAnswer = (x / 100.00) - (w / 100.00); //this is the true value of the operation
-                    answer = nf1.format(dAnswer) + "";
+                    answer = nf1.format(dAnswer);
                     arithmeticDoubleAnswers(dAnswer);
                     break;
 
@@ -735,7 +736,7 @@ public class Question {
                 String c2 = (num1 + num2 + 1) + "/" + den1;
                 String c3 = (Math.max(num1, num2) - Math.min(num1, num2)) + "/" + den1;
 
-                choices[0] = answer + "";
+                choices[0] = this.answer;
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
@@ -759,7 +760,7 @@ public class Question {
             String c2 = (num1 + num2) + "/" + (den1 * den2);
             String c3 = ((num1 * den1) + (num2 * den2)) + "/" + (den1 * den2);
 
-            choices[0] = answer + "";
+            choices[0] = this.answer;
             choices[1] = c1;
             choices[2] = c2;
             choices[3] = c3;
@@ -772,7 +773,7 @@ public class Question {
             String c2 = (num1 - num2) + "/" + (den1 - den2);
             String c3 = ((num1 * den1) - (num2 * den2)) + "/" + (den1 * den2);
 
-            choices[0] = answer + "";
+            choices[0] = this.answer;
             choices[1] = c1;
             choices[2] = c2;
             choices[3] = c3;
@@ -784,7 +785,7 @@ public class Question {
             String c2 = (num1 + num2) + "/" + (den1 + den2);
             String c3 = ((num1 * den2) + (num2 * den1)) + "/" + (den1 * den2);
 
-            choices[0] = answer + "";
+            choices[0] = this.answer;
             choices[1] = c1;
             choices[2] = c2;
             choices[3] = c3;
@@ -796,7 +797,7 @@ public class Question {
             String c2 = (num1 * den1) + "/" + (num2 * den2);
             String c3 = (den1 * den2) + "/" + (num1 * num2);
 
-            choices[0] = answer + "";
+            choices[0] = this.answer;
             choices[1] = c1;
             choices[2] = c2;
             choices[3] = c3;
