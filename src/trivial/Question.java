@@ -322,6 +322,10 @@ public class Question {
         }
 
         if (this.grade == 4) {
+            
+            NumberFormat nf1 = NumberFormat.getInstance();
+            nf1.setMaximumFractionDigits(1);
+            nf1.setMinimumFractionDigits(1);
             //These variables will have 1 decimal place and these 2 variables will be used for addition and subtraction
             double w = (int) (Math.random() * 1000);
             double x = (int) (Math.random() * 1000);
@@ -340,7 +344,7 @@ public class Question {
                     String addition = (x / 10.0) + " + " + (w / 10.0);
                     question = addition; //puts the global variable "question" equal to the addition
                     dAnswer = (x / 10.0) + (w / 10.0); //this is the true value of the operation
-                    answer = dAnswer + "";
+                    answer = nf1.format(dAnswer) + "";
                     arithmeticDoubleAnswers(dAnswer);
                     System.out.println("Addition: " + question + " = " + dAnswer);
                     break;
@@ -349,8 +353,8 @@ public class Question {
                     String subtraction;
                     subtraction = (x / 10.0) + " - " + (w / 10.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
-                    dAnswer = (x / 10.0) - (y / 10.0); //this is the true value of the operation
-                    answer = dAnswer + "";
+                    dAnswer = (x / 10.0) - (w / 10.0); //this is the true value of the operation
+                    answer = nf1.format(dAnswer) + "";
                     arithmeticDoubleAnswers(dAnswer);
                     System.out.println("Subtraction: " + question + " = " + dAnswer);
                     break;
@@ -382,6 +386,9 @@ public class Question {
         }
 
         if (this.grade == 5) {
+            NumberFormat nf1 = NumberFormat.getInstance();
+            nf1.setMaximumFractionDigits(1);
+            nf1.setMinimumFractionDigits(1);
 
             //These variables will have 1 decimal place and these 2 variables will be used for addition and subtraction
             double w = (int) (Math.random() * 10000);
@@ -401,7 +408,7 @@ public class Question {
                     String addition = (x / 10.0) + " + " + (w / 10.0);
                     question = addition; //puts the global variable "question" equal to the addition
                     dAnswer = (x / 10.0) + (w / 10.0); //this is the true value of the operation
-                    answer = dAnswer + "";
+                    answer = nf1.format(dAnswer) + "";
                     arithmeticDoubleAnswers(dAnswer);
                     break;
 
@@ -410,7 +417,7 @@ public class Question {
                     subtraction = (x / 10.0) + " - " + (w / 10.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     dAnswer = (x / 10.0) - (w / 10.0); //this is the true value of the operation
-                    answer = dAnswer + "";
+                    answer = nf1.format(dAnswer) + "";
                     arithmeticDoubleAnswers(dAnswer);
                     break;
 
@@ -444,6 +451,9 @@ public class Question {
         }
 
         if (this.grade == 6) {
+            NumberFormat nf1 = NumberFormat.getInstance();
+            nf1.setMaximumFractionDigits(1);
+            nf1.setMinimumFractionDigits(1);
 
             //These variables will have 1 decimal place and these 2 variables will be used for addition and subtraction
             double w = (int) (Math.random() * 10000);
@@ -463,7 +473,7 @@ public class Question {
                     String addition = (x / 100.00) + " + " + (w / 100.00);
                     question = addition; //puts the global variable "question" equal to the addition
                     dAnswer = (x / 100.00) + (w / 100.00); //this is the true value of the operation
-                    answer = dAnswer + "";
+                    answer = nf1.format(dAnswer) + "";
                     arithmeticDoubleAnswers(dAnswer);
                     break;
 
@@ -472,7 +482,7 @@ public class Question {
                     subtraction = (x / 100.0) + " - " + (w / 100.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     dAnswer = (x / 100.00) - (w / 100.00); //this is the true value of the operation
-                    answer = dAnswer + "";
+                    answer = nf1.format(dAnswer) + "";
                     arithmeticDoubleAnswers(dAnswer);
                     break;
 
