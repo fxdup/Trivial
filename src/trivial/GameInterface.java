@@ -128,7 +128,7 @@ public class GameInterface extends Pane {
         background.setFitWidth(1920 * resfactor);
         background.setFitHeight(1080 * resfactor);
 
-        separation = new ImageView(new Image("file:ChalkLine.png"));
+        separation = new ImageView(new Image("/Resources/ChalkLine.png"));
         separation.setFitWidth(WIDTH);
         separation.setFitHeight(HEIGHT / 2 - 100 * resfactor);
         separation.setX(0);
@@ -379,7 +379,8 @@ public class GameInterface extends Pane {
 
             this.setOnMouseClicked(e -> {
                 if (!skipping) {
-                    if (answer_text.getText().equals(question.getAnswer())) {
+                    if (answer_text.getText().equals(question.getAnswer()) ) { //find a way to read dAnswers when a double and iAnswer when an int
+                     //if (answer_text.getText().equals(Double.toString(question.getAnswer())) ) --> this line is the line 388 before i modify it
                         goodAnswer();
                     } else {
                         badAnswer();
