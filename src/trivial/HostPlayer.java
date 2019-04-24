@@ -23,9 +23,9 @@ public class HostPlayer extends Player implements Serializable {
     private transient Game game;
     boolean reading;
 
-    public HostPlayer(String name,Game game) throws IOException {
+    public HostPlayer(String name, Game game) throws IOException {
         super(name, 0);
-        this.game=game;
+        this.game = game;
         super.addPlayer(this);
         connectedSockets = new ArrayList<>();
         outputs = new ArrayList<>();
@@ -38,7 +38,7 @@ public class HostPlayer extends Player implements Serializable {
             for (int i = 0; i < outputs.size(); i++) {
                 outputs.get(i).writeUnshared("start");
             }
-            
+
         } catch (IOException ex) {
             Logger.getLogger(HostPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -46,7 +46,7 @@ public class HostPlayer extends Player implements Serializable {
     }
 
     //sends the player's information to the other players connected
-    public synchronized void sendData(Player player) throws IOException {
+    public void sendData(Player player) throws IOException {
         for (int i = 0; i < outputs.size(); i++) {
             if (i + 1 != player.getId()) {
                 outputs.get(i).writeUnshared(player);
@@ -80,15 +80,16 @@ public class HostPlayer extends Player implements Serializable {
         return connectedSockets.size();
     }
 
-    public void stopInputs() throws IOException{
-    stopConnecting();
-    for(Socket socket:connectedSockets)
-    socket.close();
-    outputs.clear();
-    connectedSockets.clear();
-    reading=false;
+    public void stopInputs() throws IOException {
+        stopConnecting();
+        for (Socket socket : connectedSockets) {
+            socket.close();
+        }
+        outputs.clear();
+        connectedSockets.clear();
+        reading = false;
     }
-    
+
     //creates the link between the players connected and the host
     class Connection implements Runnable {
 
@@ -123,12 +124,11 @@ public class HostPlayer extends Player implements Serializable {
         ObjectInputStream input;
         ObjectOutputStream output;
         Player player;
-        
 
         DataReceiver(Socket socket, ObjectOutputStream output) {
             this.socket = socket;
             this.output = output;
-            reading=true;
+            reading = true;
         }
 
         @Override
@@ -139,37 +139,38 @@ public class HostPlayer extends Player implements Serializable {
                 while (reading) {
                     Object o = input.readObject();
                     if (o instanceof Player) {
-                        player= (Player) o;
+                        player = (Player) o;
                         addPlayer(player);
                         sendData(player);
-                        if(game.isPlaying())
-                            ((GameInterface)game.getChildren().get(0)).updateScore();
+                        if (game.isPlaying()) {
+                            ((GameInterface) game.getChildren().get(0)).updateScore();
+                        }
                     }
                 }
-                
+
                 input.close();
                 output.close();
                 outputs.remove(output);
             } catch (java.net.SocketException ex) {
-                reading=false;
+                reading = false;
                 outputs.remove(output);
                 connectedSockets.remove(socket);
-                if(game.isPlaying()){
-                if(connectedSockets.size()<1){
-                    Platform.runLater(()->{
+                if (game.isPlaying()) {
+                    if (connectedSockets.size() < 1) {
+                        Platform.runLater(() -> {
 
                             try {
                                 game.disconnected(getThis());
                             } catch (FileNotFoundException ex1) {
                                 Logger.getLogger(ClientPlayer.class.getName()).log(Level.SEVERE, null, ex1);
                             }
-                    });
+                        });
+                    }
                 }
-                }
-                
-            }catch (IOException ex) {
+
+            } catch (IOException ex) {
                 Logger.getLogger(ClientPlayer.class.getName()).log(Level.SEVERE, null, ex);
-            }   catch (ClassNotFoundException ex) {
+            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(HostPlayer.class.getName()).log(Level.SEVERE, null, ex);
             }
 
