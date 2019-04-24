@@ -385,7 +385,8 @@ public class GameInterface extends Pane {
 
             this.setOnMouseClicked(e -> {
                 if (!skipping) {
-                    if (answer_text.getText().equals(question.getAnswer())) {
+                    if (answer_text.getText().equals(question.getAnswer()) ) { //find a way to read dAnswers when a double and iAnswer when an int
+                     //if (answer_text.getText().equals(Double.toString(question.getAnswer())) ) --> this line is the line 388 before i modify it
                         goodAnswer();
                     } else {
                         badAnswer();
