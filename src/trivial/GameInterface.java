@@ -65,11 +65,11 @@ public class GameInterface extends Pane {
     private Circle[] icons;
     private ImageView[] streakIcons;
     private ImageView crown;
-    private boolean paused;
     private double resfactor;
     private double HEIGHT;
     private double WIDTH;
     private boolean win=false;
+    private boolean paused=false;
 
     int timerbar_red;
     int timerbar_green;
@@ -173,11 +173,6 @@ public class GameInterface extends Pane {
 
         getChildren().addAll(background, answer1, answer2, answer3, answer4, separation, leaderbar, fillingbar, your_score, current_grade, first_place, questionPane, timerbar, skip);
         startAnimation();
-//        updateScoreAnimation = new Timeline(new KeyFrame(Duration.seconds(0.01), e -> {
-//            updateScore();
-//        }));
-//        updateScoreAnimation.setCycleCount(Animation.INDEFINITE);
-        
     }
 
     public void startAnimation() {
@@ -193,7 +188,6 @@ public class GameInterface extends Pane {
                 drawCircles();
                 getChildren().remove(startAnimTime);
                 startAnim.stop();
-//                updateScoreAnimation.play();
             }
         }));
         startAnim.setCycleCount(Animation.INDEFINITE);
@@ -230,6 +224,8 @@ public class GameInterface extends Pane {
         timerbar_red = 0;
         timerbar_green = 255;
         color = new KeyFrame(Duration.seconds(millis), e -> {
+            if(paused)
+                countdown.stop();
             if (timerbar_red < 254) {
                 timerbar_red += 1;
                 timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
@@ -258,13 +254,6 @@ public class GameInterface extends Pane {
         countdown.play();
     }
 
-    public void pause() {
-        paused = true;
-    }
-
-    public void resume() {
-        paused = false;
-    }
 
     public void updateScore() {
         first_place.setText("First Place: " + getFirstPlace().getName());
@@ -404,5 +393,9 @@ public class GameInterface extends Pane {
             answer_text.setText(text);
         }
 
+    }
+    
+    public void stop(){
+    paused=true;
     }
 }

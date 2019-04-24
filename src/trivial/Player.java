@@ -124,7 +124,7 @@ public class Player implements Serializable, Cloneable {
         return Color.rgb(red, green, blue);
     }
 
-    public void addPlayer(Player player) {
+    public synchronized void addPlayer(Player player) {
         if(player.getId()==-1)
             return;
         if (!players.contains(player)) {

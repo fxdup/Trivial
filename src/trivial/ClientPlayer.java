@@ -78,7 +78,7 @@ public class ClientPlayer extends Player {
                     }
                 }
             }
-                catch (java.net.SocketException ex) {
+                catch (java.net.SocketException | java.io.EOFException ex ) {
                 
                         read=false;
                         Platform.runLater(()->{

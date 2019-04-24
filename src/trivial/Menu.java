@@ -283,6 +283,13 @@ public class Menu extends StackPane{
         back.getStyleClass().addAll("submenu","yellowHover");
         back.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
         back.setOnMouseClicked(e->{
+            playerCount.stop();
+            try {
+                ((HostPlayer)me).stopInputs();
+            } catch (IOException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            me=null;
             Host();
         });
     }

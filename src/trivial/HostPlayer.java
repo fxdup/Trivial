@@ -21,6 +21,7 @@ public class HostPlayer extends Player implements Serializable {
     private transient ArrayList<ObjectOutputStream> outputs;//list of outputs related to the other players
     private boolean connecting = true;
     private transient Game game;
+    boolean reading;
 
     public HostPlayer(String name,Game game) throws IOException {
         super(name, 0);
@@ -33,10 +34,11 @@ public class HostPlayer extends Player implements Serializable {
 
     public void sendStart() {
         try {
+            sendPlayerList();
             for (int i = 0; i < outputs.size(); i++) {
                 outputs.get(i).writeUnshared("start");
             }
-            sendPlayerList();
+            
         } catch (IOException ex) {
             Logger.getLogger(HostPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -44,7 +46,7 @@ public class HostPlayer extends Player implements Serializable {
     }
 
     //sends the player's information to the other players connected
-    public void sendData(Player player) throws IOException {
+    public synchronized void sendData(Player player) throws IOException {
         for (int i = 0; i < outputs.size(); i++) {
             if (i + 1 != player.getId()) {
                 outputs.get(i).writeUnshared(player);
@@ -52,7 +54,7 @@ public class HostPlayer extends Player implements Serializable {
         }
     }
 
-    public void sendPlayerList() throws IOException {
+    public synchronized void sendPlayerList() throws IOException {
         sendData(this);
         for (Player p : this.getPlayers()) {
             sendData(p);
@@ -78,6 +80,15 @@ public class HostPlayer extends Player implements Serializable {
         return connectedSockets.size();
     }
 
+    public void stopInputs() throws IOException{
+    stopConnecting();
+    for(Socket socket:connectedSockets)
+    socket.close();
+    outputs.clear();
+    connectedSockets.clear();
+    reading=false;
+    }
+    
     //creates the link between the players connected and the host
     class Connection implements Runnable {
 
@@ -112,11 +123,12 @@ public class HostPlayer extends Player implements Serializable {
         ObjectInputStream input;
         ObjectOutputStream output;
         Player player;
-        boolean read=true;
+        
 
         DataReceiver(Socket socket, ObjectOutputStream output) {
             this.socket = socket;
             this.output = output;
+            reading=true;
         }
 
         @Override
@@ -124,7 +136,7 @@ public class HostPlayer extends Player implements Serializable {
             try {
                 input = new ObjectInputStream(socket.getInputStream());
                 output.writeInt(outputs.indexOf(output) + 1);
-                while (read) {
+                while (reading) {
                     Object o = input.readObject();
                     if (o instanceof Player) {
                         player= (Player) o;
@@ -132,12 +144,15 @@ public class HostPlayer extends Player implements Serializable {
                         sendData(player);
                         if(game.isPlaying())
                             ((GameInterface)game.getChildren().get(0)).updateScore();
-                        System.out.println("a");
                     }
                 }
+                
+                input.close();
+                output.close();
+                outputs.remove(output);
             } catch (java.net.SocketException ex) {
-                read=false;
-                outputs.remove(outputs.indexOf(output));
+                reading=false;
+                outputs.remove(output);
                 connectedSockets.remove(socket);
                 if(game.isPlaying()){
                 if(connectedSockets.size()<1){

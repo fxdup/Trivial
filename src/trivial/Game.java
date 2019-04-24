@@ -7,6 +7,8 @@ package trivial;
 
 import static com.sun.javafx.scene.control.skin.Utils.getResource;
 import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -65,7 +67,7 @@ public class Game extends StackPane{
         VBox textBox = new VBox();
         StackPane textDisplay=new StackPane();
         Rectangle background =new Rectangle(1920*resfactor,1080*resfactor,Color.BLACK);
-        background.setOpacity(0.9);
+        background.setOpacity(0.7);
         Text message =new Text("Connection Lost");
         Text back = new Text();
         message.getStyleClass().addAll("menu");
@@ -73,18 +75,26 @@ public class Game extends StackPane{
         back.getStyleClass().addAll("menu","redHover");
         back.setStyle("-fx-font: "+120*resfactor+"px EraserDust;");
         back.setOnMouseClicked(e->{
-        getChildren().removeAll(textDisplay);
+        getChildren().clear();
+        if(playing){
+        leaderboard(player.getPlayers());
+        }else{
+            try {
+                menu();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         });
         textBox.getChildren().addAll(message,back);
         textDisplay.getChildren().addAll(background,textBox);
-        getChildren().clear();
+        
         
         if(playing){
-        back.setText("View to leaderboard");
-        leaderboard(player.getPlayers());
+        ((GameInterface)getChildren().get(0)).stop();
+        back.setText("Go to leaderboard");
         }else{
         back.setText("Back to menu");
-        menu();
         }
         
         getChildren().addAll(textDisplay);
