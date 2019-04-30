@@ -36,7 +36,7 @@ public class Question {
     private String answer;
     private String answerString;
     private String[] choices;
-    private static int[] countKeeper = {0, 0, 0, 0, 0, 0}; //keeps the count of which question has been read from the file for each grade.
+    private static int[] countKeeper = {0, 0, 0, 0, 0, -1}; //keeps the count of which question has been read from the file for each grade.
     private int iterator = 0;
     private static int[] numberOfQuestions = {-1, -1, -1, -1, -1, -1};
 
@@ -48,35 +48,35 @@ public class Question {
         When all questions have been processed, it creates a math question
         At the end of the process, all the questions will be shuffled to make sure the quiz is not too easy.
          */
-        if (numberOfQuestions[grade - 1] == -1) {
-            File file = null;
-
-            if (grade == 1) {
-                numberOfQuestions[grade - 1]++; //bring the value to 0
-                file = new File("src/Resources/Questions/grade1.txt");
-            }
-            if (grade == 2) {
-                numberOfQuestions[grade - 1]++; //bring the value to 0
-                file = new File("src/Resources/Questions/grade2.txt");
-            }
-            if (grade == 3) {
-                numberOfQuestions[grade - 1]++; //bring the value to 0
-                file = new File("src/Resources/Questions/grade3.txt");
-            }
-            if (grade == 4) {
-                numberOfQuestions[grade - 1]++; //bring the value to 0
-                file = new File("src/Resources/Questions/grade4.txt");
-            }
-            if (grade == 5) {
-                numberOfQuestions[grade - 1]++; //bring the value to 0
-                file = new File("src/Resources/Questions/grade5.txt");
-            }
-            if (grade == 6) {
-                numberOfQuestions[grade - 1]++; //bring the value to 0
-                file = new File("src/Resources/Questions/grade6.txt");
-            }
-
-            Scanner input = new Scanner(file);
+//        if (numberOfQuestions[grade - 1] == -1) {
+//            File file = null;
+//
+//            if (grade == 1) {
+//                numberOfQuestions[grade - 1]++; //bring the value to 0
+//                file = new File("src/Resources/Questions/grade1.txt");
+//            }
+//            if (grade == 2) {
+//                numberOfQuestions[grade - 1]++; //bring the value to 0
+//                file = new File("src/Resources/Questions/grade2.txt");
+//            }
+//            if (grade == 3) {
+//                numberOfQuestions[grade - 1]++; //bring the value to 0
+//                file = new File("src/Resources/Questions/grade3.txt");
+//            }
+//            if (grade == 4) {
+//                numberOfQuestions[grade - 1]++; //bring the value to 0
+//                file = new File("src/Resources/Questions/grade4.txt");
+//            }
+//            if (grade == 5) {
+//                numberOfQuestions[grade - 1]++; //bring the value to 0
+//                file = new File("src/Resources/Questions/grade5.txt");
+//            }
+//            if (grade == 6) {
+//                numberOfQuestions[grade - 1]++; //bring the value to 0
+//                file = new File("src/Resources/Questions/grade6.txt");
+//            }
+//
+//            Scanner input = new Scanner(file);
 
 //            while (input.hasNext()) {
 //
@@ -88,9 +88,9 @@ public class Question {
 //
 //                numberOfQuestions[grade - 1]++;
 //            }
-        }
+//        }
         if (grade == 1) {
-            if (iterator < countKeeper[grade - 1]) {
+            if (countKeeper[grade - 1]!=-1) {
                 File file = new File("src/Resources/Questions/grade1.txt");
                 readFile(file);
             } else {
@@ -99,7 +99,7 @@ public class Question {
         }
 
         if (grade == 2) {
-            if (iterator < countKeeper[grade - 1]) {
+            if (countKeeper[grade - 1]!=-1) {
                 File file = new File("src/Resources/Questions/grade2.txt");
                 readFile(file);
             } else {
@@ -108,7 +108,7 @@ public class Question {
         }
 
         if (grade == 3) {
-            if (iterator < countKeeper[grade - 1]) {
+            if (countKeeper[grade - 1]!=-1) {
                 File file = new File("src/Resources/Questions/grade3.txt");
                 readFile(file);
             } else {
@@ -117,7 +117,7 @@ public class Question {
         }
 
         if (grade == 4) {
-            if (iterator < countKeeper[grade - 1]) {
+            if (countKeeper[grade - 1]!=-1) {
                 File file = new File("src/Resources/Questions/grade4.txt");
                 readFile(file);
             } else {
@@ -126,7 +126,7 @@ public class Question {
         }
 
         if (grade == 5) {
-            if (iterator < countKeeper[grade - 1]) {
+            if (countKeeper[grade - 1]!=-1) {
                 File file = new File("src/Resources/Questions/grade5.txt");
                 readFile(file);
             } else {
@@ -135,7 +135,7 @@ public class Question {
         }
 
         if (grade == 6) {
-            if (iterator < countKeeper[grade - 1]) {
+            if (countKeeper[grade - 1]!=-1) {
                 File file = new File("src/Resources/Questions/grade6.txt");
                 readFile(file);
             } else {
@@ -1109,7 +1109,7 @@ public class Question {
         String answer4 = input.nextLine();
 
         choices[0] = answer1; //correct answer
-        //answer = Double.parseDouble(answer1);
+        answer = answer1;
         choices[1] = answer2;
         choices[2] = answer3;
         choices[3] = answer4;
@@ -1122,9 +1122,9 @@ public class Question {
         if the file is over, it will go to the math questions.
          */
         if (input.hasNextLine()) {
-            countKeeper[grade - 1] += 1;
+            countKeeper[grade - 1]++;
         }
-
+        else countKeeper[grade - 1] = -1;
     }
 
     public int getTime() {

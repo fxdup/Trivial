@@ -33,13 +33,22 @@ public class Trivial extends Application{
     double resfactor=1;
     int resolution=1;
     Game game;
+    Stage stage;
     @Override
     public void start(Stage stage) throws Exception {
+        restart();
+    }
+    
+    public void restart() throws FileNotFoundException{
+        if(stage!=null)
+        stage.close();
+        stage=new Stage();
         try{
             File opt = new File("src/Resources/opt.txt");
             Scanner input = new Scanner(opt);
-            sound=Double.parseDouble(input.next());
+            sound=input.nextDouble();
             resolution=input.nextInt();
+            input.close();
             switch(resolution){
             case 1: this.resfactor=1;break;
             case 2: this.resfactor=(0.75);break;
@@ -55,7 +64,7 @@ public class Trivial extends Application{
             writer.close();
         }
         
-        game = new Game(sound,resolution,resfactor);
+        game = new Game(sound,resolution,resfactor,this);
         
         Scene scene = new Scene(game,1920*resfactor,1080*resfactor);
         Font.loadFont(getClass().getResourceAsStream("/Resources/EraserDust.ttf"), 14);
@@ -69,8 +78,5 @@ public class Trivial extends Application{
         System.exit(0);
     }
 });
-    }
-    public static void restart() throws FileNotFoundException{
-        System.exit(0);
     }
 }
