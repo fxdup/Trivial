@@ -159,7 +159,7 @@ public class Question {
     public String[] getChoices() {
         return choices;
     }
-    
+
     public String getAnswer() {
         return answer;
     }
@@ -178,7 +178,7 @@ public class Question {
 
     public void math() {
 
-        int mathType = (int) (Math.random() * 6);
+        int mathType = (int) (Math.random() * 4);
         switch (type) {
 
             case 0:
@@ -190,12 +190,12 @@ public class Question {
             case 3:
                 fractions();
                 break;
-            case 4:
-                shapeCalculation();
-                break;
-            case 5:
-                priorityOperations();
-                break;
+//            case 4:
+//                shapeCalculation();
+//                break;
+//            case 5:
+//                priorityOperations();
+//                break;
         }
 
     }
@@ -243,7 +243,7 @@ public class Question {
 
         if (this.grade == 2) {
 
-            int x = (int) (Math.random() * 100);//variable 1 for calculations. This variable will be 2 digits
+            int x = (int) (Math.random() * 75);//variable 1 for calculations. This variable will be 2 digits
             int y = (int) (Math.random() * 10); //variable 2 for calculations. This variable will be 1 digit
 
             int operation = (int) (Math.random() * 2);
@@ -283,8 +283,8 @@ public class Question {
         if (this.grade == 3) {
 
             //These variables will be 2 digits these 2 variables will be used for addition and subtraction
-            int x = (int) (Math.random() * 99);
-            int y = (int) (Math.random() * 99);
+            int x = (int) (Math.random() * 75);
+            int y = (int) (Math.random() * 50);
             //This variable will be used for multiplication. 
             int z = (int) (Math.random() * 6);
             int w = (int) (Math.random() * 6);
@@ -322,20 +322,19 @@ public class Question {
         }
 
         if (this.grade == 4) {
-            
+
             NumberFormat nf1 = NumberFormat.getInstance();
             nf1.setMaximumFractionDigits(1);
             nf1.setMinimumFractionDigits(1);
             //These variables will have 1 decimal place and these 2 variables will be used for addition and subtraction
-            double w = (int) (Math.random() * 1000);
-            double x = (int) (Math.random() * 1000);
+            double w = (int) (Math.random() * 750);
+            double x = (int) (Math.random() * 500);
             //These 2 variables will be used for multiplication
             int y = (int) (Math.random() * 13);
             int z = (int) (Math.random() * 13);
             //These 2 variables will be used for division
             int u = (int) (Math.random() * 5);
             int v = ((int) ((Math.random() * 10) + 1));
-            
 
             int operation = (int) (Math.random() * 4);
 
@@ -345,8 +344,9 @@ public class Question {
                     String addition = (x / 10.0) + " + " + (w / 10.0);
                     question = addition; //puts the global variable "question" equal to the addition
                     dAnswer = (x / 10.0) + (w / 10.0); //this is the true value of the operation
-                    answer = nf1.format(dAnswer);
+                    //answer = nf1.format(dAnswer);
                     arithmeticDoubleAnswers(dAnswer);
+                    //arithmeticDoubleAnswers(dAnswer);
                     System.out.println("Addition: " + question + " = " + dAnswer);
                     break;
 
@@ -355,8 +355,9 @@ public class Question {
                     subtraction = (x / 10.0) + " - " + (w / 10.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     dAnswer = (x / 10.0) - (w / 10.0); //this is the true value of the operation
-                    answer = nf1.format(dAnswer);
+                    //answer = nf1.format(dAnswer);
                     arithmeticDoubleAnswers(dAnswer);
+                    //arithmeticDoubleAnswers(dAnswer);
                     System.out.println("Subtraction: " + question + " = " + dAnswer);
                     break;
 
@@ -392,8 +393,8 @@ public class Question {
             nf1.setMinimumFractionDigits(1);
 
             //These variables will have 1 decimal place and these 2 variables will be used for addition and subtraction
-            double w = (int) (Math.random() * 10000);
-            double x = (int) (Math.random() * 1000);
+            double w = (int) (Math.random() * 750);
+            double x = (int) (Math.random() * 750);
             //These 2 variables will be used for multiplication
             int y = (int) (Math.random() * 100);
             int z = (int) (Math.random() * 13);
@@ -409,8 +410,9 @@ public class Question {
                     String addition = (x / 10.0) + " + " + (w / 10.0);
                     question = addition; //puts the global variable "question" equal to the addition
                     dAnswer = (x / 10.0) + (w / 10.0); //this is the true value of the operation
-                    answer = nf1.format(dAnswer);
+                    //answer = nf1.format(dAnswer);
                     arithmeticDoubleAnswers(dAnswer);
+                    //arithmeticDoubleAnswers(dAnswer);
                     break;
 
                 case 1:
@@ -418,8 +420,10 @@ public class Question {
                     subtraction = (x / 10.0) + " - " + (w / 10.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     dAnswer = (x / 10.0) - (w / 10.0); //this is the true value of the operation
-                    answer = nf1.format(dAnswer);
+                    //answer = nf1.format(dAnswer); --> FORMAT EVEYTHING AT THE END SINCE IT DOESN'T WORK PUTTING A NUMBER WITH A "," BACK INTO DOUBLE
+                    //SINCE NF1.FORMAT() TRANSFORMS THE "." TO A ","
                     arithmeticDoubleAnswers(dAnswer);
+                    //arithmeticDoubleAnswers(dAnswer);
                     break;
 
                 case 2:
@@ -458,7 +462,7 @@ public class Question {
 
             //These variables will have 1 decimal place and these 2 variables will be used for addition and subtraction
             double w = (int) (Math.random() * 10000);
-            double x = (int) (Math.random() * 10000);
+            double x = (int) (Math.random() * 7500);
             //These 2 variables will be used for multiplication
             int y = (int) (Math.random() * 1000);
             int z = (int) (Math.random() * 100);
@@ -474,8 +478,9 @@ public class Question {
                     String addition = (x / 100.00) + " + " + (w / 100.00);
                     question = addition; //puts the global variable "question" equal to the addition
                     dAnswer = (x / 100.00) + (w / 100.00); //this is the true value of the operation
-                    answer = nf1.format(dAnswer);
+                    //answer = nf1.format(dAnswer);
                     arithmeticDoubleAnswers(dAnswer);
+                    //arithmeticDoubleAnswers(dAnswer);
                     break;
 
                 case 1:
@@ -483,8 +488,9 @@ public class Question {
                     subtraction = (x / 100.0) + " - " + (w / 100.0);
                     question = subtraction; //puts the global variable "question" equal to the subtaction
                     dAnswer = (x / 100.00) - (w / 100.00); //this is the true value of the operation
-                    answer = nf1.format(dAnswer);
+                    //answer = nf1.format(dAnswer);
                     arithmeticDoubleAnswers(dAnswer);
+                    //arithmeticDoubleAnswers(dAnswer);
                     break;
 
                 case 2:
@@ -524,7 +530,7 @@ public class Question {
     }
 
     public void geometry() {
-        
+
     }
 
     public void fractions() {
@@ -817,159 +823,202 @@ public class Question {
      */
     public void arithmeticDoubleAnswers(double answer) {
 
+        //Formats the numbers to have 1 decimal
         NumberFormat nf1 = NumberFormat.getInstance();
         nf1.setMaximumFractionDigits(1);
         nf1.setMinimumFractionDigits(1);
 
+        //Formats the numbers to have 2 decimal
         NumberFormat nf2 = NumberFormat.getInstance();
         nf2.setMaximumFractionDigits(2);
         nf2.setMinimumFractionDigits(2);
+        
+        String c1;
+        String c2;
+        String c3;
 
-        //double numericalAnswer = answer;
+        
+        double numericalAnswer = answer;
         if (grade == 4) {
 
-            if (answer < 10.0 && answer > 2.0) {
+            if (numericalAnswer < 10.0 && numericalAnswer > 2.0) {
 
-                String c1 = nf1.format(answer - 2);
-                String c2 = nf1.format(answer - 1);
-                String c3 = nf1.format(answer - 3);
+                c1 = nf1.format(numericalAnswer - 2);
+                c2 = nf1.format(numericalAnswer - 1);
+                c3 = nf1.format(numericalAnswer - 3);
 
-                choices[0] = answer + "";
+                choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
-            } else if (answer < 3.0) {
 
-                String c1 = nf1.format(answer + 1);
-                String c2 = nf1.format(answer + 2);
-                String c3 = nf1.format(answer + 3);
+                this.answer = choices[0];
 
-                choices[0] = answer + "";
+            } else if (numericalAnswer < 3.0) {
+
+                c1 = nf1.format(answer + 1);
+                c2 = nf1.format(answer + 2);
+                c3 = nf1.format(answer + 3);
+
+                choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
-            } else if (answer > 9.9) {
 
-                double minRange = answer - (2 * answer);
-                double maxRange = answer + (2 * answer);
+                this.answer = choices[0];
 
-                String c1 = nf1.format((Math.random() * maxRange) - (int) (Math.random() * minRange));
-                String c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-                String c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+            } else if (numericalAnswer > 9.9) {
 
-                choices[0] = answer + "";
+                double minRange = numericalAnswer - (0.1 * numericalAnswer);
+                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
+
+                do {
+                c1 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+                c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+                c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
+
+                choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
+
+                this.answer = choices[0];
             }
         }
 
         if (this.grade == 5) { //MISTAKE HERE
 
-            if (answer < 10.0 && answer > 2.0) {
+            if (numericalAnswer < 10.0 && numericalAnswer > 2.0) {
 
-                String c1 = nf1.format(answer - 2);
-                String c2 = nf1.format(answer - 1);
-                String c3 = nf1.format(answer + 1);
+                c1 = nf1.format(numericalAnswer - 2);
+                c2 = nf1.format(numericalAnswer - 1);
+                c3 = nf1.format(answer + 1);
 
-                choices[0] = answer + "";
+                choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
+
+                this.answer = choices[0];
 
                 //System.out.println("mistake A:");
-            } else if (answer <= 2.0) {
+            } else if (numericalAnswer <= 2.0) {
 
-                String c1 = nf1.format(answer + 1);
-                String c2 = nf1.format(answer + 1);
-                String c3 = nf1.format(answer + 1);
+                c1 = nf1.format(numericalAnswer + 1);
+                c2 = nf1.format(numericalAnswer + 1);
+                c3 = nf1.format(numericalAnswer + 1);
 
-                choices[0] = answer + "";
+                choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
+
+                this.answer = choices[0];
 
                 //System.out.println("mistake B:");
-            } else if (answer >= 10.0 && answer < 100.0) {
+            } else if (numericalAnswer >= 10.0 && numericalAnswer < 100.0) {
 
-                double minRange = answer - (0.2 * answer);
-                double maxRange = answer + (0.2 * answer);
+                double minRange = numericalAnswer - (0.1 * numericalAnswer);
+                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
 
-                String c1 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-                String c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-                String c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+                do {
+                c1 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+                c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+                c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
 
-                choices[0] = answer + "";
+                choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
+
+                this.answer = choices[0];
 
                 //System.out.println("mistake C:");
-            } else if (answer >= 100.0) {
+            } else if (numericalAnswer >= 100.0) {
 
-                double minRange = answer - (0.2 * answer);
-                double maxRange = answer + (0.2 * answer);
+                double minRange = numericalAnswer - (0.1 * numericalAnswer);
+                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
 
-                String c1 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-                String c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-                String c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+                do {
+                c1 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+                c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+                c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
 
-                choices[0] = answer + "";
+                choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
+
+                this.answer = choices[0];
 
                 //System.out.println("mistake D:");
             }
         }
 
         if (grade == 6) {
-            if (answer < 10.00 && answer > 2.00) {
-                String c1 = nf2.format(answer - 2);
-                String c2 = nf2.format(answer - 1);
-                String c3 = nf2.format(answer + 1);
+            if (numericalAnswer < 10.00 && numericalAnswer > 2.00) {
+                c1 = nf2.format(numericalAnswer - 2);
+                c2 = nf2.format(numericalAnswer - 1);
+                c3 = nf2.format(numericalAnswer + 1);
 
-                choices[0] = answer + "";
-                choices[1] = c1;
-                choices[2] = c2;
-                choices[3] = c3;
-            } else if (answer < 3.00) {
-
-                String c1 = nf2.format(answer + 1);
-                String c2 = nf2.format(answer + 2);
-                String c3 = nf2.format(answer + 3);
-
-                choices[0] = answer + "";
+                choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
 
-            } else if (answer >= 10.00 && answer < 100.00) {
+                this.answer = choices[0];
 
-                double minRange = answer - (0.2 * answer);
-                double maxRange = answer + (0.2 * answer);
+            } else if (numericalAnswer < 3.00) {
 
-                String c1 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
-                String c2 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
-                String c3 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
+                c1 = nf2.format(numericalAnswer + 1);
+                c2 = nf2.format(numericalAnswer + 2);
+                c3 = nf2.format(numericalAnswer + 3);
 
-                choices[0] = answer + "";
+                choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
-            } else if (answer >= 100.00) {
 
-                double minRange = answer - (0.2 * answer);
-                double maxRange = answer + (0.2 * answer);
+                this.answer = choices[0];
 
-                String c1 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
-                String c2 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
-                String c3 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
+            } else if (numericalAnswer >= 10.00 && numericalAnswer < 100.00) {
 
-                choices[0] = answer + "";
+                double minRange = numericalAnswer - (0.1 * numericalAnswer);
+                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
+
+                do {
+                c1 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
+                c2 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
+                c3 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
+                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
+
+                choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
                 choices[2] = c2;
                 choices[3] = c3;
+
+                this.answer = choices[0];
+
+            } else if (numericalAnswer >= 100.00) {
+
+                double minRange = numericalAnswer - (0.1 * numericalAnswer);
+                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
+
+                do {
+                c1 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
+                c2 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
+                c3 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
+                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
+
+                choices[0] = nf1.format(numericalAnswer);
+                choices[1] = c1;
+                choices[2] = c2;
+                choices[3] = c3;
+
+                this.answer = choices[0];
             }
 
         }
@@ -980,13 +1029,18 @@ public class Question {
 
     public void arithmeticIntegerAnswers(int answer) {
 
+        String c1;
+        String c2;
+        String c3;
 //        int numericalAnswer = (int) (answer);
-
         if (answer < 10 && answer > 2) {
 
-            String c1 = answer - 2 + "";
-            String c2 = answer - 1 + "";
-            String c3 = answer + 1 + "";
+            do {
+                c1 = answer - 2 + "";
+                c2 = answer - 1 + "";
+                c3 = answer + 1 + "";
+
+            } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
 
             choices[0] = answer + "";
             choices[1] = c1;
@@ -994,9 +1048,11 @@ public class Question {
             choices[3] = c3;
         } else if (answer < 3) {
 
-            String c1 = answer + 1 + "";
-            String c2 = answer + 2 + "";
-            String c3 = answer + 3 + "";
+            do {
+            c1 = answer + 1 + "";
+            c2 = answer + 2 + "";
+            c3 = answer + 3 + "";
+            } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
 
             choices[0] = answer + "";
             choices[1] = c1;
@@ -1004,13 +1060,15 @@ public class Question {
             choices[3] = c3;
         } else if (answer > 9) {
 
-            int range = (int) (0.2 * answer);
+            int range = (int) (0.1 * answer);
             int minRange = answer - range;
             int maxRange = answer + range;
 
-            String c1 = ((int) (Math.random() * maxRange)) - ((int) (Math.random() * minRange)) + "";
-            String c2 = ((int) (Math.random() * maxRange)) - ((int) (Math.random() * minRange)) + "";
-            String c3 = ((int) (Math.random() * maxRange)) - ((int) (Math.random() * minRange)) + "";
+            do {
+            c1 = ((int) (Math.random() * maxRange)) - ((int) (Math.random() * minRange)) + "";
+            c2 = ((int) (Math.random() * maxRange)) - ((int) (Math.random() * minRange)) + "";
+            c3 = ((int) (Math.random() * maxRange)) - ((int) (Math.random() * minRange)) + "";
+            } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
 
             choices[0] = answer + "";
             choices[1] = c1;
