@@ -46,12 +46,14 @@ public class Menu extends StackPane{
     int resolution;
     double resfactor;
     double sound;
+    Trivial main;
     private boolean waiting=false;
     
-    public Menu(double sound, int resolution,double resfactor) throws FileNotFoundException {
+    public Menu(double sound, int resolution,double resfactor,Trivial main) throws FileNotFoundException {
         this.sound=sound;
         this.resolution=resolution;
         this.resfactor=resfactor;
+        this.main=main;
         ImageView back = new ImageView(new Image("/Resources/Images/board.png"));
         back.setFitWidth(1920*resfactor);
         back.setFitHeight(1080*resfactor);
@@ -382,11 +384,11 @@ public class Menu extends StackPane{
         menu.getChildren().add(buttons);
         
         yes.setOnMouseClicked(e->{
-            File file = new File("opt.txt");
+            File file = new File("src/Resources/opt.txt");
             file.delete();
             PrintWriter writer = null;
             try {
-                writer = new PrintWriter("opt.txt");
+                writer = new PrintWriter("src/Resources/opt.txt");
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -394,7 +396,7 @@ public class Menu extends StackPane{
             writer.println(resolution);
             writer.close();
             try {
-                Trivial.restart();
+                main.restart();
             } catch (FileNotFoundException ex) {
             }
         });
