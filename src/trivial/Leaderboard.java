@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -23,8 +24,12 @@ public class Leaderboard extends VBox {
     private double resfactor;
     Text exportText;
     private boolean exported = false;
+    AudioClip click;
             
     public Leaderboard(Player[] player, double resfactor){
+        
+        click = new AudioClip(new File("src/Resources/Sounds/Click.wav").toURI().toString());
+        
         this.resfactor=resfactor;
         this.players = new Player[player.length];
         System.arraycopy(player, 0, this.players, 0, player.length);
@@ -115,6 +120,7 @@ public class Leaderboard extends VBox {
         }
         
         exportTxtStack.setOnMouseClicked(eh->{try {
+            click.play();
             exportScore();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Leaderboard.class.getName()).log(Level.SEVERE, null, ex);
@@ -122,6 +128,7 @@ public class Leaderboard extends VBox {
         });
         
         mainMenuStack.setOnMouseClicked(eh->{
+            click.play();
             try {
                 ((Game)(getParent())).backToMenu();
             } catch (FileNotFoundException ex) {

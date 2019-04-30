@@ -30,6 +30,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -48,12 +51,22 @@ public class Menu extends StackPane{
     double sound;
     Trivial main;
     private boolean waiting=false;
+    MediaPlayer musicPlayer;
+    AudioClip click;
     
     public Menu(double sound, int resolution,double resfactor,Trivial main) throws FileNotFoundException {
         this.sound=sound;
         this.resolution=resolution;
         this.resfactor=resfactor;
         this.main=main;
+        
+        Media music = new Media(new File("src/Resources/Sounds/Background_Music.mp3").toURI().toString());
+        musicPlayer = new MediaPlayer(music);
+        musicPlayer.play();
+        musicPlayer.setCycleCount(Animation.INDEFINITE);
+        
+        click = new AudioClip(new File("src/Resources/Sounds/Click.wav").toURI().toString());
+        
         ImageView back = new ImageView(new Image("/Resources/Images/board.png"));
         back.setFitWidth(1920*resfactor);
         back.setFitHeight(1080*resfactor);
@@ -64,6 +77,8 @@ public class Menu extends StackPane{
         
         getChildren().addAll(sky,back,menu);
         menu.setAlignment(Pos.CENTER);
+        
+        
         Back();
     }
     
@@ -82,6 +97,7 @@ public class Menu extends StackPane{
 
         
         options.setOnMouseClicked(e->{
+            click.play();
             try {
                 Options();
             } catch (FileNotFoundException ex) {
@@ -89,9 +105,11 @@ public class Menu extends StackPane{
             }
         });
         host.setOnMouseClicked(e->{
+            click.play();
             Host();
         });
         join.setOnMouseClicked(e->{
+            click.play();
             Join();
         });
     }
@@ -137,6 +155,7 @@ public class Menu extends StackPane{
         back.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
         
         back.setOnMouseClicked(e->{
+            click.play();
             Back();
         });
         
@@ -149,6 +168,7 @@ public class Menu extends StackPane{
         confirm.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
         
         resolution_button.setOnMouseClicked(e->{
+            click.play();
             switch(resolution){
                 case 1: resolution=2;resolution_button.setText("Size: x 3/4");break;
                 case 2: resolution=3;resolution_button.setText("Size: x 2/3");break;
@@ -158,6 +178,7 @@ public class Menu extends StackPane{
         });
         
         confirm.setOnMouseClicked(e->{
+            click.play();
             Confirmation();
         });
         slider.getChildren().addAll(res,reso);
@@ -182,7 +203,7 @@ public class Menu extends StackPane{
         back.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
         
         host.setOnMouseClicked(e->{
-            
+            click.play();
             try {
                 me = new HostPlayer(name.getText(),((Game)(getParent())));
             } catch (IOException ex) {
@@ -196,6 +217,7 @@ public class Menu extends StackPane{
         });
         
         back.setOnMouseClicked(e->{
+            click.play();
             Back();
         });
         
@@ -221,6 +243,7 @@ public class Menu extends StackPane{
         back.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
         
         join.setOnMouseClicked(e->{
+            click.play();
             try {
                 me = new ClientPlayer(name.getText(),((Game)(getParent())));
                 Joining();
@@ -232,6 +255,7 @@ public class Menu extends StackPane{
         });
         
         back.setOnMouseClicked(e->{
+            click.play();
             Back();
         });
         
@@ -276,6 +300,7 @@ public class Menu extends StackPane{
         playerCount.setCycleCount(Animation.INDEFINITE);
         playerCount.play();
         start.setOnMouseClicked(e->{
+            click.play();
             playerCount.stop();
             ((HostPlayer)me).stopConnecting();
             ((HostPlayer)me).sendStart();
@@ -285,6 +310,7 @@ public class Menu extends StackPane{
         back.getStyleClass().addAll("textField","yellowHover");
         back.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
         back.setOnMouseClicked(e->{
+            click.play();
             playerCount.stop();
             try {
                 ((HostPlayer)me).stopInputs();
@@ -326,7 +352,7 @@ public class Menu extends StackPane{
         menu.getChildren().addAll(ip,ipt,port,portt,error,joinback);
         
         join.setOnMouseClicked(e->{
-            
+            click.play();
             try {
                 ((ClientPlayer)me).connect(ipt.getText(), parseInt(portt.getText()));
                 waiting();
@@ -343,6 +369,7 @@ public class Menu extends StackPane{
         back.getStyleClass().addAll("textField","yellowHover");
         back.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
         back.setOnMouseClicked(e->{
+            click.play();
             Join();
         });
     }
@@ -362,9 +389,11 @@ public class Menu extends StackPane{
     
     public void start(boolean host){
         if(waiting){
+            musicPlayer.stop();
             ((Game)(getParent())).startGame(host,me);
         }
     }
+    
     private void Confirmation() {
         menu.getChildren().clear();
         Text message = new Text("To confirm the settings you will have to launch the application again. Confirm ?");
@@ -384,6 +413,7 @@ public class Menu extends StackPane{
         menu.getChildren().add(buttons);
         
         yes.setOnMouseClicked(e->{
+            click.play();
             File file = new File("src/Resources/opt.txt");
             file.delete();
             PrintWriter writer = null;
@@ -401,6 +431,7 @@ public class Menu extends StackPane{
             }
         });
         no.setOnMouseClicked(e->{
+            click.play();
             try {
                 Options();
             } catch (FileNotFoundException ex) {
