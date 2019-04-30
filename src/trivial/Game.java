@@ -47,6 +47,12 @@ public class Game extends StackPane{
         getChildren().add(menu);
         
     }
+        
+    public void backToMenu() throws FileNotFoundException{
+        getChildren().clear();
+        Menu menu = new Menu(sound,resolution,resfactor,main);
+        getChildren().add(menu);
+    }
     
     public void startGame(boolean host,Player localPlayer){
         getChildren().clear();

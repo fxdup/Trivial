@@ -31,16 +31,24 @@ public class Leaderboard extends VBox {
         
         exportText = new Text("Export as \n text file");
         exportText.setStyle("-fx-font: "+65*resfactor+"px EraserDust;-fx-fill: white");
+        Text mainMenuText = new Text("Main \n menu");
+        mainMenuText.setStyle("-fx-font: "+65*resfactor+"px EraserDust;-fx-fill: white");
         Rectangle exportTxt_rectangle = new Rectangle(443*resfactor,167*resfactor);
+        Rectangle mainMenu_rectangle = new Rectangle(443*resfactor,167*resfactor);
         exportTxt_rectangle.setStroke(Color.BLACK);
         exportTxt_rectangle.setStrokeWidth(5*resfactor);
         exportTxt_rectangle.setFill(Color.rgb(96, 139, 109));
+        mainMenu_rectangle.setStroke(Color.BLACK);
+        mainMenu_rectangle.setStrokeWidth(5*resfactor);
+        mainMenu_rectangle.setFill(Color.rgb(96, 139, 109));
         StackPane exportTxtStack = new StackPane();
+        StackPane mainMenuStack = new StackPane();
         exportTxtStack.getChildren().addAll(exportTxt_rectangle,exportText);
+        mainMenuStack.getChildren().addAll(mainMenu_rectangle,mainMenuText);
         HBox buttons = new HBox();
         buttons.setAlignment(Pos.CENTER);
         buttons.setSpacing(80*resfactor);
-        buttons.getChildren().add(exportTxtStack);
+        buttons.getChildren().addAll(exportTxtStack,mainMenuStack);
         
         Pane podium = new Pane();
         switch(players.length){
@@ -111,7 +119,15 @@ public class Leaderboard extends VBox {
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Leaderboard.class.getName()).log(Level.SEVERE, null, ex);
             }
-});
+        });
+        
+        mainMenuStack.setOnMouseClicked(eh->{
+            try {
+                ((Game)(getParent())).backToMenu();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Leaderboard.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         
         HBox leaderBoard = new HBox();
         leaderBoard.setSpacing(200*resfactor);
