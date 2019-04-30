@@ -49,7 +49,6 @@ public class Trivial extends Application{
         
         }
         catch(FileNotFoundException e){
-            System.out.println("File not found");
             PrintWriter writer = new PrintWriter("src/Resources/opt.txt");
             writer.println(sound);
             writer.println(resolution);

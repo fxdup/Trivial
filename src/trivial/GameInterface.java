@@ -283,7 +283,7 @@ public class GameInterface extends Pane {
 
     public void winner(){
         for (Player i : localPlayer.getPlayers()) {
-            if (i.getScore() >= 1000) {
+            if (i.getScore() >= 10) {
 //                updateScoreAnimation.stop();
                 win=true;
                 sendData();

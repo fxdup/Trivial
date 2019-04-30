@@ -3,6 +3,7 @@ package trivial;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.geometry.Pos;
@@ -20,32 +21,26 @@ public class Leaderboard extends VBox {
 
     private Player[] players;
     private double resfactor;
-    
+    Text exportText;
+    private boolean exported = false;
+            
     public Leaderboard(Player[] player, double resfactor){
         this.resfactor=resfactor;
         this.players = new Player[player.length];
         System.arraycopy(player, 0, this.players, 0, player.length);
         
-        Text text_text = new Text("Export as \n text file");
-        Text image_text =  new Text("Export as \n image file");
-        text_text.setStyle("-fx-font: 65px EraserDust;-fx-fill: white");
-        image_text.setStyle("-fx-font: 65px EraserDust;-fx-fill: white");
+        exportText = new Text("Export as \n text file");
+        exportText.setStyle("-fx-font: "+65*resfactor+"px EraserDust;-fx-fill: white");
         Rectangle exportTxt_rectangle = new Rectangle(443*resfactor,167*resfactor);
-        Rectangle exportJpg_rectangle = new Rectangle(443*resfactor,167*resfactor);
         exportTxt_rectangle.setStroke(Color.BLACK);
         exportTxt_rectangle.setStrokeWidth(5*resfactor);
-        exportJpg_rectangle.setStroke(Color.BLACK);
-        exportJpg_rectangle.setStrokeWidth(5*resfactor);
         exportTxt_rectangle.setFill(Color.rgb(96, 139, 109));
-        exportJpg_rectangle.setFill(Color.rgb(96, 139, 109));
         StackPane exportTxtStack = new StackPane();
-        StackPane exportJpgStack = new StackPane();
-        exportTxtStack.getChildren().addAll(exportTxt_rectangle,text_text);
-        exportJpgStack.getChildren().addAll(exportJpg_rectangle,image_text);
+        exportTxtStack.getChildren().addAll(exportTxt_rectangle,exportText);
         HBox buttons = new HBox();
         buttons.setAlignment(Pos.CENTER);
         buttons.setSpacing(80*resfactor);
-        buttons.getChildren().addAll(exportTxtStack,exportJpgStack);
+        buttons.getChildren().add(exportTxtStack);
         
         Pane podium = new Pane();
         switch(players.length){
@@ -111,6 +106,12 @@ public class Leaderboard extends VBox {
             listingNames.addRow(i, names[i],scores[i]);
         }
         
+        exportTxtStack.setOnMouseClicked(eh->{try {
+            exportScore();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Leaderboard.class.getName()).log(Level.SEVERE, null, ex);
+            }
+});
         
         HBox leaderBoard = new HBox();
         leaderBoard.setSpacing(200*resfactor);
@@ -123,18 +124,23 @@ public class Leaderboard extends VBox {
 
     //creates a text file containing the scores and information of all the players in the game
     public void exportScore() throws FileNotFoundException {
-        try {
-            File file=new File("Quiz_" + new java.util.Date().toString());
-            PrintWriter pw = new PrintWriter(file);
-        for (Player i : players) {
-            pw.print(i.toString());
-            pw.println();
-            pw.println();
+        if(!exported){
+            Date date = new Date();
+            String filename = "Quiz_"+date.getDate()+"∕"+(date.getMonth()+1)+"∕"+(date.getYear()+1900)+"∕"+date.getHours()+"꞉"+date.getMinutes()+"꞉"+date.getSeconds()+".txt";
+            try {
+                PrintWriter writer = new PrintWriter("src/Leaderboards/"+filename);
+                for (Player i : players) {
+                    writer.print(i.toString());
+                    writer.println();
+                    writer.println();
+                }
+                writer.close();
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Leaderboard.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            exportText.setText("Done");
+            exported=true;
         }
-        pw.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Leaderboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
     }
 }
