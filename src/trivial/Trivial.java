@@ -46,7 +46,7 @@ public class Trivial extends Application{
         try{
             File opt = new File("src/Resources/opt.txt");
             Scanner input = new Scanner(opt);
-            sound=input.nextDouble();
+            sound=Double.parseDouble(input.next());
             resolution=input.nextInt();
             input.close();
             switch(resolution){
