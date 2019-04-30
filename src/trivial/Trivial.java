@@ -31,7 +31,7 @@ public class Trivial extends Application{
     }
     double sound=100;
     double resfactor=1;
-    int resolution;
+    int resolution=1;
     Game game;
     @Override
     public void start(Stage stage) throws Exception {

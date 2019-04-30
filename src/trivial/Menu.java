@@ -382,11 +382,11 @@ public class Menu extends StackPane{
         menu.getChildren().add(buttons);
         
         yes.setOnMouseClicked(e->{
-            File file = new File("opt.txt");
+            File file = new File("src/Resources/opt.txt");
             file.delete();
             PrintWriter writer = null;
             try {
-                writer = new PrintWriter("opt.txt");
+                writer = new PrintWriter("src/Resources/opt.txt");
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
