@@ -29,21 +29,29 @@ public class Game extends StackPane{
     int resolution;
     double resfactor;
     double sound;
+    Trivial main;
     private boolean playing;
     
-    public Game(double sound, int resolution,double resfactor) throws FileNotFoundException{
+    public Game(double sound, int resolution,double resfactor,Trivial main) throws FileNotFoundException{
         this.resolution=resolution;
         this.resfactor=resfactor;
         this.sound=sound;
+        this.main=main;
         menu();
     }
     
         public void menu() throws FileNotFoundException{
         playing=false;
         getChildren().clear();
-        Menu menu = new Menu(sound,resolution,resfactor);
+        Menu menu = new Menu(sound,resolution,resfactor,main);
         getChildren().add(menu);
         
+    }
+        
+    public void backToMenu() throws FileNotFoundException{
+        getChildren().clear();
+        Menu menu = new Menu(sound,resolution,resfactor,main);
+        getChildren().add(menu);
     }
     
     public void startGame(boolean host,Player localPlayer){

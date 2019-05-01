@@ -5,6 +5,7 @@
  */
 package trivial;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -24,6 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -77,6 +79,8 @@ public class GameInterface extends Pane {
     Timeline startAnim;
     Timeline updateScoreAnimation;
     KeyFrame color;
+    AudioClip click;
+    int clickCount=0;
     
 
     private ImageView separation;
@@ -88,6 +92,8 @@ public class GameInterface extends Pane {
         HEIGHT = 1080 * resfactor;
         WIDTH = 1920 * resfactor;
         skipping = true;
+        
+        click = new AudioClip(new File("src/Resources/Sounds/Click.wav").toURI().toString());
         
         try {
             questionList = new QuestionList();
@@ -162,6 +168,7 @@ public class GameInterface extends Pane {
         skip.setLayoutY(HEIGHT / 2 +50*resfactor-skip_button.getHeight()/2);
         skip.getChildren().addAll(skip_button, skip_text);
         skip.setOnMouseClicked(e -> {
+            
             if (!skipping) {
                 skip_button.setFill(Color.ORANGE);
                 skipping = true;
@@ -292,6 +299,7 @@ public class GameInterface extends Pane {
         }
     }
     public void nextQuestion() {
+        clickCount=0;
         updateScore();
         sendData();
         countdown.stop();
@@ -378,6 +386,10 @@ public class GameInterface extends Pane {
             this.setLayoutY(LayoutY);
 
             this.setOnMouseClicked(e -> {
+                if(clickCount==0){
+                    click.play();
+                    clickCount++;
+                }
                 if (!skipping) {
                     if (answer_text.getText().equals(question.getAnswer()) ) { //find a way to read dAnswers when a double and iAnswer when an int
                      //if (answer_text.getText().equals(Double.toString(question.getAnswer())) ) --> this line is the line 388 before i modify it

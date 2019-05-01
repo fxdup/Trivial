@@ -155,7 +155,7 @@ public class Player implements Serializable, Cloneable {
     @Override
     public String toString() {
 
-        return "Name: " + getId() + "\n Score: " + getScore() + "\n Grade: " + getGrade() + "\n Highest Grade: " + getHighestGrade() + "\n Streak: " + getStreak() + "\n Highest Streak: " + getHighestStreak() + "\n RGB" + red + " " + blue + " " + green;
+        return "Name: " + getName() + "\n Score: " + getScore() + "\n Grade: " + getGrade() + "\n Highest Grade: " + getHighestGrade() + "\n Streak: " + getStreak() + "\n Highest Streak: " + getHighestStreak();
 
     }
 
