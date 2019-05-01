@@ -178,24 +178,15 @@ public class Question {
 
     public void math() {
 
-        int mathType = (int) (Math.random() * 4);
+        int mathType = (int) (Math.random() * 2);
         switch (type) {
 
             case 0:
                 arithmetic();
                 break;
             case 1:
-                geometry();
-                break;
-            case 3:
                 fractions();
                 break;
-//            case 4:
-//                shapeCalculation();
-//                break;
-//            case 5:
-//                priorityOperations();
-//                break;
         }
 
     }
@@ -464,8 +455,8 @@ public class Question {
             double w = (int) (Math.random() * 10000);
             double x = (int) (Math.random() * 7500);
             //These 2 variables will be used for multiplication
-            int y = (int) (Math.random() * 1000);
-            int z = (int) (Math.random() * 100);
+            int y = (int) (Math.random() * 100);
+            int z = (int) (Math.random() * 25);
             //These 2 variables will be used for division
             int u = (int) (Math.random() * 20);
             int v = ((int) ((Math.random() * 12)) + 1);
@@ -519,18 +510,6 @@ public class Question {
             }
 
         }
-    }
-
-    public void priorityOperations() {
-        /*
-        check in what grade they start doing fractions. If the player is 
-        not in a grade where they do fractions, it will call the arithmetic()
-        method
-         */
-    }
-
-    public void geometry() {
-
     }
 
     public void fractions() {
@@ -812,10 +791,6 @@ public class Question {
         shuffle();
     }
 
-    public void shapeCalculation() {
-
-    }
-
     /*we need a metod to create answers for each category, to simulate to plausible answers. 
     for arithmetic, i will need to consider decimals
     for priority of operations, i will have to simulate mistakes if the way the player made a 
@@ -832,12 +807,15 @@ public class Question {
         NumberFormat nf2 = NumberFormat.getInstance();
         nf2.setMaximumFractionDigits(2);
         nf2.setMinimumFractionDigits(2);
-        
+
         String c1;
         String c2;
         String c3;
 
-        
+        double range1 = 0.5;
+        double range2 = 0.5;
+        double range3 = 0.5;
+
         double numericalAnswer = answer;
         if (grade == 4) {
 
@@ -868,16 +846,37 @@ public class Question {
                 this.answer = choices[0];
 
             } else if (numericalAnswer > 9.9) {
+                /*
+            this do while loop creates the range for the possible answers. Also
+            it prevents the range to range of two anwers to be equal thus
+            preventing two answers to be equal in value
+                 */
 
-                double minRange = numericalAnswer - (0.1 * numericalAnswer);
-                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
+                while (range1 > 0.3 || range1 < 0.05) {
+                    range1 = Math.random();
+                }
 
-                do {
-                c1 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-                c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-                c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
+                while (range2 > 0.3 || range2 < 0.05 && (Math.abs(range2 - range1) < 0.1)) {
+                    range2 = Math.random();
+                }
+                while (range3 > 0.3 || range3 < 0.05 && ((Math.abs(range3 - range2) < 0.1) && (Math.abs(range3 - range1) < 0.1))) {
+                    range3 = Math.random();
+                }
 
+                //do {
+                c1 = nf1.format((range1 * answer) + answer) + "";
+                c2 = nf1.format((range2 * answer) + answer) + "";
+                c3 = nf1.format((range3 * answer) + answer) + "";
+                //} while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
+
+//                double minRange = numericalAnswer - (0.1 * numericalAnswer);
+//                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
+//
+//                do {
+//                    c1 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+//                    c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+//                    c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+//                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
                 choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
                 choices[2] = c2;
@@ -918,16 +917,38 @@ public class Question {
 
                 //System.out.println("mistake B:");
             } else if (numericalAnswer >= 10.0 && numericalAnswer < 100.0) {
+                /*
+            this do while loop creates the range for the possible answers. Also
+            it prevents the range to range of two anwers to be equal thus
+            preventing two answers to be equal in value
+                 */
+                //do {
+                while (range1 > 0.3 || range1 < 0.05) {
+                    range1 = Math.random();
+                }
 
-                double minRange = numericalAnswer - (0.1 * numericalAnswer);
-                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
+                while (range2 > 0.3 || range2 < 0.05 && (Math.abs(range2 - range1) < 0.1)) {
+                    range2 = Math.random();
+                }
+                while (range3 > 0.3 || range3 < 0.05 && ((Math.abs(range3 - range2) < 0.1) && (Math.abs(range3 - range1) < 0.1))) {
+                    range3 = Math.random();
+                }
+                //} while ((range1 > 0.2 && range2 > 0.2 && range3 > 0.2) && (range1 == range2 || range1 == range3 || range2 == range3));
 
-                do {
-                c1 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-                c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-                c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
+                //do {
+                c1 = nf1.format((range1 * answer) + answer) + "";
+                c2 = nf1.format((range2 * answer) + answer) + "";
+                c3 = nf1.format((range3 * answer) + answer) + "";
+                //} while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
 
+//                double minRange = numericalAnswer - (0.1 * numericalAnswer);
+//                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
+//
+//                do {
+//                    c1 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+//                    c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+//                    c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+//                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
                 choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
                 choices[2] = c2;
@@ -937,15 +958,38 @@ public class Question {
 
                 //System.out.println("mistake C:");
             } else if (numericalAnswer >= 100.0) {
+                /*
+            this do while loop creates the range for the possible answers. Also
+            it prevents the range to range of two anwers to be equal thus
+            preventing two answers to be equal in value
+                 */
+                //do {
+                while (range1 > 0.3 || range1 < 0.05) {
+                    range1 = Math.random();
+                }
 
-                double minRange = numericalAnswer - (0.1 * numericalAnswer);
-                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
+                while (range2 > 0.3 || range2 < 0.05 && (Math.abs(range2 - range1) < 0.1)) {
+                    range2 = Math.random();
+                }
+                while (range3 > 0.3 || range3 < 0.05 && ((Math.abs(range3 - range2) < 0.1) && (Math.abs(range3 - range1) < 0.1))) {
+                    range3 = Math.random();
+                }
+                //} while ((range1 > 0.2 && range2 > 0.2 && range3 > 0.2) && (range1 == range2 || range1 == range3 || range2 == range3));
 
-                do {
-                c1 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-                c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-                c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
+                //do {
+                c1 = nf1.format((range1 * answer) + answer) + "";
+                c2 = nf1.format((range2 * answer) + answer) + "";
+                c3 = nf1.format((range3 * answer) + answer) + "";
+                //} while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
+//
+//                double minRange = numericalAnswer - (0.1 * numericalAnswer);
+//                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
+//
+//                do {
+//                    c1 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+//                    c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+//                    c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
+//                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
 
                 choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
@@ -985,16 +1029,39 @@ public class Question {
                 this.answer = choices[0];
 
             } else if (numericalAnswer >= 10.00 && numericalAnswer < 100.00) {
+                /*
+            this do while loop creates the range for the possible answers. Also
+            it prevents the range to range of two anwers to be equal thus
+            preventing two answers to be equal in value
+                 */
+                //do {
 
-                double minRange = numericalAnswer - (0.1 * numericalAnswer);
-                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
+                while (range1 > 0.3 || range1 < 0.05) {
+                    range1 = Math.random();
+                }
 
-                do {
-                c1 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
-                c2 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
-                c3 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
-                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
+                while (range2 > 0.3 || range2 < 0.05 && (Math.abs(range2 - range1) < 0.1)) {
+                    range2 = Math.random();
+                }
+                while (range3 > 0.3 || range3 < 0.05 && ((Math.abs(range3 - range2) < 0.1) && (Math.abs(range3 - range1) < 0.1))) {
+                    range3 = Math.random();
+                }
+                //} while ((range1 > 0.2 || range2 > 0.2 || range3 > 0.2) && (range1 == range2 || range1 == range3 || range2 == range3));
 
+                //do {
+                c1 = nf2.format((range1 * answer) + answer) + "";
+                c2 = nf2.format((range2 * answer) + answer) + "";
+                c3 = nf2.format((range3 * answer) + answer) + "";
+                //} while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
+
+//                double minRange = numericalAnswer - (0.1 * numericalAnswer);
+//                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
+//
+//                do {
+//                    c1 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
+//                    c2 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
+//                    c3 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
+//                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
                 choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
                 choices[2] = c2;
@@ -1004,14 +1071,20 @@ public class Question {
 
             } else if (numericalAnswer >= 100.00) {
 
-                double minRange = numericalAnswer - (0.1 * numericalAnswer);
-                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
+                while (range1 > 0.3 || range1 < 0.05) {
+                    range1 = Math.random();
+                }
 
-                do {
-                c1 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
-                c2 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
-                c3 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
-                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
+                while (range2 > 0.3 || range2 < 0.05 && (Math.abs(range2 - range1) < 0.1)) {
+                    range2 = Math.random();
+                }
+                while (range3 > 0.3 || range3 < 0.05 && ((Math.abs(range3 - range2) < 0.1) && (Math.abs(range3 - range1) < 0.1))) {
+                    range3 = Math.random();
+                }
+
+                c1 = nf2.format((range1 * answer) + answer) + "";
+                c2 = nf2.format((range2 * answer) + answer) + "";
+                c3 = nf2.format((range3 * answer) + answer) + "";
 
                 choices[0] = nf1.format(numericalAnswer);
                 choices[1] = c1;
@@ -1032,27 +1105,30 @@ public class Question {
         String c1;
         String c2;
         String c3;
+
+        double range1 = 0.5;
+        double range2 = 0.5;
+        double range3 = 0.5;
 //        int numericalAnswer = (int) (answer);
         if (answer < 10 && answer > 2) {
 
-            do {
-                c1 = answer - 2 + "";
-                c2 = answer - 1 + "";
-                c3 = answer + 1 + "";
+            //do {
+            c1 = answer - 2 + "";
+            c2 = answer - 1 + "";
+            c3 = answer + 1 + "";
 
-            } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
-
+            //} while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
             choices[0] = answer + "";
             choices[1] = c1;
             choices[2] = c2;
             choices[3] = c3;
         } else if (answer < 3) {
 
-            do {
+            //do {
             c1 = answer + 1 + "";
             c2 = answer + 2 + "";
             c3 = answer + 3 + "";
-            } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
+            //} while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
 
             choices[0] = answer + "";
             choices[1] = c1;
@@ -1060,15 +1136,29 @@ public class Question {
             choices[3] = c3;
         } else if (answer > 9) {
 
-            int range = (int) (0.1 * answer);
-            int minRange = answer - range;
-            int maxRange = answer + range;
+            /*
+            this do while loop creates the range for the possible answers. Also
+            it prevents the range to range of two anwers to be equal thus
+            preventing two answers to be equal in value
+             */
+            //do {
+            while (range1 > 0.3 || range1 < 0.05) {
+                range1 = Math.random();
+            }
 
-            do {
-            c1 = ((int) (Math.random() * maxRange)) - ((int) (Math.random() * minRange)) + "";
-            c2 = ((int) (Math.random() * maxRange)) - ((int) (Math.random() * minRange)) + "";
-            c3 = ((int) (Math.random() * maxRange)) - ((int) (Math.random() * minRange)) + "";
-            } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
+            while (range2 > 0.3 || range2 < 0.05 && (Math.abs(range2 - range1) < 0.1)) {
+                range2 = Math.random();
+            }
+            while (range3 > 0.3 || range3 < 0.05 && ((Math.abs(range3 - range2) < 0.1) && (Math.abs(range3 - range1) < 0.1))) {
+                range3 = Math.random();
+            }
+
+            //} while ((range1 > 0.2 && range2 > 0.2 && range3 > 0.2) && (range1 == range2 || range1 == range3 || range2 == range3));
+            //do {
+                c1 = ((int) (range1 * answer)) + answer + "";
+                c2 = ((int) (range2 * answer)) + answer + "";
+                c3 = ((int) (range3 * answer)) + answer + "";
+            //} while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
 
             choices[0] = answer + "";
             choices[1] = c1;
