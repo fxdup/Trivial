@@ -62,10 +62,12 @@ public class Menu extends StackPane{
         
         Media music = new Media(new File("src/Resources/Sounds/Background_Music.mp3").toURI().toString());
         musicPlayer = new MediaPlayer(music);
+        musicPlayer.setVolume(sound/100);
         musicPlayer.play();
         musicPlayer.setCycleCount(Animation.INDEFINITE);
         
         click = new AudioClip(new File("src/Resources/Sounds/Click.wav").toURI().toString());
+        click.setVolume(sound/100);
         
         ImageView back = new ImageView(new Image("/Resources/Images/board.png"));
         back.setFitWidth(1920*resfactor);
@@ -128,7 +130,7 @@ public class Menu extends StackPane{
         slider.setAlignment(Pos.CENTER);
         slider.setSpacing(5*resfactor);
         Slider res = new Slider();
-        res.setMin(1);
+        res.setMin(0);
         res.setMax(100);
         res.setValue(sound);
         res.setMaxSize(600*resfactor, 60*resfactor);
@@ -143,6 +145,8 @@ public class Menu extends StackPane{
                 Number oldv, Number newv) {
                     reso.setText(Double.toString((double)newv));
                     sound = (double)newv;
+                    musicPlayer.setVolume(sound/100);
+                    click.setVolume(sound/100);
             }
         });
         
@@ -400,10 +404,10 @@ public class Menu extends StackPane{
         message.getStyleClass().add("submenu");
         message.setStyle("-fx-font: "+35*resfactor+"px EraserDust;");
         Text yes = new Text("Yes");
-        yes.getStyleClass().add("submenu");
+        yes.getStyleClass().addAll("submenu","blueHover");
         yes.setStyle("-fx-font: "+35*resfactor+"px EraserDust;");
         Text no = new Text("No");
-        no.getStyleClass().add("submenu");
+        no.getStyleClass().addAll("submenu","redHover");
         no.setStyle("-fx-font: "+35*resfactor+"px EraserDust;");
         menu.getChildren().add(message);
         HBox buttons = new HBox();
@@ -426,6 +430,7 @@ public class Menu extends StackPane{
             writer.println(resolution);
             writer.close();
             try {
+                musicPlayer.stop();
                 main.restart();
             } catch (FileNotFoundException ex) {
             }
