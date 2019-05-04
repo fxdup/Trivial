@@ -14,6 +14,7 @@ import javafx.animation.Animation;
 import javafx.animation.FillTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -36,7 +37,6 @@ import javafx.util.Duration;
  *
  * @author guill
  */
-
 public class GameInterface extends Pane {
 
     private StackPane questionPane;
@@ -70,8 +70,8 @@ public class GameInterface extends Pane {
     private double resfactor;
     private double HEIGHT;
     private double WIDTH;
-    private boolean win=false;
-    private boolean paused=false;
+    private boolean win = false;
+    private boolean paused = false;
 
     int timerbar_red;
     int timerbar_green;
@@ -80,48 +80,46 @@ public class GameInterface extends Pane {
     Timeline updateScoreAnimation;
     KeyFrame color;
     AudioClip click;
-    int clickCount=0;
-    
+    int clickCount = 0;
 
     private ImageView separation;
 
-    public GameInterface(Boolean host, double resfactor, Player localPlayer){
+    public GameInterface(Boolean host, double resfactor, Player localPlayer) {
         this.localPlayer = localPlayer;
         this.resfactor = resfactor;
         this.host = host;
         HEIGHT = 1080 * resfactor;
         WIDTH = 1920 * resfactor;
         skipping = true;
-        
+
         click = new AudioClip(new File("src/Resources/Sounds/Click.wav").toURI().toString());
-        
+        click.setVolume(0);
+
         try {
             questionList = new QuestionList();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(GameInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        answer1= new AnswerPane(0,HEIGHT/2+50);
-        answer2= new AnswerPane(WIDTH/2,HEIGHT/2+50);
-        answer3= new AnswerPane(0,HEIGHT/2+50+(HEIGHT/4-50));
-        answer4= new AnswerPane(WIDTH/2,HEIGHT/2+50+(HEIGHT/4-50));
-        
-        
+
+        answer1 = new AnswerPane(0, HEIGHT / 2 + 50);
+        answer2 = new AnswerPane(WIDTH / 2, HEIGHT / 2 + 50);
+        answer3 = new AnswerPane(0, HEIGHT / 2 + 50 + (HEIGHT / 4 - 50));
+        answer4 = new AnswerPane(WIDTH / 2, HEIGHT / 2 + 50 + (HEIGHT / 4 - 50));
 
         leaderbar = new Rectangle(0, 25 * resfactor, WIDTH, 18 * resfactor);
         leaderbar.setFill(Color.WHITE);
         fillingbar = new Rectangle(0, 25 * resfactor, 0, 18 * resfactor);
         fillingbar.setFill(localPlayer.getColor());
-        
+
         first_place = new Text();
         first_place.getStyleClass().add("inGameGUI");
-        first_place.setStyle("-fx-font: "+30*resfactor+"px EraserDust;");
+        first_place.setStyle("-fx-font: " + 30 * resfactor + "px EraserDust;");
         current_grade = new Text();
         current_grade.getStyleClass().add("inGameGUI");
-        current_grade.setStyle("-fx-font: "+30*resfactor+"px EraserDust;");
+        current_grade.setStyle("-fx-font: " + 30 * resfactor + "px EraserDust;");
         your_score = new Text();
         your_score.getStyleClass().add("inGameGUI");
-        your_score.setStyle("-fx-font: "+30*resfactor+" EraserDust;");
+        your_score.setStyle("-fx-font: " + 30 * resfactor + " EraserDust;");
 
         first_place.setY(72 * resfactor);
         first_place.setX(WIDTH - 360 * resfactor);
@@ -159,16 +157,16 @@ public class GameInterface extends Pane {
         skip_button.setStroke(Color.RED);
         skip_button.setStrokeWidth(2);
 
-        timerbar = new Rectangle(0, HEIGHT / 2 +55*resfactor-skip_button.getHeight()/2, WIDTH, 30*resfactor);
+        timerbar = new Rectangle(0, HEIGHT / 2 + 55 * resfactor - skip_button.getHeight() / 2, WIDTH, 30 * resfactor);
         timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
         timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
         skip_text = new Text("Skip");
         skip = new StackPane();
-        skip.setLayoutX(WIDTH / 2 - skip_button.getWidth()/2);
-        skip.setLayoutY(HEIGHT / 2 +50*resfactor-skip_button.getHeight()/2);
+        skip.setLayoutX(WIDTH / 2 - skip_button.getWidth() / 2);
+        skip.setLayoutY(HEIGHT / 2 + 50 * resfactor - skip_button.getHeight() / 2);
         skip.getChildren().addAll(skip_button, skip_text);
         skip.setOnMouseClicked(e -> {
-            
+
             if (!skipping) {
                 skip_button.setFill(Color.ORANGE);
                 skipping = true;
@@ -185,7 +183,7 @@ public class GameInterface extends Pane {
     public void startAnimation() {
         startAnimTime = new Text(WIDTH / 2, HEIGHT / 3, "3");
         startAnimTime.setStroke(Color.BLACK);
-        startAnimTime.setStyle("-fx-font: "+30*resfactor+"px EraserDust;");
+        startAnimTime.setStyle("-fx-font: " + 30 * resfactor + "px EraserDust;");
         startAnim = new Timeline();
         getChildren().add(startAnimTime);
         startAnim.getKeyFrames().addAll(new KeyFrame(Duration.seconds(1), e -> {
@@ -200,27 +198,27 @@ public class GameInterface extends Pane {
         startAnim.setCycleCount(Animation.INDEFINITE);
         startAnim.play();
         timeAnimation(3);
-        
+
     }
-    
-    public void drawCircles(){
-    crown = new ImageView(new Image("/Resources/Images/crown.png"));
-    icons = new Circle[localPlayer.getPlayers().length];
-    streakIcons=new ImageView[localPlayer.getPlayers().length];
-    for (int i=0;i<icons.length;i++) {
-            icons[i]=new Circle(fillingbar.getX()+fillingbar.getWidth()/2,fillingbar.getY()+fillingbar.getHeight()/2,fillingbar.getHeight()*2/3,localPlayer.getPlayers()[i].getColor());
+
+    public void drawCircles() {
+        crown = new ImageView(new Image("/Resources/Images/crown.png"));
+        icons = new Circle[localPlayer.getPlayers().length];
+        streakIcons = new ImageView[localPlayer.getPlayers().length];
+        for (int i = 0; i < icons.length; i++) {
+            icons[i] = new Circle(fillingbar.getX() + fillingbar.getWidth() / 2, fillingbar.getY() + fillingbar.getHeight() / 2, fillingbar.getHeight() * 2 / 3, localPlayer.getPlayers()[i].getColor());
             streakIcons[i] = new ImageView(new Image("/Resources/Images/Streak_star.png"));
-            streakIcons[i].setFitHeight(24*resfactor);
-            streakIcons[i].setFitWidth(24*resfactor);
-            streakIcons[i].setX(icons[i].getCenterX()-icons[i].getRadius());
-            streakIcons[i].setY(icons[i].getCenterY()-icons[i].getRadius());
+            streakIcons[i].setFitHeight(24 * resfactor);
+            streakIcons[i].setFitWidth(24 * resfactor);
+            streakIcons[i].setX(icons[i].getCenterX() - icons[i].getRadius());
+            streakIcons[i].setY(icons[i].getCenterY() - icons[i].getRadius());
             streakIcons[i].setVisible(false);
-            getChildren().addAll(icons[i],streakIcons[i]);
+            getChildren().addAll(icons[i], streakIcons[i]);
         }
-        crown.setFitWidth(43*resfactor);
-        crown.setFitHeight(33*resfactor);
-        crown.setY(fillingbar.getY()-crown.getFitHeight()*19/20);
-        crown.setX(icons[0].getCenterX()-crown.getFitWidth()/2);
+        crown.setFitWidth(43 * resfactor);
+        crown.setFitHeight(33 * resfactor);
+        crown.setY(fillingbar.getY() - crown.getFitHeight() * 19 / 20);
+        crown.setX(icons[0].getCenterX() - crown.getFitWidth() / 2);
         getChildren().add(crown);
     }
 
@@ -231,8 +229,9 @@ public class GameInterface extends Pane {
         timerbar_red = 0;
         timerbar_green = 255;
         color = new KeyFrame(Duration.seconds(millis), e -> {
-            if(paused)
+            if (paused) {
                 countdown.stop();
+            }
             if (timerbar_red < 254) {
                 timerbar_red += 1;
                 timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
@@ -247,13 +246,13 @@ public class GameInterface extends Pane {
             } else {
                 if (skipping) {
                     skipping = false;
-                    countdown.stop();  
+                    countdown.stop();
                     skip_button.setFill(Color.WHITE);
                 } else {
-                    countdown.stop();  
+                    countdown.stop();
                     badAnswer();
-                }         
-                    nextQuestion();
+                }
+                nextQuestion();
             }
         });
         countdown.getKeyFrames().add(color);
@@ -261,45 +260,49 @@ public class GameInterface extends Pane {
         countdown.play();
     }
 
-
     public void updateScore() {
-        first_place.setText("First Place: " + getFirstPlace().getName());
-        your_score.setText("Your Score: " + localPlayer.getScore());
-        current_grade.setText("Grade " + localPlayer.getGrade());
-        fillingbar.setWidth(WIDTH * localPlayer.getScore() / 1000);
-        updateIcons();
-        if(!win){
-            winner();
-        }
-    }
-    
-    public void updateIcons(){
-
-        for(int i=0;i<icons.length;i++){
-        icons[i].setCenterX(WIDTH * localPlayer.getPlayers()[i].getScore() / 1000);
-        if(localPlayer.getPlayers()[i].getGrade()==6){
-            streakIcons[i].setX(icons[i].getCenterX()-icons[i].getRadius());
-            streakIcons[i].setVisible(true);
-        }
-        else if(streakIcons[i].isVisible())
-            streakIcons[i].setVisible(false);
-        if(localPlayer.getPlayers()[i].equals(getFirstPlace()))
-        crown.setX(icons[i].getCenterX()-crown.getFitWidth()/2);
-        }
-    }
-
-    public void winner(){
-        for (Player i : localPlayer.getPlayers()) {
-            if (i.getScore() >= 1000) {
-//                updateScoreAnimation.stop();
-                win=true;
-                sendData();
-                ((Game)(getParent())).leaderboard(localPlayer.getPlayers());
+        if (icons != null) {
+            first_place.setText("First Place: " + getFirstPlace().getName());
+            your_score.setText("Your Score: " + localPlayer.getScore());
+            current_grade.setText("Grade " + localPlayer.getGrade());
+            fillingbar.setWidth(WIDTH * localPlayer.getScore() / 1000);
+            updateIcons();
+            if (!win) {
+                winner();
             }
         }
     }
+
+    public void updateIcons() {
+
+        for (int i = 0; i < icons.length; i++) {
+            icons[i].setCenterX(WIDTH * localPlayer.getPlayers()[i].getScore() / 1000);
+            if (localPlayer.getPlayers()[i].getGrade() == 6) {
+                streakIcons[i].setX(icons[i].getCenterX() - icons[i].getRadius());
+                streakIcons[i].setVisible(true);
+            } else if (streakIcons[i].isVisible()) {
+                streakIcons[i].setVisible(false);
+            }
+            if (localPlayer.getPlayers()[i].equals(getFirstPlace())) {
+                crown.setX(icons[i].getCenterX() - crown.getFitWidth() / 2);
+            }
+        }
+    }
+
+    public void winner() {
+        for (Player i : localPlayer.getPlayers()) {
+            if (i.getScore() >= 20) {
+                win = true;
+                sendData();
+                Platform.runLater(() -> {
+                ((Game) (getParent())).leaderboard(localPlayer.getPlayers());
+                });
+            }
+        }
+    }
+
     public void nextQuestion() {
-        clickCount=0;
+        clickCount = 0;
         updateScore();
         sendData();
         countdown.stop();
@@ -312,8 +315,8 @@ public class GameInterface extends Pane {
         timeAnimation(question.getTime());
     }
 
-    public void sendData(){
-    try {
+    public void sendData() {
+        try {
             if (host) {
                 ((HostPlayer) localPlayer).sendData(localPlayer);
             } else {
@@ -323,6 +326,7 @@ public class GameInterface extends Pane {
             Logger.getLogger(GameInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public void clearQuestion() {
         text_question.setText("");
         answer1.setText("");
@@ -352,6 +356,14 @@ public class GameInterface extends Pane {
         anstran4.play();
         localPlayer.addScore(question.getScore());
         localPlayer.graduate();
+        if (localPlayer.getGrade() > localPlayer.getHighestGrade()) {
+            localPlayer.setHighestGrade(localPlayer.getGrade());
+        }
+
+        localPlayer.setStreak(localPlayer.getStreak() + 1);
+        if (localPlayer.getHighestStreak() < localPlayer.getStreak()) {
+            localPlayer.setHighestStreak(localPlayer.getStreak());
+        }
         sendData();
         updateScore();
         nextQuestion();
@@ -367,6 +379,7 @@ public class GameInterface extends Pane {
         anstran3.play();
         anstran4.play();
         localPlayer.resetGrade();
+        localPlayer.setStreak(0);
         sendData();
         updateScore();
     }
@@ -377,26 +390,26 @@ public class GameInterface extends Pane {
         private Text answer_text;
 
         AnswerPane(double layoutX, double LayoutY) {
-            answer_rectangle = new Rectangle(WIDTH / 2, HEIGHT / 4 - 50*resfactor,Color.rgb(96, 139, 109));
+            answer_rectangle = new Rectangle(WIDTH / 2, HEIGHT / 4 - 50 * resfactor, Color.rgb(96, 139, 109));
             answer_text = new Text();
             answer_text.getStyleClass().add("inGameGUI");
-            answer_text.setStyle("-fx-font: "+40*resfactor+"px EraserDust;");
+            answer_text.setStyle("-fx-font: " + 40 * resfactor + "px EraserDust;");
             this.getChildren().addAll(answer_rectangle, answer_text);
             this.setLayoutX(layoutX);
             this.setLayoutY(LayoutY);
 
             this.setOnMouseClicked(e -> {
-                if(clickCount==0){
+                if (clickCount == 0) {
                     click.play();
                     clickCount++;
                 }
                 if (!skipping) {
-                    if (answer_text.getText().equals(question.getAnswer()) ) { //find a way to read dAnswers when a double and iAnswer when an int
-                     //if (answer_text.getText().equals(Double.toString(question.getAnswer())) ) --> this line is the line 388 before i modify it
+                    if (answer_text.getText().equals(question.getAnswer())) { //find a way to read dAnswers when a double and iAnswer when an int
+                        //if (answer_text.getText().equals(Double.toString(question.getAnswer())) ) --> this line is the line 388 before i modify it
                         goodAnswer();
                     } else {
                         badAnswer();
-                        skipping=true;
+                        skipping = true;
                     }
                 }
             });
@@ -407,8 +420,8 @@ public class GameInterface extends Pane {
         }
 
     }
-    
-    public void stop(){
-    paused=true;
+
+    public void stop() {
+        paused = true;
     }
 }
