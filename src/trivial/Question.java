@@ -34,6 +34,15 @@ public class Question {
     private int iAnswer;
     private double dAnswer;
     private String answer;
+
+    private String c1;
+    private String c2;
+    private String c3;
+
+    private double range1 = 0.5;
+    private double range2 = 0.5;
+    private double range3 = 0.5;
+
     private String answerString;
     private String[] choices;
     private static int[] countKeeper = {0, 0, 0, 0, 0, -1}; //keeps the count of which question has been read from the file for each grade.
@@ -90,7 +99,7 @@ public class Question {
 //            }
 //        }
         if (grade == 1) {
-            if (countKeeper[grade - 1]!=-1) {
+            if (countKeeper[grade - 1] != -1) {
                 File file = new File("src/Resources/Questions/grade1.txt");
                 readFile(file);
             } else {
@@ -99,7 +108,7 @@ public class Question {
         }
 
         if (grade == 2) {
-            if (countKeeper[grade - 1]!=-1) {
+            if (countKeeper[grade - 1] != -1) {
                 File file = new File("src/Resources/Questions/grade2.txt");
                 readFile(file);
             } else {
@@ -108,7 +117,7 @@ public class Question {
         }
 
         if (grade == 3) {
-            if (countKeeper[grade - 1]!=-1) {
+            if (countKeeper[grade - 1] != -1) {
                 File file = new File("src/Resources/Questions/grade3.txt");
                 readFile(file);
             } else {
@@ -117,7 +126,7 @@ public class Question {
         }
 
         if (grade == 4) {
-            if (countKeeper[grade - 1]!=-1) {
+            if (countKeeper[grade - 1] != -1) {
                 File file = new File("src/Resources/Questions/grade4.txt");
                 readFile(file);
             } else {
@@ -126,7 +135,7 @@ public class Question {
         }
 
         if (grade == 5) {
-            if (countKeeper[grade - 1]!=-1) {
+            if (countKeeper[grade - 1] != -1) {
                 File file = new File("src/Resources/Questions/grade5.txt");
                 readFile(file);
             } else {
@@ -135,7 +144,7 @@ public class Question {
         }
 
         if (grade == 6) {
-            if (countKeeper[grade - 1]!=-1) {
+            if (countKeeper[grade - 1] != -1) {
                 File file = new File("src/Resources/Questions/grade6.txt");
                 readFile(file);
             } else {
@@ -338,7 +347,7 @@ public class Question {
                     //answer = nf1.format(dAnswer);
                     arithmeticDoubleAnswers(dAnswer);
                     //arithmeticDoubleAnswers(dAnswer);
-                    System.out.println("Addition: " + question + " = " + dAnswer);
+                    //System.out.println("Addition: " + question + " = " + dAnswer);
                     break;
 
                 case 1:
@@ -349,7 +358,7 @@ public class Question {
                     //answer = nf1.format(dAnswer);
                     arithmeticDoubleAnswers(dAnswer);
                     //arithmeticDoubleAnswers(dAnswer);
-                    System.out.println("Subtraction: " + question + " = " + dAnswer);
+                    //System.out.println("Subtraction: " + question + " = " + dAnswer);
                     break;
 
                 case 2:
@@ -358,7 +367,7 @@ public class Question {
                     iAnswer = y * z;
                     answer = iAnswer + "";
                     arithmeticIntegerAnswers(iAnswer);
-                    System.out.println("Multipplication: " + question + " = " + iAnswer);
+                    //System.out.println("Multipplication: " + question + " = " + iAnswer);
                     break;
 
                 case 3:
@@ -372,7 +381,7 @@ public class Question {
                     iAnswer = u / v;
                     answer = iAnswer + "";
                     arithmeticIntegerAnswers(iAnswer);
-                    System.out.println("Division: " + question + " = " + iAnswer);
+                    //System.out.println("Division: " + question + " = " + iAnswer);
                     break;
 
             }
@@ -808,14 +817,6 @@ public class Question {
         nf2.setMaximumFractionDigits(2);
         nf2.setMinimumFractionDigits(2);
 
-        String c1;
-        String c2;
-        String c3;
-
-        double range1 = 0.5;
-        double range2 = 0.5;
-        double range3 = 0.5;
-
         double numericalAnswer = answer;
         if (grade == 4) {
 
@@ -851,38 +852,9 @@ public class Question {
             it prevents the range to range of two anwers to be equal thus
             preventing two answers to be equal in value
                  */
-
-                while (range1 > 0.3 || range1 < 0.05) {
-                    range1 = Math.random();
-                }
-
-                while (range2 > 0.3 || range2 < 0.05 && (Math.abs(range2 - range1) < 0.1)) {
-                    range2 = Math.random();
-                }
-                while (range3 > 0.3 || range3 < 0.05 && ((Math.abs(range3 - range2) < 0.1) && (Math.abs(range3 - range1) < 0.1))) {
-                    range3 = Math.random();
-                }
-
-                //do {
-                c1 = nf1.format((range1 * answer) + answer) + "";
-                c2 = nf1.format((range2 * answer) + answer) + "";
-                c3 = nf1.format((range3 * answer) + answer) + "";
-                //} while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
-
-//                double minRange = numericalAnswer - (0.1 * numericalAnswer);
-//                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
+                whileLoops(numericalAnswer);
 //
-//                do {
-//                    c1 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-//                    c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-//                    c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-//                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
-                choices[0] = nf1.format(numericalAnswer);
-                choices[1] = c1;
-                choices[2] = c2;
-                choices[3] = c3;
-
-                this.answer = choices[0];
+//                
             }
         }
 
@@ -922,83 +894,17 @@ public class Question {
             it prevents the range to range of two anwers to be equal thus
             preventing two answers to be equal in value
                  */
-                //do {
-                while (range1 > 0.3 || range1 < 0.05) {
-                    range1 = Math.random();
-                }
-
-                while (range2 > 0.3 || range2 < 0.05 && (Math.abs(range2 - range1) < 0.1)) {
-                    range2 = Math.random();
-                }
-                while (range3 > 0.3 || range3 < 0.05 && ((Math.abs(range3 - range2) < 0.1) && (Math.abs(range3 - range1) < 0.1))) {
-                    range3 = Math.random();
-                }
-                //} while ((range1 > 0.2 && range2 > 0.2 && range3 > 0.2) && (range1 == range2 || range1 == range3 || range2 == range3));
-
-                //do {
-                c1 = nf1.format((range1 * answer) + answer) + "";
-                c2 = nf1.format((range2 * answer) + answer) + "";
-                c3 = nf1.format((range3 * answer) + answer) + "";
-                //} while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
-
-//                double minRange = numericalAnswer - (0.1 * numericalAnswer);
-//                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
-//
-//                do {
-//                    c1 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-//                    c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-//                    c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-//                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
-                choices[0] = nf1.format(numericalAnswer);
-                choices[1] = c1;
-                choices[2] = c2;
-                choices[3] = c3;
-
-                this.answer = choices[0];
-
-                //System.out.println("mistake C:");
+                whileLoops(numericalAnswer);
+//               
             } else if (numericalAnswer >= 100.0) {
                 /*
             this do while loop creates the range for the possible answers. Also
             it prevents the range to range of two anwers to be equal thus
             preventing two answers to be equal in value
                  */
-                //do {
-                while (range1 > 0.3 || range1 < 0.05) {
-                    range1 = Math.random();
-                }
 
-                while (range2 > 0.3 || range2 < 0.05 && (Math.abs(range2 - range1) < 0.1)) {
-                    range2 = Math.random();
-                }
-                while (range3 > 0.3 || range3 < 0.05 && ((Math.abs(range3 - range2) < 0.1) && (Math.abs(range3 - range1) < 0.1))) {
-                    range3 = Math.random();
-                }
-                //} while ((range1 > 0.2 && range2 > 0.2 && range3 > 0.2) && (range1 == range2 || range1 == range3 || range2 == range3));
-
-                //do {
-                c1 = nf1.format((range1 * answer) + answer) + "";
-                c2 = nf1.format((range2 * answer) + answer) + "";
-                c3 = nf1.format((range3 * answer) + answer) + "";
-                //} while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
-//
-//                double minRange = numericalAnswer - (0.1 * numericalAnswer);
-//                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
-//
-//                do {
-//                    c1 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-//                    c2 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-//                    c3 = nf1.format((Math.random() * maxRange) - (Math.random() * minRange));
-//                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
-
-                choices[0] = nf1.format(numericalAnswer);
-                choices[1] = c1;
-                choices[2] = c2;
-                choices[3] = c3;
-
-                this.answer = choices[0];
-
-                //System.out.println("mistake D:");
+                whileLoops(numericalAnswer);
+//               
             }
         }
 
@@ -1015,6 +921,14 @@ public class Question {
 
                 this.answer = choices[0];
 
+                System.out.println("range1 (grade6): " + range1);
+                System.out.println("range2 (grade6): " + range2);
+                System.out.println("range3 (grade6): " + range3);
+                System.out.println("choice1 (grade6): " + c1);
+                System.out.println("choice2 (grade6): " + c2);
+                System.out.println("choice3 (grade6): " + c3);
+                System.out.println("answer (grade6): " + choices[0]);
+
             } else if (numericalAnswer < 3.00) {
 
                 c1 = nf2.format(numericalAnswer + 1);
@@ -1028,76 +942,89 @@ public class Question {
 
                 this.answer = choices[0];
 
+                System.out.println("range1 (grade6): " + range1);
+                System.out.println("range2 (grade6): " + range2);
+                System.out.println("range3 (grade6): " + range3);
+                System.out.println("choice1 (grade6): " + c1);
+                System.out.println("choice2 (grade6): " + c2);
+                System.out.println("choice3 (grade6): " + c3);
+                System.out.println("answer (grade6): " + choices[0]);
+
             } else if (numericalAnswer >= 10.00 && numericalAnswer < 100.00) {
                 /*
-            this do while loop creates the range for the possible answers. Also
-            it prevents the range to range of two anwers to be equal thus
-            preventing two answers to be equal in value
+                 this while loop creates the range for the possible answers. Also
+                 it prevents the range to range of two anwers to be equal thus
+                 preventing two answers to be equal in value
                  */
-                //do {
 
-                while (range1 > 0.3 || range1 < 0.05) {
-                    range1 = Math.random();
-                }
+                whileLoops(numericalAnswer);
 
-                while (range2 > 0.3 || range2 < 0.05 && (Math.abs(range2 - range1) < 0.1)) {
-                    range2 = Math.random();
-                }
-                while (range3 > 0.3 || range3 < 0.05 && ((Math.abs(range3 - range2) < 0.1) && (Math.abs(range3 - range1) < 0.1))) {
-                    range3 = Math.random();
-                }
-                //} while ((range1 > 0.2 || range2 > 0.2 || range3 > 0.2) && (range1 == range2 || range1 == range3 || range2 == range3));
-
-                //do {
-                c1 = nf2.format((range1 * answer) + answer) + "";
-                c2 = nf2.format((range2 * answer) + answer) + "";
-                c3 = nf2.format((range3 * answer) + answer) + "";
-                //} while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
-
-//                double minRange = numericalAnswer - (0.1 * numericalAnswer);
-//                double maxRange = numericalAnswer + (0.1 * numericalAnswer);
-//
-//                do {
-//                    c1 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
-//                    c2 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
-//                    c3 = nf2.format((Math.random() * maxRange) - (Math.random() * minRange));
-//                } while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
-                choices[0] = nf1.format(numericalAnswer);
-                choices[1] = c1;
-                choices[2] = c2;
-                choices[3] = c3;
-
-                this.answer = choices[0];
+                System.out.println("range1 (grade6): " + range1);
+                System.out.println("range2 (grade6): " + range2);
+                System.out.println("range3 (grade6): " + range3);
+                System.out.println("choice1 (grade6): " + c1);
+                System.out.println("choice2 (grade6): " + c2);
+                System.out.println("choice3 (grade6): " + c3);
+                System.out.println("answer (grade6): " + choices[0]);
 
             } else if (numericalAnswer >= 100.00) {
 
-                while (range1 > 0.3 || range1 < 0.05) {
-                    range1 = Math.random();
-                }
+                whileLoops(numericalAnswer);
 
-                while (range2 > 0.3 || range2 < 0.05 && (Math.abs(range2 - range1) < 0.1)) {
-                    range2 = Math.random();
-                }
-                while (range3 > 0.3 || range3 < 0.05 && ((Math.abs(range3 - range2) < 0.1) && (Math.abs(range3 - range1) < 0.1))) {
-                    range3 = Math.random();
-                }
-
-                c1 = nf2.format((range1 * answer) + answer) + "";
-                c2 = nf2.format((range2 * answer) + answer) + "";
-                c3 = nf2.format((range3 * answer) + answer) + "";
-
-                choices[0] = nf1.format(numericalAnswer);
-                choices[1] = c1;
-                choices[2] = c2;
-                choices[3] = c3;
-
-                this.answer = choices[0];
+//               
+                System.out.println("range1 (grade6): " + range1);
+                System.out.println("range2 (grade6): " + range2);
+                System.out.println("range3 (grade6): " + range3);
+                System.out.println("choice1 (grade6): " + c1);
+                System.out.println("choice2 (grade6): " + c2);
+                System.out.println("choice3 (grade6): " + c3);
+                System.out.println("answer (grade6): " + choices[0]);
             }
 
         }
 
         shuffle(); //shuffles the order of the answers so that the answer is not always at the same place
 
+    }
+
+    public void whileLoops(double numericalAnswer) {
+
+        //Formats the numbers to have 1 decimal
+        NumberFormat nf1 = NumberFormat.getInstance();
+        nf1.setMaximumFractionDigits(1);
+        nf1.setMinimumFractionDigits(1);
+
+        //Formats the numbers to have 2 decimal
+        NumberFormat nf2 = NumberFormat.getInstance();
+        nf2.setMaximumFractionDigits(2);
+        nf2.setMinimumFractionDigits(2);
+        while (range1 > 0.3 || range1 < 0.09) {
+            range1 = Math.random();
+        }
+
+        while ((range2 > 0.3 || range2 < 0.09) && (Math.abs(range2 - range1) < 0.12) || range2 == 0.5) {
+            range2 = Math.random();
+        }
+        while ((range3 > 0.3 || range3 < 0.09) && ((Math.abs(range3 - range2) < 0.12) && (Math.abs(range3 - range1) < 0.12)) || range3 == 0.5) {
+            range3 = Math.random();
+        }
+
+        if (this.grade < 6) {
+            c1 = nf1.format((range1 * numericalAnswer) + numericalAnswer) + "";
+            c2 = nf1.format((range2 * numericalAnswer) + numericalAnswer) + "";
+            c3 = nf1.format((range3 * numericalAnswer) + numericalAnswer) + "";
+        } else {
+            c1 = nf2.format((range1 * numericalAnswer) + numericalAnswer) + "";
+            c2 = nf2.format((range2 * numericalAnswer) + numericalAnswer) + "";
+            c3 = nf2.format((range3 * numericalAnswer) + numericalAnswer) + "";
+        }
+
+        choices[0] = nf1.format(numericalAnswer);
+        choices[1] = c1;
+        choices[2] = c2;
+        choices[3] = c3;
+
+        this.answer = choices[0];
     }
 
     public void arithmeticIntegerAnswers(int answer) {
@@ -1142,28 +1069,36 @@ public class Question {
             preventing two answers to be equal in value
              */
             //do {
-            while (range1 > 0.3 || range1 < 0.05) {
+            while (range1 > 0.3 || range1 < 0.09) {
                 range1 = Math.random();
             }
 
-            while (range2 > 0.3 || range2 < 0.05 && (Math.abs(range2 - range1) < 0.1)) {
+            while ((range2 > 0.3 || range2 < 0.09) && (Math.abs(range2 - range1) < 0.12) || range2 == 0.5) {
                 range2 = Math.random();
             }
-            while (range3 > 0.3 || range3 < 0.05 && ((Math.abs(range3 - range2) < 0.1) && (Math.abs(range3 - range1) < 0.1))) {
+            while ((range3 > 0.3 || range3 < 0.09) && ((Math.abs(range3 - range2) < 0.12) && (Math.abs(range3 - range1) < 0.12)) || range3 == 0.5) {
                 range3 = Math.random();
             }
 
             //} while ((range1 > 0.2 && range2 > 0.2 && range3 > 0.2) && (range1 == range2 || range1 == range3 || range2 == range3));
             //do {
-                c1 = ((int) (range1 * answer)) + answer + "";
-                c2 = ((int) (range2 * answer)) + answer + "";
-                c3 = ((int) (range3 * answer)) + answer + "";
+            c1 = ((int) (range1 * answer)) + answer + "";
+            c2 = ((int) (range2 * answer)) + answer + "";
+            c3 = ((int) (range3 * answer)) + answer + "";
             //} while (c1.equals(c2) || c1.equals(c3) || c2.equals(c3));
 
             choices[0] = answer + "";
             choices[1] = c1;
             choices[2] = c2;
             choices[3] = c3;
+
+            System.out.println("range1 (grade1): " + range1);
+            System.out.println("range2 (grade1): " + range2);
+            System.out.println("range3 (grade1): " + range3);
+            System.out.println("choice1 (grade1): " + c1);
+            System.out.println("choice2 (grade1): " + c2);
+            System.out.println("choice3 (grade1): " + c3);
+            System.out.println("answer (grade1): " + choices[0]);
 
         }
 
@@ -1213,8 +1148,9 @@ public class Question {
          */
         if (input.hasNextLine()) {
             countKeeper[grade - 1]++;
+        } else {
+            countKeeper[grade - 1] = -1;
         }
-        else countKeeper[grade - 1] = -1;
     }
 
     public int getTime() {
