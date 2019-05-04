@@ -84,7 +84,7 @@ public class GameInterface extends Pane {
 
     private ImageView separation;
 
-    public GameInterface(Boolean host, double resfactor, Player localPlayer) {
+    public GameInterface(Boolean host, double resfactor, Player localPlayer, double sound) {
         this.localPlayer = localPlayer;
         this.resfactor = resfactor;
         this.host = host;
@@ -93,7 +93,7 @@ public class GameInterface extends Pane {
         skipping = true;
 
         click = new AudioClip(new File("src/Resources/Sounds/Click.wav").toURI().toString());
-        click.setVolume(0);
+        click.setVolume(sound/100);
 
         try {
             questionList = new QuestionList();

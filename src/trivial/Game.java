@@ -56,7 +56,7 @@ public class Game extends StackPane{
     
     public void startGame(boolean host,Player localPlayer){
         getChildren().clear();
-        GameInterface gameInterface = new GameInterface(host,resfactor,localPlayer);
+        GameInterface gameInterface = new GameInterface(host,resfactor,localPlayer,sound);
         getChildren().add(gameInterface);
         playing=true;
     }
@@ -64,7 +64,7 @@ public class Game extends StackPane{
     public void leaderboard(Player[] playerList){
         playing=false;
         getChildren().clear();
-        Leaderboard leaderboard=new Leaderboard(playerList, resfactor);
+        Leaderboard leaderboard=new Leaderboard(playerList, resfactor,sound);
         getChildren().add(leaderboard);
     }
     public boolean isPlaying(){

@@ -26,10 +26,10 @@ public class Leaderboard extends VBox {
     private boolean exported = false;
     AudioClip click;
             
-    public Leaderboard(Player[] player, double resfactor){
+    public Leaderboard(Player[] player, double resfactor,double sound){
         
         click = new AudioClip(new File("src/Resources/Sounds/Click.wav").toURI().toString());
-        
+        click.setVolume(sound/100);
         this.resfactor=resfactor;
         this.players = new Player[player.length];
         System.arraycopy(player, 0, this.players, 0, player.length);
