@@ -72,7 +72,7 @@ public class Leaderboard extends VBox {
                 break; 
             }
             case 2:{
-                Rectangle first_rectangle = new Rectangle(170*resfactor,650*resfactor);
+                Rectangle first_rectangle = new Rectangle(170*resfactor,650*resfactor/1000*players[0].getScore());
                 first_rectangle.setFill(players[0].getColor());
                 Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore());
                 second_rectangle.setFill(players[1].getColor());
