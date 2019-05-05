@@ -54,7 +54,7 @@ public class Trivial extends Application{
             case 2: this.resfactor=(0.75);break;
             case 3: this.resfactor=(0.6666666);break;
             case 4: this.resfactor=(0.5);break;
-        }
+            }
         
         }
         catch(FileNotFoundException e){

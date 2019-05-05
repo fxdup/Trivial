@@ -1,7 +1,0 @@
-Name: Guillaume
- Score: 10
- Grade: 2
- Highest Grade: 0
- Streak: 0
- Highest Streak: 0
-

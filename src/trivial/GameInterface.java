@@ -237,30 +237,32 @@ public class GameInterface extends Pane {
         timerbar_red = 0;
         timerbar_green = 255;
         color = new KeyFrame(Duration.seconds(millis), e -> {
-            if (paused) {
-                countdown.stop();
-            }
-            if (timerbar_red < 254) {
-                timerbar_red += 1;
-                timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
-                timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
-            } else if (timerbar.getWidth() < WIDTH / 2 && timerbar_green > 1) {
-                timerbar_green -= 1;
-                timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
-                timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
-            }
-            if (timerbar.getWidth() >= 0) {
-                timerbar.setWidth(timerbar.getWidth() - 2);
-            } else {
-                if (skipping) {
-                    skipping = false;
+            if(!win){
+                if (paused) {
                     countdown.stop();
-                    skip_button.setFill(Color.WHITE);
-                } else {
-                    countdown.stop();
-                    badAnswer();
                 }
-                nextQuestion();
+                if (timerbar_red < 254) {
+                    timerbar_red += 1;
+                    timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
+                    timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
+                } else if (timerbar.getWidth() < WIDTH / 2 && timerbar_green > 1) {
+                    timerbar_green -= 1;
+                    timerbar.setStroke(Color.rgb(timerbar_red, timerbar_green, 0));
+                    timerbar.setFill(Color.rgb(timerbar_red, timerbar_green, 0));
+                }
+                if (timerbar.getWidth() >= 0) {
+                    timerbar.setWidth(timerbar.getWidth() - 2);
+                } else {
+                    if (skipping) {
+                        skipping = false;
+                        countdown.stop();
+                        skip_button.setFill(Color.WHITE);
+                    } else {
+                        countdown.stop();
+                        badAnswer();
+                    }
+                    nextQuestion();
+                }
             }
         });
         countdown.getKeyFrames().add(color);

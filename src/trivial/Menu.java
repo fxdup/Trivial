@@ -403,8 +403,8 @@ try {
     }
     
     public void start(boolean host){
+        musicPlayer.stop();
         if(waiting){
-            musicPlayer.stop();
             ((Game)(getParent())).startGame(host,me);
         }
     }
