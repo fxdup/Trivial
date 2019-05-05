@@ -39,48 +39,48 @@ import javafx.util.Duration;
  */
 public class GameInterface extends Pane {
 
-    private StackPane questionPane;
-    private AnswerPane answer1;
-    private AnswerPane answer2;
-    private AnswerPane answer3;
-    private AnswerPane answer4;
-    private StackPane skip;
+    private StackPane questionPane;//Pane containing the text of the question
+    private AnswerPane answer1;//Pane of answer 1
+    private AnswerPane answer2;//Pane of answer 2
+    private AnswerPane answer3;//Pane of answer 3
+    private AnswerPane answer4;//Pane of answer 4
+    private StackPane skip;//Pane containing the skip button
 
     private Player localPlayer;
-    private boolean host;
-    private QuestionList questionList;
-    private Question question;
-    private boolean skipping;
-    private Text first_place;
-    private Text current_grade;
-    private Text your_score;
-    private Text text_question;
-    private Text skip_text;
-    private Text startAnimTime;
+    private boolean host;//If the local player is a host
+    private QuestionList questionList;//List of questions that will be played
+    private Question question;//Current question
+    private boolean skipping;//If the player is skipping the current question
+    private Text first_place;//Text containing who is in first place
+    private Text current_grade;//Current grade of the local player
+    private Text your_score;//Current score of the local player
+    private Text text_question;//Text of the current queston
+    private Text skip_text;//Text in skip pane
+    private Text startAnimTime;//Text of the countdown at the start of the game
 
-    private ImageView background;
-    private Rectangle leaderbar;
-    private Rectangle fillingbar;
-    private Rectangle white_question;
-    private Rectangle timerbar;
-    private Rectangle skip_button;
-    private Circle[] icons;
-    private ImageView[] streakIcons;
-    private ImageView crown;
-    private double resfactor;
-    private double HEIGHT;
-    private double WIDTH;
-    private boolean win = false;
-    private boolean paused = false;
+    private ImageView background;//Background image
+    private Rectangle leaderbar;//White bar at the top to show progression
+    private Rectangle fillingbar;//Bar of the color of the player which will fill the leaderbar
+    private Rectangle white_question;//Background of the questionPane
+    private Rectangle timerbar;//Bar showing how much time is lefft to a question
+    private Rectangle skip_button;//Background of the skip pane
+    private Circle[] icons;//Array containing the icons of all players
+    private ImageView[] streakIcons;//Array containing a star for each player for when they are in a streak of 6 and more
+    private ImageView crown;//Crown which is diplayed on top of the leader
+    private double resfactor;//The resolution factor which changes the window size
+    private double HEIGHT;//Height of the window
+    private double WIDTH;//Width of the window
+    private boolean win = false;//If someone has won
+    private boolean paused = false;//If the game is paused
 
-    int timerbar_red;
-    int timerbar_green;
-    Timeline countdown;
-    Timeline startAnim;
-    Timeline updateScoreAnimation;
-    KeyFrame color;
-    AudioClip click;
-    int clickCount = 0;
+    private int timerbar_red;//Quantity of red in the timebar
+    private int timerbar_green;//Quantity of green in the timebar
+    private Timeline countdown;
+    private Timeline startAnim;
+    private Timeline updateScore;
+    private KeyFrame color;
+    private AudioClip click;
+    private int clickCount = 0;
 
     private ImageView separation;
 
@@ -93,7 +93,7 @@ public class GameInterface extends Pane {
         skipping = true;
 
         click = new AudioClip(new File("src/Resources/Sounds/Click.wav").toURI().toString());
-        click.setVolume(sound/100);
+        click.setVolume(sound / 100);
 
         try {
             questionList = new QuestionList();
@@ -166,7 +166,6 @@ public class GameInterface extends Pane {
         skip.setLayoutY(HEIGHT / 2 + 50 * resfactor - skip_button.getHeight() / 2);
         skip.getChildren().addAll(skip_button, skip_text);
         skip.setOnMouseClicked(e -> {
-
             if (!skipping) {
                 skip_button.setFill(Color.ORANGE);
                 skipping = true;
@@ -175,9 +174,13 @@ public class GameInterface extends Pane {
                 timeAnimation(question.getTime());
             }
         });
-
+        updateScore = new Timeline(new KeyFrame(Duration.seconds(0.1), e -> {
+            updateScore();
+        }));
+        updateScore.setCycleCount(Animation.INDEFINITE);
         getChildren().addAll(background, answer1, answer2, answer3, answer4, separation, leaderbar, fillingbar, your_score, current_grade, first_place, questionPane, timerbar, skip);
         startAnimation();
+
     }
 
     public void startAnimation() {
@@ -193,6 +196,7 @@ public class GameInterface extends Pane {
                 drawCircles();
                 getChildren().remove(startAnimTime);
                 startAnim.stop();
+                updateScore.play();
             }
         }));
         startAnim.setCycleCount(Animation.INDEFINITE);
@@ -260,7 +264,7 @@ public class GameInterface extends Pane {
         countdown.play();
     }
 
-    public void updateScore() {
+    public synchronized void updateScore() {
         if (icons != null) {
             first_place.setText("First Place: " + getFirstPlace().getName());
             your_score.setText("Your Score: " + localPlayer.getScore());
@@ -274,9 +278,9 @@ public class GameInterface extends Pane {
     }
 
     public void updateIcons() {
-
         for (int i = 0; i < icons.length; i++) {
             icons[i].setCenterX(WIDTH * localPlayer.getPlayers()[i].getScore() / 1000);
+            icons[i].toFront();
             if (localPlayer.getPlayers()[i].getGrade() == 6) {
                 streakIcons[i].setX(icons[i].getCenterX() - icons[i].getRadius());
                 streakIcons[i].setVisible(true);
@@ -285,17 +289,18 @@ public class GameInterface extends Pane {
             }
             if (localPlayer.getPlayers()[i].equals(getFirstPlace())) {
                 crown.setX(icons[i].getCenterX() - crown.getFitWidth() / 2);
+                crown.toFront();
             }
         }
     }
 
     public void winner() {
         for (Player i : localPlayer.getPlayers()) {
-            if (i.getScore() >= 20) {
+            if (i.getScore() >= 100) {
                 win = true;
                 sendData();
                 Platform.runLater(() -> {
-                ((Game) (getParent())).leaderboard(localPlayer.getPlayers());
+                    ((Game) (getParent())).leaderboard(localPlayer.getPlayers());
                 });
             }
         }
@@ -404,8 +409,7 @@ public class GameInterface extends Pane {
                     clickCount++;
                 }
                 if (!skipping) {
-                    if (answer_text.getText().equals(question.getAnswer())) { //find a way to read dAnswers when a double and iAnswer when an int
-                        //if (answer_text.getText().equals(Double.toString(question.getAnswer())) ) --> this line is the line 388 before i modify it
+                    if (answer_text.getText().equals(question.getAnswer())) { //find a way to read Answers when a double and iAnswer when an int
                         goodAnswer();
                     } else {
                         badAnswer();

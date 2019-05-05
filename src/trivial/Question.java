@@ -921,14 +921,6 @@ public class Question {
 
                 this.answer = choices[0];
 
-                System.out.println("range1 (grade6): " + range1);
-                System.out.println("range2 (grade6): " + range2);
-                System.out.println("range3 (grade6): " + range3);
-                System.out.println("choice1 (grade6): " + c1);
-                System.out.println("choice2 (grade6): " + c2);
-                System.out.println("choice3 (grade6): " + c3);
-                System.out.println("answer (grade6): " + choices[0]);
-
             } else if (numericalAnswer < 3.00) {
 
                 c1 = nf2.format(numericalAnswer + 1);
@@ -942,14 +934,6 @@ public class Question {
 
                 this.answer = choices[0];
 
-                System.out.println("range1 (grade6): " + range1);
-                System.out.println("range2 (grade6): " + range2);
-                System.out.println("range3 (grade6): " + range3);
-                System.out.println("choice1 (grade6): " + c1);
-                System.out.println("choice2 (grade6): " + c2);
-                System.out.println("choice3 (grade6): " + c3);
-                System.out.println("answer (grade6): " + choices[0]);
-
             } else if (numericalAnswer >= 10.00 && numericalAnswer < 100.00) {
                 /*
                  this while loop creates the range for the possible answers. Also
@@ -959,26 +943,10 @@ public class Question {
 
                 whileLoops(numericalAnswer);
 
-                System.out.println("range1 (grade6): " + range1);
-                System.out.println("range2 (grade6): " + range2);
-                System.out.println("range3 (grade6): " + range3);
-                System.out.println("choice1 (grade6): " + c1);
-                System.out.println("choice2 (grade6): " + c2);
-                System.out.println("choice3 (grade6): " + c3);
-                System.out.println("answer (grade6): " + choices[0]);
-
             } else if (numericalAnswer >= 100.00) {
 
                 whileLoops(numericalAnswer);
 
-//               
-                System.out.println("range1 (grade6): " + range1);
-                System.out.println("range2 (grade6): " + range2);
-                System.out.println("range3 (grade6): " + range3);
-                System.out.println("choice1 (grade6): " + c1);
-                System.out.println("choice2 (grade6): " + c2);
-                System.out.println("choice3 (grade6): " + c3);
-                System.out.println("answer (grade6): " + choices[0]);
             }
 
         }
@@ -1092,13 +1060,6 @@ public class Question {
             choices[2] = c2;
             choices[3] = c3;
 
-            System.out.println("range1 (grade1): " + range1);
-            System.out.println("range2 (grade1): " + range2);
-            System.out.println("range3 (grade1): " + range3);
-            System.out.println("choice1 (grade1): " + c1);
-            System.out.println("choice2 (grade1): " + c2);
-            System.out.println("choice3 (grade1): " + c3);
-            System.out.println("answer (grade1): " + choices[0]);
 
         }
 

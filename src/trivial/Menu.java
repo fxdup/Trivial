@@ -299,15 +299,24 @@ public class Menu extends StackPane{
         menu.getChildren().addAll(ip,ipt,port,portt,number_of_players,startback);
         waiting=true;
         Timeline playerCount=new Timeline(new KeyFrame(Duration.seconds(1),e->{
-        number_of_players.setText("Players joined : "+(((HostPlayer)me).getPlayerSize()+1)+"/40");
+        number_of_players.setText("Players joined : "+me.getPlayerSize()+"/40");
         }));
         playerCount.setCycleCount(Animation.INDEFINITE);
         playerCount.play();
         start.setOnMouseClicked(e->{
             click.play();
+            start.setText("Starting");
+            start.setDisable(true);
+            back.setDisable(true);
             playerCount.stop();
             ((HostPlayer)me).stopConnecting();
+try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
             ((HostPlayer)me).sendStart();
+            
             start(true);
         });
         
