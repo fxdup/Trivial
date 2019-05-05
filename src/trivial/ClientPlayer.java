@@ -27,6 +27,7 @@ public class ClientPlayer extends Player {
     public ClientPlayer(String name, Game game) throws IOException {
         super(name);
         this.game=game;
+        super.addPlayer(this);
     }
 
     //sends the player's information to the host

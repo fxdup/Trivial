@@ -142,7 +142,7 @@ public class HostPlayer extends Player implements Serializable {
                         player = (Player) o;
                         addPlayer(player);
                         sendData(player);
-                        if (game.isPlaying()) {
+                        if (game.isPlaying()&&player.getId()!=0) {
                             ((GameInterface) game.getChildren().get(0)).updateScore();
                         }
                     }
