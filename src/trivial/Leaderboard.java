@@ -30,13 +30,26 @@ public class Leaderboard extends VBox {
     AudioClip click;
     StackPane exportTxtStack;
             
-    public Leaderboard(Player[] player, double resfactor,double volume){
+    public Leaderboard(Player[] player, double resfactor,double sound){
         
         click = new AudioClip(new File("src/Resources/Sounds/Click.wav").toURI().toString());
-        click.setVolume(volume/100);
+        click.setVolume(sound/100);
         this.resfactor=resfactor;
         this.players = new Player[player.length];
         System.arraycopy(player, 0, this.players, 0, player.length);
+        
+        int playerHighestScore;
+        for(int i=0;i<players.length;i++){
+            playerHighestScore=i;
+            for(int j=i;j<players.length;j++){
+                if(players[j].getScore()>players[playerHighestScore].getScore()){
+                    Player temp;
+                    temp=players[playerHighestScore];
+                    players[playerHighestScore]=players[j];
+                    players[j]=temp;
+                }
+            }    
+        }
         
         exportText = new Text("Export as \n text file");
         exportText.setStyle("-fx-font: "+65*resfactor+"px EraserDust;-fx-fill: white");
@@ -62,7 +75,7 @@ public class Leaderboard extends VBox {
         Pane podium = new Pane();
         switch(players.length){
             case 1:{
-                Rectangle first_rectangle = new Rectangle(170*resfactor,650*resfactor);
+                Rectangle first_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[0].getScore());
                 first_rectangle.setFill(players[0].getColor());
                 podium.getChildren().addAll(first_rectangle);
                 Text first_text = new Text(first_rectangle.getX(),first_rectangle.getY()-10,players[0].getName());
@@ -72,7 +85,7 @@ public class Leaderboard extends VBox {
                 break; 
             }
             case 2:{
-                Rectangle first_rectangle = new Rectangle(170*resfactor,650*resfactor/1000*players[0].getScore());
+                Rectangle first_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[0].getScore());
                 first_rectangle.setFill(players[0].getColor());
                 Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore());
                 second_rectangle.setFill(players[1].getColor());
@@ -86,7 +99,7 @@ public class Leaderboard extends VBox {
                 break;
             }
             default:{
-                Rectangle first_rectangle = new Rectangle(170*resfactor,650*resfactor);
+                Rectangle first_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[0].getScore());
                 first_rectangle.setFill(players[0].getColor());
                 Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore());
                 second_rectangle.setFill(players[1].getColor());

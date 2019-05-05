@@ -79,10 +79,12 @@ public class GameInterface extends Pane {
     private Timeline startAnim;
     private Timeline updateScore;
     private KeyFrame color;
-    private AudioClip click;
     private int clickCount = 0;
 
     private ImageView separation;
+    
+    private AudioClip correctAnswer;
+    private AudioClip wrongAnswer;
 
     public GameInterface(Boolean host, double resfactor, Player localPlayer, double sound) {
         this.localPlayer = localPlayer;
@@ -91,9 +93,11 @@ public class GameInterface extends Pane {
         HEIGHT = 1080 * resfactor;
         WIDTH = 1920 * resfactor;
         skipping = true;
-
-        click = new AudioClip(new File("src/Resources/Sounds/Click.wav").toURI().toString());
-        click.setVolume(sound / 100);
+        
+        correctAnswer = new AudioClip(new File("src/Resources/Sounds/Correct.wav").toURI().toString());
+        correctAnswer.setVolume(sound / 100);
+        wrongAnswer = new AudioClip(new File("src/Resources/Sounds/Incorrect.mp3").toURI().toString());
+        correctAnswer.setVolume(sound / 100);
 
         try {
             questionList = new QuestionList();
@@ -296,7 +300,7 @@ public class GameInterface extends Pane {
 
     public void winner() {
         for (Player i : localPlayer.getPlayers()) {
-            if (i.getScore() >= 1000) {
+            if (i.getScore() >= 100) {
                 win = true;
                 sendData();
                 Platform.runLater(() -> {
@@ -351,6 +355,7 @@ public class GameInterface extends Pane {
     }
 
     public void goodAnswer() {
+        correctAnswer.play();
         FillTransition anstran1 = new FillTransition(Duration.seconds(0.3), (Rectangle) answer1.getChildren().get(0), Color.GREEN, Color.rgb(96, 139, 109));
         FillTransition anstran2 = new FillTransition(Duration.seconds(0.3), (Rectangle) answer2.getChildren().get(0), Color.GREEN, Color.rgb(96, 139, 109));
         FillTransition anstran3 = new FillTransition(Duration.seconds(0.3), (Rectangle) answer3.getChildren().get(0), Color.GREEN, Color.rgb(96, 139, 109));
@@ -375,6 +380,7 @@ public class GameInterface extends Pane {
     }
 
     public void badAnswer() {
+        wrongAnswer.play();
         FillTransition anstran1 = new FillTransition(Duration.seconds(0.3), (Rectangle) answer1.getChildren().get(0), Color.RED, Color.rgb(96, 139, 109));
         FillTransition anstran2 = new FillTransition(Duration.seconds(0.3), (Rectangle) answer2.getChildren().get(0), Color.RED, Color.rgb(96, 139, 109));
         FillTransition anstran3 = new FillTransition(Duration.seconds(0.3), (Rectangle) answer3.getChildren().get(0), Color.RED, Color.rgb(96, 139, 109));
@@ -405,7 +411,6 @@ public class GameInterface extends Pane {
 
             this.setOnMouseClicked(e -> {
                 if (clickCount == 0) {
-                    click.play();
                     clickCount++;
                 }
                 if (!skipping) {
