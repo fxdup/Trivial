@@ -27,7 +27,17 @@ public class Leaderboard extends VBox {
     AudioClip click;
             
     public Leaderboard(Player[] player, double resfactor,double sound){
-        
+        for(int i=0;i<players.length;i++){
+            int playerHighestScore=i;
+            for(int j=i;j<players.length;j++){
+                if(players[j].getScore()<players[playerHighestScore].getScore()){
+                    Player temp;
+                    temp=players[playerHighestScore];
+                    players[playerHighestScore]=players[i];
+                    players[j]=temp;
+                }
+            }    
+        }
         click = new AudioClip(new File("src/Resources/Sounds/Click.wav").toURI().toString());
         click.setVolume(sound/100);
         this.resfactor=resfactor;
