@@ -31,8 +31,16 @@ public class Leaderboard extends VBox {
     StackPane exportTxtStack;
             
     public Leaderboard(Player[] player, double resfactor,double sound){
+        
+        click = new AudioClip(new File("src/Resources/Sounds/Click.wav").toURI().toString());
+        click.setVolume(sound/100);
+        this.resfactor=resfactor;
+        this.players = new Player[player.length];
+        System.arraycopy(player, 0, this.players, 0, player.length);
+        
+        int playerHighestScore;
         for(int i=0;i<players.length;i++){
-            int playerHighestScore=i;
+            playerHighestScore=i;
             for(int j=i;j<players.length;j++){
                 if(players[j].getScore()<players[playerHighestScore].getScore()){
                     Player temp;
@@ -42,11 +50,6 @@ public class Leaderboard extends VBox {
                 }
             }    
         }
-        click = new AudioClip(new File("src/Resources/Sounds/Click.wav").toURI().toString());
-        click.setVolume(sound/100);
-        this.resfactor=resfactor;
-        this.players = new Player[player.length];
-        System.arraycopy(player, 0, this.players, 0, player.length);
         
         exportText = new Text("Export as \n text file");
         exportText.setStyle("-fx-font: "+65*resfactor+"px EraserDust;-fx-fill: white");
