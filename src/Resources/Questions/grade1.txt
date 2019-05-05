@@ -104,7 +104,7 @@ River
 Lake
 Iceberg
 What shape does the Earth have?
-Circle
+Sphere
 Donut shape
 Flat
 Dome

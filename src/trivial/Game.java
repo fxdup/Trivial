@@ -30,7 +30,7 @@ public class Game extends StackPane{
     double resfactor;
     double sound;
     Trivial main;
-    private boolean playing;
+    private String state;
     
     public Game(double sound, int resolution,double resfactor,Trivial main) throws FileNotFoundException{
         this.resolution=resolution;
@@ -41,7 +41,7 @@ public class Game extends StackPane{
     }
     
         public void menu() throws FileNotFoundException{
-        playing=false;
+        state="menu";
         getChildren().clear();
         Menu menu = new Menu(sound,resolution,resfactor,main);
         getChildren().add(menu);
@@ -58,20 +58,20 @@ public class Game extends StackPane{
         getChildren().clear();
         GameInterface gameInterface = new GameInterface(host,resfactor,localPlayer,sound);
         getChildren().add(gameInterface);
-        playing=true;
+        state="playing";
     }
     
     public void leaderboard(Player[] playerList){
-        playing=false;
+        state="leaderboard";
         getChildren().clear();
         Leaderboard leaderboard=new Leaderboard(playerList, resfactor,sound);
         getChildren().add(leaderboard);
     }
-    public boolean isPlaying(){
-    return playing;
+    public String getState(){
+    return state;
     }
     
-    public void disconnected(Player player) throws FileNotFoundException{
+    public void disconnected(Player player){
         VBox textBox = new VBox();
         StackPane textDisplay=new StackPane();
         Rectangle background =new Rectangle(1920*resfactor,1080*resfactor,Color.BLACK);
@@ -84,7 +84,7 @@ public class Game extends StackPane{
         back.setStyle("-fx-font: "+120*resfactor+"px EraserDust;");
         back.setOnMouseClicked(e->{
         getChildren().clear();
-        if(playing){
+        if(state.equals("playing")){
         leaderboard(player.getPlayers());
         }else{
             try {
@@ -98,7 +98,7 @@ public class Game extends StackPane{
         textDisplay.getChildren().addAll(background,textBox);
         
         
-        if(playing){
+        if(state.equals("playing")){
         ((GameInterface)getChildren().get(0)).stop();
         back.setText("Go to leaderboard");
         }else{

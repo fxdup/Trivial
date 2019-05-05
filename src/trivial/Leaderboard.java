@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -17,6 +18,8 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class Leaderboard extends VBox {
 
@@ -25,6 +28,7 @@ public class Leaderboard extends VBox {
     Text exportText;
     private boolean exported = false;
     AudioClip click;
+    StackPane exportTxtStack;
             
     public Leaderboard(Player[] player, double resfactor,double sound){
         for(int i=0;i<players.length;i++){
@@ -56,7 +60,7 @@ public class Leaderboard extends VBox {
         mainMenu_rectangle.setStroke(Color.BLACK);
         mainMenu_rectangle.setStrokeWidth(5*resfactor);
         mainMenu_rectangle.setFill(Color.rgb(96, 139, 109));
-        StackPane exportTxtStack = new StackPane();
+        exportTxtStack = new StackPane();
         StackPane mainMenuStack = new StackPane();
         exportTxtStack.getChildren().addAll(exportTxt_rectangle,exportText);
         mainMenuStack.getChildren().addAll(mainMenu_rectangle,mainMenuText);
@@ -131,7 +135,10 @@ public class Leaderboard extends VBox {
         
         exportTxtStack.setOnMouseClicked(eh->{try {
             click.play();
-            exportScore();
+            Date date = new Date();
+            FileChooser fileChooser=new FileChooser();
+            fileChooser.setInitialFileName("Quiz_"+date.getDate()+"∕"+(date.getMonth()+1)+"∕"+(date.getYear()+1900)+"∕"+date.getHours()+"꞉"+date.getMinutes()+"꞉"+date.getSeconds()+".txt");
+            exportScore(fileChooser.showSaveDialog(new Stage()));
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Leaderboard.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -156,12 +163,10 @@ public class Leaderboard extends VBox {
     }
 
     //creates a text file containing the scores and information of all the players in the game
-    public void exportScore() throws FileNotFoundException {
+    public void exportScore(File file) throws FileNotFoundException {
         if(!exported){
-            Date date = new Date();
-            String filename = "Quiz_"+date.getDate()+"∕"+(date.getMonth()+1)+"∕"+(date.getYear()+1900)+"∕"+date.getHours()+"꞉"+date.getMinutes()+"꞉"+date.getSeconds()+".txt";
             try {
-                PrintWriter writer = new PrintWriter("src/Leaderboards/"+filename);
+                PrintWriter writer = new PrintWriter(file);
                 for (Player i : players) {
                     writer.print(i.toString());
                     writer.println();
@@ -169,11 +174,13 @@ public class Leaderboard extends VBox {
                 }
                 writer.close();
 
-            } catch (FileNotFoundException ex) {
+            
+            exportText.setText("Done");
+            exportTxtStack.setDisable(true);
+            exported=true;
+            } catch (FileNotFoundException | NullPointerException ex) {
                 Logger.getLogger(Leaderboard.class.getName()).log(Level.SEVERE, null, ex);
             }
-            exportText.setText("Done");
-            exported=true;
         }
     }
 }

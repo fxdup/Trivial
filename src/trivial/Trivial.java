@@ -72,6 +72,7 @@ public class Trivial extends Application{
         stage.setScene(scene);
         stage.setTitle("Trivial");
         stage.show();
+        stage.setResizable(false);
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent t) {
         Platform.exit();
