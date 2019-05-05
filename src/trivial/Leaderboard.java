@@ -42,10 +42,10 @@ public class Leaderboard extends VBox {
         for(int i=0;i<players.length;i++){
             playerHighestScore=i;
             for(int j=i;j<players.length;j++){
-                if(players[j].getScore()<players[playerHighestScore].getScore()){
+                if(players[j].getScore()>players[playerHighestScore].getScore()){
                     Player temp;
                     temp=players[playerHighestScore];
-                    players[playerHighestScore]=players[i];
+                    players[playerHighestScore]=players[j];
                     players[j]=temp;
                 }
             }    
@@ -75,7 +75,7 @@ public class Leaderboard extends VBox {
         Pane podium = new Pane();
         switch(players.length){
             case 1:{
-                Rectangle first_rectangle = new Rectangle(170*resfactor,650*resfactor);
+                Rectangle first_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[0].getScore());
                 first_rectangle.setFill(players[0].getColor());
                 podium.getChildren().addAll(first_rectangle);
                 Text first_text = new Text(first_rectangle.getX(),first_rectangle.getY()-10,players[0].getName());
@@ -85,7 +85,7 @@ public class Leaderboard extends VBox {
                 break; 
             }
             case 2:{
-                Rectangle first_rectangle = new Rectangle(170*resfactor,650*resfactor/1000*players[0].getScore());
+                Rectangle first_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[0].getScore());
                 first_rectangle.setFill(players[0].getColor());
                 Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore());
                 second_rectangle.setFill(players[1].getColor());
@@ -99,7 +99,7 @@ public class Leaderboard extends VBox {
                 break;
             }
             default:{
-                Rectangle first_rectangle = new Rectangle(170*resfactor,650*resfactor);
+                Rectangle first_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[0].getScore());
                 first_rectangle.setFill(players[0].getColor());
                 Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore());
                 second_rectangle.setFill(players[1].getColor());
