@@ -145,7 +145,7 @@ public class Leaderboard extends VBox {
             FileChooser fileChooser=new FileChooser();
             fileChooser.setInitialFileName("Quiz_"+date.getDate()+"∕"+(date.getMonth()+1)+"∕"+(date.getYear()+1900)+"∕"+date.getHours()+"꞉"+date.getMinutes()+"꞉"+date.getSeconds()+".txt");
             exportScore(fileChooser.showSaveDialog(new Stage()));
-            } catch (FileNotFoundException ex) {
+            } catch (FileNotFoundException | NullPointerException ex) {
                 Logger.getLogger(Leaderboard.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
