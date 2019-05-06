@@ -47,7 +47,7 @@ public class Trivial extends Application {
         }
         stage = new Stage();
         try {
-            File opt = new File("/Resources/opt.txt");
+            File opt = new File("src/Resources/opt.txt");
             Scanner input = new Scanner(opt);
             sound = Double.parseDouble(input.next());
             resolution = input.nextInt();
