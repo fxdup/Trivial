@@ -207,7 +207,12 @@ public class Menu extends StackPane {
 
         confirm.setOnMouseClicked(e -> {
             click.play();
-            Confirmation();
+            if(oldResolution!=resolution){
+                Confirmation();
+            }
+            else{
+                Back();
+            }
         });
         slider.getChildren().add(sound_slider);
         menu.getChildren().addAll(sound_text, slider, resolution_button, confirm, back);

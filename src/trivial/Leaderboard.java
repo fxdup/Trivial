@@ -133,6 +133,8 @@ public class Leaderboard extends VBox {
         
         for(int i=0;i<players.length;i++){
             names[i] = new Text(players[i].getName());
+            names[i].setStroke(players[i].getColor());
+            names[i].setFill(players[i].getColor());
             names[i].setStyle("-fx-font: "+45*resfactor+"px EraserDust;");
             scores[i] = new Text(Integer.toString(players[i].getScore()));
             scores[i].setStyle("-fx-font: "+45*resfactor+"px EraserDust;");
