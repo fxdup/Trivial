@@ -75,8 +75,9 @@ public class Leaderboard extends VBox {
         Pane podium = new Pane();
         switch(players.length){
             case 1:{
-                Rectangle first_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[0].getScore());
+                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore());
                 first_rectangle.setFill(players[0].getColor());
+                first_rectangle.setY(first_rectangle.getY()+650*resfactor-first_rectangle.getHeight());
                 podium.getChildren().addAll(first_rectangle);
                 Text first_text = new Text(first_rectangle.getX(),first_rectangle.getY()-10,players[0].getName());
                 first_text.setStyle("-fx-font: "+30*resfactor+"px EraserDust;");
@@ -85,8 +86,9 @@ public class Leaderboard extends VBox {
                 break; 
             }
             case 2:{
-                Rectangle first_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[0].getScore());
+                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore());
                 first_rectangle.setFill(players[0].getColor());
+                first_rectangle.setY(first_rectangle.getY()+650*resfactor-first_rectangle.getHeight());
                 Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore());
                 second_rectangle.setFill(players[1].getColor());
                 second_rectangle.setY(second_rectangle.getY()+650*resfactor-second_rectangle.getHeight());
@@ -98,9 +100,10 @@ public class Leaderboard extends VBox {
                 podium.getChildren().addAll(first_text,second_text);
                 break;
             }
-            default:{
-                Rectangle first_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[0].getScore());
+            case 3:{
+                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore());
                 first_rectangle.setFill(players[0].getColor());
+                first_rectangle.setY(first_rectangle.getY()+650*resfactor-first_rectangle.getHeight());
                 Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore());
                 second_rectangle.setFill(players[1].getColor());
                 second_rectangle.setY(second_rectangle.getY()+650*resfactor-second_rectangle.getHeight());

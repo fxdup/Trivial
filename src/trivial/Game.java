@@ -26,12 +26,13 @@ import javafx.scene.text.Text;
  */
 
 public class Game extends StackPane{
-    int resolution;
-    double resfactor;
-    double sound;
-    Trivial main;
-    private String state;
+    int resolution;//stores an integer value (1,2,3,4) each associated with a different resolution
+    double resfactor;//a double value that represent a certain fraction (1/2,2/3,3/4)
+    double sound;//stores a double value from 0 to 100 for the sound of the game
+    Trivial main;//an instance of the Trivial class
+    private String state;//a string that describes the state of the game
     
+    //constructor of a Game instance
     public Game(double sound, int resolution,double resfactor,Trivial main) throws FileNotFoundException{
         this.resolution=resolution;
         this.resfactor=resfactor;
@@ -40,20 +41,23 @@ public class Game extends StackPane{
         menu();
     }
     
-        public void menu() throws FileNotFoundException{
-        state="menu";
-        getChildren().clear();
-        Menu menu = new Menu(sound,resolution,resfactor,main);
-        getChildren().add(menu);
+    //method that generates the menu of the game
+    public void menu() throws FileNotFoundException{
+    state="menu";
+    getChildren().clear();
+    Menu menu = new Menu(sound,resolution,resfactor,main);
+    getChildren().add(menu);
         
     }
-        
+    
+    //method that brings the player back to the menu
     public void backToMenu() throws FileNotFoundException{
         getChildren().clear();
         Menu menu = new Menu(sound,resolution,resfactor,main);
         getChildren().add(menu);
     }
     
+    //method that starts the game
     public void startGame(boolean host,Player localPlayer){
         getChildren().clear();
         GameInterface gameInterface = new GameInterface(host,resfactor,localPlayer,sound);
@@ -61,6 +65,7 @@ public class Game extends StackPane{
         state="playing";
     }
     
+    //method that generates the leaderboard of the game
     public void leaderboard(Player[] playerList){
         state="leaderboard";
         getChildren().clear();
@@ -71,6 +76,7 @@ public class Game extends StackPane{
     return state;
     }
     
+    //method called in case the host disconnects
     public void disconnected(Player player){
         VBox textBox = new VBox();
         StackPane textDisplay=new StackPane();

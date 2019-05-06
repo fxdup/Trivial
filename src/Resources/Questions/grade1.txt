@@ -18,7 +18,7 @@ How many legs does an insect have?
 4
 2
 8
-(!!5!!)Charles has 5 shirts and 2 hats. 3 of his shirts are ripped. How many shirts are left?
+Charles has 5 shirts and 2 hats. 3 of his shirts are ripped. How many shirts are left?
 2
 4
 5
@@ -28,11 +28,6 @@ Fall
 Spring
 Summer
 Winter
-How many rectangles are in a rectangular prism with a square base?
-4
-5
-6
-8
 The Great Bear is:
 A constellation
 A star
@@ -43,7 +38,7 @@ If there are 3 chickens and 1 cow, how many legs are you seeing?
 16
 8
 12
-(!!10!!)There are 5 pirates, 12 prisoners, and 4 goats on a ship? How many people are there?
+There are 5 pirates, 12 prisoners, and 4 goats on a ship? How many people are there?
 17
 5
 21
@@ -68,7 +63,7 @@ Kilometer
 Centimeter
 Meter
 Millimeter 
-(!!15!!)Which of the following forms is a solid: rectangle, triangle, cone, square
+Which of the following forms is a solid: rectangle, triangle, cone, square
 Cone
 Square
 Rectangle
@@ -93,7 +88,7 @@ Winter coat
 Jacket
 T-Shirt
 Bathing suit
-(!!20!!)What is necessary for a plant to grow: air, water, light
+What is necessary for a plant to grow: air, water, light
 All of the above
 Air
 Water
@@ -118,8 +113,41 @@ Liquid, Solid, and Gas
 Liquid
 Solid
 Gas
-(!!25!!)What part of your body lets you remember information?
+What part of your body lets you remember information?
 Brain
 Eyes
 Stomach
 Heart
+Which of the following is a planet?
+Earth
+Moon
+Sun
+None of the above
+From which product is yogurt made?
+Milk
+Cheese
+Yogurt
+Eggs
+How many continents are there on Earth?
+7
+6
+5
+8
+Which of the following substance is translucid?
+Water
+Milk
+Orange juice
+Lemonade
+Which of the following has the greatest absorption?
+Sponge
+Paper towel
+Tissue paper
+Plastic
+Find the intruder
+Camel
+Tiger
+Lion
+Cat
+
+
+

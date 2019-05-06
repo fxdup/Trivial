@@ -1,0 +1,86 @@
+How many meters are there in 10 decameters?
+100
+10
+0.1
+1000
+How many kilometers are in 10 000 000 centimeters?
+100
+10
+1000
+1
+How many centimeters squared are in 1 meter squared?
+10 000
+1000
+100 000
+100
+How many degrees are in a circle?
+360°
+180
+90°
+270°
+How many degrees are there in a right angle?
+90°
+180°
+360°
+45°
+An obtuse angle is
+>90°
+<90°
+=0°
+=90°
+Which of the following is an acute angle?
+89°
+90°
+98°
+91°
+Which of the following is an obtuse angle?
+91°
+90°
+89°
+75°
+Which of the following polygon has 6 edges?
+Hexagon
+Octogon
+Pentagon
+Decagon
+Which of the following polygon had 10 edges?
+Decagon
+Dodecagon
+Octogon
+Hendecagon
+What is the sum of the angles made by a triangle?
+180
+90
+360
+270
+How do you call the reaction when you burn wood?
+Combustion
+Fusion
+Melting
+Cooking
+Which of the following material conducts electricity?
+Metal
+Plastic
+Ceramic
+Wood
+How does light react when it hits a mirror?
+Reflects
+Refracts
+Nothing
+Absorbs
+What makes you come back down on the ground after jumping?
+Gravity
+Your weight
+You don't jump high enough
+None of the above
+What enables an air balloon to fly?
+Hot air rises
+Cold air rises
+It has a hidden engine
+Its wings
+When you dive deep in a pool, why do your ears hurt?
+The pressure is too high
+You are not used to swim
+You have ear problems
+There is too much water
+

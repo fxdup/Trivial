@@ -55,6 +55,7 @@ public class Menu extends StackPane{
     private boolean waiting=false;
     MediaPlayer musicPlayer;
     AudioClip click;
+    TextField name;
     
     public Menu(double sound, int resolution,double resfactor,Trivial main) throws FileNotFoundException {
         this.sound=sound;
@@ -196,10 +197,23 @@ public class Menu extends StackPane{
         Text nm = new Text("Name:");
         nm.getStyleClass().add("submenu");
         nm.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
-        TextField name = new TextField();
+        name = new TextField();
         name.getStyleClass().add("textField");
         name.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
         name.setMaxWidth(1000*resfactor);
+        name.lengthProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+                if (newValue.intValue() > oldValue.intValue()) {
+                    // Check if the new character is greater than LIMIT
+                    if (name.getText().length() >=10) {
+                        name.setText(name.getText().substring(0, 10));
+                    }
+                }
+            }
+        });
         
         Text host = new Text("Host");
         host.getStyleClass().addAll("submenu","redHover");
@@ -209,16 +223,23 @@ public class Menu extends StackPane{
         back.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
         
         host.setOnMouseClicked(e->{
-            click.play();
-            try {
-                me = new HostPlayer(name.getText(),((Game)(getParent())));
-            } catch (IOException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            if(name.getText().length()>1){
+                click.play();
+                try {
+                    me = new HostPlayer(name.getText(),((Game)(getParent())));
+                } catch (IOException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    Hosting();
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            try {
-                Hosting();
-            } catch (UnknownHostException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            else{
+                Text error = new Text("Your name must be at least 2 characters.");
+                error.setStroke(Color.RED);
+                menu.getChildren().add(error);
             }
         });
         
@@ -236,10 +257,23 @@ public class Menu extends StackPane{
         Text nm = new Text("Name:");
         nm.getStyleClass().add("submenu");
         nm.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
-        TextField name = new TextField();
+        name = new TextField();
         name.getStyleClass().add("textField");
         name.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
         name.setMaxWidth(1000*resfactor);
+        name.lengthProperty().addListener(new ChangeListener<Number>() {
+        
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+                if (newValue.intValue() > oldValue.intValue()) {
+                    // Check if the new character is greater than LIMIT
+                    if (name.getText().length() >=10) {
+                        name.setText(name.getText().substring(0, 10));
+                    }
+                }
+            }
+        });
         
         Text join = new Text("Join");
         join.getStyleClass().addAll("submenu","blueHover");
@@ -249,14 +283,21 @@ public class Menu extends StackPane{
         back.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
         
         join.setOnMouseClicked(e->{
-            click.play();
-            try {
-                me = new ClientPlayer(name.getText(),((Game)(getParent())));
-                Joining();
-            } catch (UnknownHostException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            if(name.getText().length()>1){
+                click.play();
+                try {
+                    me = new ClientPlayer(name.getText(),((Game)(getParent())));
+                    Joining();
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else{
+                Text error = new Text("Your name must be at least 2 characters.");
+                error.setStroke(Color.RED);
+                this.getChildren().add(error);
             }
         });
         
@@ -368,6 +409,7 @@ try {
         
         join.setOnMouseClicked(e->{
             click.play();
+            musicPlayer.stop();
             try {
                 ((ClientPlayer)me).connect(ipt.getText(), parseInt(portt.getText()));
                 waiting();
@@ -403,8 +445,8 @@ try {
     }
     
     public void start(boolean host){
+        musicPlayer.stop();
         if(waiting){
-            musicPlayer.stop();
             ((Game)(getParent())).startGame(host,me);
         }
     }

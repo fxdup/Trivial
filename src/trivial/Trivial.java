@@ -52,22 +52,16 @@ public class Trivial extends Application {
             sound = Double.parseDouble(input.next());
             resolution = input.nextInt();
             input.close();
-            switch (resolution) {
-                case 1:
-                    this.resfactor = 1;
-                    break;
-                case 2:
-                    this.resfactor = (0.75);
-                    break;
-                case 3:
-                    this.resfactor = (0.6666666);
-                    break;
-                case 4:
-                    this.resfactor = (0.5);
-                    break;
+            
+            switch(resolution){
+            case 1: this.resfactor=1;break;
+            case 2: this.resfactor=(0.75);break;
+            case 3: this.resfactor=(0.6666666);break;
+            case 4: this.resfactor=(0.5);break;
             }
-
-        } catch (FileNotFoundException e) {
+        
+        }
+        catch(FileNotFoundException e){
             PrintWriter writer = new PrintWriter("src/Resources/opt.txt");
             writer.println(sound);
             writer.println(resolution);
