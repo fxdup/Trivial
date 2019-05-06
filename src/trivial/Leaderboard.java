@@ -133,13 +133,16 @@ public class Leaderboard extends VBox {
         
         for(int i=0;i<players.length;i++){
             names[i] = new Text(players[i].getName());
+            names[i].setStroke(players[i].getColor());
+            names[i].setFill(players[i].getColor());
             names[i].setStyle("-fx-font: "+45*resfactor+"px EraserDust;");
             scores[i] = new Text(Integer.toString(players[i].getScore()));
             scores[i].setStyle("-fx-font: "+45*resfactor+"px EraserDust;");
             listingNames.addRow(i, names[i],scores[i]);
         }
         
-        exportTxtStack.setOnMouseClicked(eh->{try {
+        exportTxtStack.setOnMouseClicked(eh->{
+            try {
             click.play();
             Date date = new Date();
             FileChooser fileChooser=new FileChooser();
@@ -170,7 +173,7 @@ public class Leaderboard extends VBox {
 
     //creates a text file containing the scores and information of all the players in the game
     public void exportScore(File file) throws FileNotFoundException {
-        if(!exported){
+        if(!exported && file!=null){
             try {
                 PrintWriter writer = new PrintWriter(file);
                 for (Player i : players) {
