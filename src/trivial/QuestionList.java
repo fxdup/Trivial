@@ -20,19 +20,19 @@ public class QuestionList {
         }
 
         //Creating the questions in the different ArrayLists
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 45; i++) {
             gradeQuestions[0].add(new Question(1));
             gradeQuestions[5].add(new Question(6));
-            if (i < 50) {
+            if (i < 35) {
                 gradeQuestions[1].add(new Question(2));
             }
-            if (i < 45) {
+            if (i < 50) {
                 gradeQuestions[2].add(new Question(3));
             }
-            if (i < 40) {
+            if (i < 35) {
                 gradeQuestions[3].add(new Question(4));
             }
-            if (i < 35) {
+            if (i < 40) {
                 gradeQuestions[4].add(new Question(5));
             }
 

@@ -160,10 +160,6 @@ public class Question {
     }
 
     public void arithmetic() {
-//
-//        NumberFormat nf1 = NumberFormat.getInstance();
-//        nf1.setMaximumFractionDigits(0);
-//        nf1.setMinimumFractionDigits(0);
 
         if (this.grade == 1) {
 
@@ -1095,6 +1091,11 @@ public class Question {
         }
     }
 
+    /*
+    This method shuffles the order of the answers. We couldn't just do Collections.shuffle
+    since it couldn't shuffle an array, so we converted our array to an arrrayList to shuffle it, 
+    then convert the shuffled arrayList to an array.
+    */
     public void shuffle() {
 
         ArrayList<String> unshuffled = new ArrayList<String>(Arrays.asList(choices));
