@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -17,6 +18,8 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class Leaderboard extends VBox {
 
@@ -25,6 +28,7 @@ public class Leaderboard extends VBox {
     Text exportText;
     private boolean exported = false;
     AudioClip click;
+    StackPane exportTxtStack;
             
     public Leaderboard(Player[] player, double resfactor,double sound){
         
@@ -33,6 +37,19 @@ public class Leaderboard extends VBox {
         this.resfactor=resfactor;
         this.players = new Player[player.length];
         System.arraycopy(player, 0, this.players, 0, player.length);
+        
+        int playerHighestScore;
+        for(int i=0;i<players.length;i++){
+            playerHighestScore=i;
+            for(int j=i;j<players.length;j++){
+                if(players[j].getScore()>players[playerHighestScore].getScore()){
+                    Player temp;
+                    temp=players[playerHighestScore];
+                    players[playerHighestScore]=players[j];
+                    players[j]=temp;
+                }
+            }    
+        }
         
         exportText = new Text("Export as \n text file");
         exportText.setStyle("-fx-font: "+65*resfactor+"px EraserDust;-fx-fill: white");
@@ -46,7 +63,7 @@ public class Leaderboard extends VBox {
         mainMenu_rectangle.setStroke(Color.BLACK);
         mainMenu_rectangle.setStrokeWidth(5*resfactor);
         mainMenu_rectangle.setFill(Color.rgb(96, 139, 109));
-        StackPane exportTxtStack = new StackPane();
+        exportTxtStack = new StackPane();
         StackPane mainMenuStack = new StackPane();
         exportTxtStack.getChildren().addAll(exportTxt_rectangle,exportText);
         mainMenuStack.getChildren().addAll(mainMenu_rectangle,mainMenuText);
@@ -58,8 +75,9 @@ public class Leaderboard extends VBox {
         Pane podium = new Pane();
         switch(players.length){
             case 1:{
-                Rectangle first_rectangle = new Rectangle(170*resfactor,650*resfactor);
+                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore());
                 first_rectangle.setFill(players[0].getColor());
+                first_rectangle.setY(first_rectangle.getY()+650*resfactor-first_rectangle.getHeight());
                 podium.getChildren().addAll(first_rectangle);
                 Text first_text = new Text(first_rectangle.getX(),first_rectangle.getY()-10,players[0].getName());
                 first_text.setStyle("-fx-font: "+30*resfactor+"px EraserDust;");
@@ -68,8 +86,9 @@ public class Leaderboard extends VBox {
                 break; 
             }
             case 2:{
-                Rectangle first_rectangle = new Rectangle(170*resfactor,650*resfactor);
+                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore());
                 first_rectangle.setFill(players[0].getColor());
+                first_rectangle.setY(first_rectangle.getY()+650*resfactor-first_rectangle.getHeight());
                 Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore());
                 second_rectangle.setFill(players[1].getColor());
                 second_rectangle.setY(second_rectangle.getY()+650*resfactor-second_rectangle.getHeight());
@@ -81,9 +100,10 @@ public class Leaderboard extends VBox {
                 podium.getChildren().addAll(first_text,second_text);
                 break;
             }
-            default:{
-                Rectangle first_rectangle = new Rectangle(170*resfactor,650*resfactor);
+            case 3:{
+                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore());
                 first_rectangle.setFill(players[0].getColor());
+                first_rectangle.setY(first_rectangle.getY()+650*resfactor-first_rectangle.getHeight());
                 Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore());
                 second_rectangle.setFill(players[1].getColor());
                 second_rectangle.setY(second_rectangle.getY()+650*resfactor-second_rectangle.getHeight());
@@ -121,7 +141,10 @@ public class Leaderboard extends VBox {
         
         exportTxtStack.setOnMouseClicked(eh->{try {
             click.play();
-            exportScore();
+            Date date = new Date();
+            FileChooser fileChooser=new FileChooser();
+            fileChooser.setInitialFileName("Quiz_"+date.getDate()+"∕"+(date.getMonth()+1)+"∕"+(date.getYear()+1900)+"∕"+date.getHours()+"꞉"+date.getMinutes()+"꞉"+date.getSeconds()+".txt");
+            exportScore(fileChooser.showSaveDialog(new Stage()));
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Leaderboard.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -146,12 +169,10 @@ public class Leaderboard extends VBox {
     }
 
     //creates a text file containing the scores and information of all the players in the game
-    public void exportScore() throws FileNotFoundException {
+    public void exportScore(File file) throws FileNotFoundException {
         if(!exported){
-            Date date = new Date();
-            String filename = "Quiz_"+date.getDate()+"∕"+(date.getMonth()+1)+"∕"+(date.getYear()+1900)+"∕"+date.getHours()+"꞉"+date.getMinutes()+"꞉"+date.getSeconds()+".txt";
             try {
-                PrintWriter writer = new PrintWriter("src/Leaderboards/"+filename);
+                PrintWriter writer = new PrintWriter(file);
                 for (Player i : players) {
                     writer.print(i.toString());
                     writer.println();
@@ -159,11 +180,13 @@ public class Leaderboard extends VBox {
                 }
                 writer.close();
 
-            } catch (FileNotFoundException ex) {
+            
+            exportText.setText("Done");
+            exportTxtStack.setDisable(true);
+            exported=true;
+            } catch (FileNotFoundException | NullPointerException ex) {
                 Logger.getLogger(Leaderboard.class.getName()).log(Level.SEVERE, null, ex);
             }
-            exportText.setText("Done");
-            exported=true;
         }
     }
 }

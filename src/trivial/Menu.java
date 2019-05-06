@@ -47,16 +47,20 @@ public class Menu extends StackPane{
     Player me;
     VBox menu = new VBox();
     int resolution;
+    int oldResolution;
     double resfactor;
     double sound;
+    double oldSound;
     Trivial main;
     private boolean waiting=false;
     MediaPlayer musicPlayer;
     AudioClip click;
+    TextField name;
     
     public Menu(double sound, int resolution,double resfactor,Trivial main) throws FileNotFoundException {
         this.sound=sound;
         this.resolution=resolution;
+        this.oldResolution=resolution;
         this.resfactor=resfactor;
         this.main=main;
         
@@ -125,40 +129,39 @@ public class Menu extends StackPane{
             case 3: resolution_text="x 2/3";break;
             case 4: resolution_text="x 1/2";break;
         }
-        
+        oldSound=sound;
         HBox slider = new HBox();
         slider.setAlignment(Pos.CENTER);
         slider.setSpacing(5*resfactor);
-        Slider res = new Slider();
-        res.setMin(0);
-        res.setMax(100);
-        res.setValue(sound);
-        res.setMaxSize(600*resfactor, 60*resfactor);
-        res.setMinSize(600*resfactor, 60*resfactor);
-        res.setBlockIncrement(1);
-        TextField reso = new TextField();
-        reso.setText(""+sound);
-        reso.setMaxWidth(45*resfactor);
-        res.valueProperty().addListener(new ChangeListener<Number>() {
+        Slider sound_slider = new Slider();
+        sound_slider.setMin(0);
+        sound_slider.setMax(100);
+        sound_slider.setValue(sound);
+        sound_slider.setMaxSize(600*resfactor, 60*resfactor);
+        sound_slider.setMinSize(600*resfactor, 60*resfactor);
+        sound_slider.setBlockIncrement(1);
+        sound_slider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> ov,
                 Number oldv, Number newv) {
-                    reso.setText(Double.toString((double)newv));
                     sound = (double)newv;
                     musicPlayer.setVolume(sound/100);
                     click.setVolume(sound/100);
             }
         });
         
-        Text sound = new Text("Sound");
-        sound.getStyleClass().addAll("submenu");
-        sound.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
+        Text sound_text = new Text("Sound");
+        sound_text.getStyleClass().addAll("submenu");
+        sound_text.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
         
         Text back = new Text("Back");
         back.getStyleClass().addAll("submenu","yellowHover");
         back.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
         
         back.setOnMouseClicked(e->{
+            sound=oldSound;
+            musicPlayer.setVolume(sound/100);
+            click.setVolume(sound/100);
             click.play();
             Back();
         });
@@ -185,8 +188,8 @@ public class Menu extends StackPane{
             click.play();
             Confirmation();
         });
-        slider.getChildren().addAll(res,reso);
-        menu.getChildren().addAll(sound,slider,resolution_button,confirm,back);
+        slider.getChildren().add(sound_slider);
+        menu.getChildren().addAll(sound_text,slider,resolution_button,confirm,back);
     }
     
     public void Host(){
@@ -194,10 +197,23 @@ public class Menu extends StackPane{
         Text nm = new Text("Name:");
         nm.getStyleClass().add("submenu");
         nm.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
-        TextField name = new TextField();
+        name = new TextField();
         name.getStyleClass().add("textField");
         name.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
         name.setMaxWidth(1000*resfactor);
+        name.lengthProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+                if (newValue.intValue() > oldValue.intValue()) {
+                    // Check if the new character is greater than LIMIT
+                    if (name.getText().length() >=10) {
+                        name.setText(name.getText().substring(0, 10));
+                    }
+                }
+            }
+        });
         
         Text host = new Text("Host");
         host.getStyleClass().addAll("submenu","redHover");
@@ -207,16 +223,23 @@ public class Menu extends StackPane{
         back.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
         
         host.setOnMouseClicked(e->{
-            click.play();
-            try {
-                me = new HostPlayer(name.getText(),((Game)(getParent())));
-            } catch (IOException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            if(name.getText().length()>1){
+                click.play();
+                try {
+                    me = new HostPlayer(name.getText(),((Game)(getParent())));
+                } catch (IOException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    Hosting();
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            try {
-                Hosting();
-            } catch (UnknownHostException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            else{
+                Text error = new Text("Your name must be at least 2 characters.");
+                error.setStroke(Color.RED);
+                menu.getChildren().add(error);
             }
         });
         
@@ -234,10 +257,23 @@ public class Menu extends StackPane{
         Text nm = new Text("Name:");
         nm.getStyleClass().add("submenu");
         nm.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
-        TextField name = new TextField();
+        name = new TextField();
         name.getStyleClass().add("textField");
         name.setStyle("-fx-font: "+60*resfactor+"px EraserDust;");
         name.setMaxWidth(1000*resfactor);
+        name.lengthProperty().addListener(new ChangeListener<Number>() {
+        
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+                if (newValue.intValue() > oldValue.intValue()) {
+                    // Check if the new character is greater than LIMIT
+                    if (name.getText().length() >=10) {
+                        name.setText(name.getText().substring(0, 10));
+                    }
+                }
+            }
+        });
         
         Text join = new Text("Join");
         join.getStyleClass().addAll("submenu","blueHover");
@@ -247,14 +283,21 @@ public class Menu extends StackPane{
         back.setStyle("-fx-font: "+90*resfactor+"px EraserDust;");
         
         join.setOnMouseClicked(e->{
-            click.play();
-            try {
-                me = new ClientPlayer(name.getText(),((Game)(getParent())));
-                Joining();
-            } catch (UnknownHostException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            if(name.getText().length()>1){
+                click.play();
+                try {
+                    me = new ClientPlayer(name.getText(),((Game)(getParent())));
+                    Joining();
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else{
+                Text error = new Text("Your name must be at least 2 characters.");
+                error.setStroke(Color.RED);
+                this.getChildren().add(error);
             }
         });
         
@@ -299,15 +342,24 @@ public class Menu extends StackPane{
         menu.getChildren().addAll(ip,ipt,port,portt,number_of_players,startback);
         waiting=true;
         Timeline playerCount=new Timeline(new KeyFrame(Duration.seconds(1),e->{
-        number_of_players.setText("Players joined : "+(((HostPlayer)me).getPlayerSize()+1)+"/40");
+        number_of_players.setText("Players joined : "+me.getPlayerSize()+"/40");
         }));
         playerCount.setCycleCount(Animation.INDEFINITE);
         playerCount.play();
         start.setOnMouseClicked(e->{
             click.play();
+            start.setText("Starting");
+            start.setDisable(true);
+            back.setDisable(true);
             playerCount.stop();
             ((HostPlayer)me).stopConnecting();
+try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
             ((HostPlayer)me).sendStart();
+            
             start(true);
         });
         
@@ -357,6 +409,7 @@ public class Menu extends StackPane{
         
         join.setOnMouseClicked(e->{
             click.play();
+            musicPlayer.stop();
             try {
                 ((ClientPlayer)me).connect(ipt.getText(), parseInt(portt.getText()));
                 waiting();
@@ -392,55 +445,60 @@ public class Menu extends StackPane{
     }
     
     public void start(boolean host){
+        musicPlayer.stop();
         if(waiting){
-            musicPlayer.stop();
             ((Game)(getParent())).startGame(host,me);
         }
     }
     
     private void Confirmation() {
-        menu.getChildren().clear();
-        Text message = new Text("To confirm the settings you will have to launch the application again. Confirm ?");
-        message.getStyleClass().add("submenu");
-        message.setStyle("-fx-font: "+35*resfactor+"px EraserDust;");
-        Text yes = new Text("Yes");
-        yes.getStyleClass().addAll("submenu","blueHover");
-        yes.setStyle("-fx-font: "+35*resfactor+"px EraserDust;");
-        Text no = new Text("No");
-        no.getStyleClass().addAll("submenu","redHover");
-        no.setStyle("-fx-font: "+35*resfactor+"px EraserDust;");
-        menu.getChildren().add(message);
-        HBox buttons = new HBox();
-        buttons.setSpacing(40*resfactor);
-        buttons.getChildren().addAll(yes,no);
-        buttons.setAlignment(Pos.CENTER);
-        menu.getChildren().add(buttons);
-        
-        yes.setOnMouseClicked(e->{
-            click.play();
-            File file = new File("src/Resources/opt.txt");
-            file.delete();
-            PrintWriter writer = null;
-            try {
-                writer = new PrintWriter("src/Resources/opt.txt");
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            writer.println(this.sound);
-            writer.println(resolution);
-            writer.close();
-            try {
-                musicPlayer.stop();
-                main.restart();
-            } catch (FileNotFoundException ex) {
-            }
-        });
-        no.setOnMouseClicked(e->{
-            click.play();
-            try {
-                Options();
-            } catch (FileNotFoundException ex) {
-            }
-        });
+        if(resolution!=oldResolution){
+            menu.getChildren().clear();
+            Text message = new Text("To confirm the settings you will have to launch the application again. Confirm ?");
+            message.getStyleClass().add("submenu");
+            message.setStyle("-fx-font: "+35*resfactor+"px EraserDust;");
+            Text yes = new Text("Yes");
+            yes.getStyleClass().addAll("submenu","blueHover");
+            yes.setStyle("-fx-font: "+35*resfactor+"px EraserDust;");
+            Text no = new Text("No");
+            no.getStyleClass().addAll("submenu","redHover");
+            no.setStyle("-fx-font: "+35*resfactor+"px EraserDust;");
+            menu.getChildren().add(message);
+            HBox buttons = new HBox();
+            buttons.setSpacing(40*resfactor);
+            buttons.getChildren().addAll(yes,no);
+            buttons.setAlignment(Pos.CENTER);
+            menu.getChildren().add(buttons);
+
+            yes.setOnMouseClicked(e->{
+                click.play();
+                File file = new File("src/Resources/opt.txt");
+                file.delete();
+                PrintWriter writer = null;
+                try {
+                    writer = new PrintWriter("src/Resources/opt.txt");
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                writer.println(this.sound);
+                writer.println(resolution);
+                writer.close();
+                try {
+                    musicPlayer.stop();
+                    main.restart();
+                } catch (FileNotFoundException ex) {
+                }
+            });
+            no.setOnMouseClicked(e->{
+                click.play();
+                try {
+                    Options();
+                } catch (FileNotFoundException ex) {
+                }
+            });
+        }
+        else{
+            Back();
+        }
     }
 }
