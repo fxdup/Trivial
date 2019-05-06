@@ -75,7 +75,7 @@ public class Leaderboard extends VBox {
         Pane podium = new Pane();
         switch(players.length){
             case 1:{
-                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore());
+                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore()+5);
                 first_rectangle.setFill(players[0].getColor());
                 first_rectangle.setY(first_rectangle.getY()+650*resfactor-first_rectangle.getHeight());
                 podium.getChildren().addAll(first_rectangle);
@@ -86,10 +86,10 @@ public class Leaderboard extends VBox {
                 break; 
             }
             case 2:{
-                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore());
+                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore()+5);
                 first_rectangle.setFill(players[0].getColor());
                 first_rectangle.setY(first_rectangle.getY()+650*resfactor-first_rectangle.getHeight());
-                Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore());
+                Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore()+5);
                 second_rectangle.setFill(players[1].getColor());
                 second_rectangle.setY(second_rectangle.getY()+650*resfactor-second_rectangle.getHeight());
                 podium.getChildren().addAll(second_rectangle,first_rectangle);
@@ -100,14 +100,14 @@ public class Leaderboard extends VBox {
                 podium.getChildren().addAll(first_text,second_text);
                 break;
             }
-            case 3:{
-                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore());
+            default:{
+                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore()+5);
                 first_rectangle.setFill(players[0].getColor());
                 first_rectangle.setY(first_rectangle.getY()+650*resfactor-first_rectangle.getHeight());
-                Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore());
+                Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore()+5);
                 second_rectangle.setFill(players[1].getColor());
                 second_rectangle.setY(second_rectangle.getY()+650*resfactor-second_rectangle.getHeight());
-                Rectangle third_rectangle = new Rectangle(170*2*resfactor,0,170*resfactor,650*resfactor/1000*players[2].getScore());
+                Rectangle third_rectangle = new Rectangle(170*2*resfactor,0,170*resfactor,650*resfactor/1000*players[2].getScore()+5);
                 third_rectangle.setFill(players[2].getColor());
                 third_rectangle.setY(third_rectangle.getY()+650*resfactor-third_rectangle.getHeight());
                 podium.getChildren().addAll(second_rectangle,first_rectangle,third_rectangle);

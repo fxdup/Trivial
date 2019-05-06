@@ -64,8 +64,9 @@ public class ClientPlayer extends Player implements Serializable {
                     Player player = ((Player) o).clone();
                     updatePlayer(player);
                     if (game.getState().equals("playing")&&player.getId()!=-1) {
-                        if(game.getChildren().get(0) instanceof GameInterface)
+                        
                         Platform.runLater(() -> {
+                        if(game.getChildren().get(0) instanceof GameInterface)
                         ((GameInterface) game.getChildren().get(0)).updateScore();//Updates the score in the GUI
                         });
                     }

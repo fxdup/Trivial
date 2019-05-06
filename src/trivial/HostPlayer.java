@@ -147,6 +147,7 @@ public class HostPlayer extends Player implements Serializable {
                             sendData(player);//After receiving the player, it is sent to all the other clients
                             try{
                             Platform.runLater(() -> {
+                            if(game.getChildren().get(0) instanceof GameInterface)
                             ((GameInterface) game.getChildren().get(0)).updateScore();//Updates the score in the GUI});
                             });
                             }catch(ClassCastException ex){
