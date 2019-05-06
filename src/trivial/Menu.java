@@ -316,7 +316,7 @@ public class Menu extends StackPane {
             } else {
                 Text error = new Text("Your name must be at least 2 characters.");
                 error.setStroke(Color.RED);
-                this.getChildren().add(error);
+                menu.getChildren().add(error);
             }
         });
 
