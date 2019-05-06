@@ -368,6 +368,7 @@ try {
         
         join.setOnMouseClicked(e->{
             click.play();
+            musicPlayer.stop();
             try {
                 ((ClientPlayer)me).connect(ipt.getText(), parseInt(portt.getText()));
                 waiting();
