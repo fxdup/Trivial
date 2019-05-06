@@ -18,7 +18,7 @@ Mary attaches string together by making 4 knots. How many strings did Mary use?
 4
 6
 3
-(!!5!!)Which of the following animals is from pre-history period?
+Which of the following animals is from pre-history period?
 Mammoth
 Tiger
 Elephant
@@ -38,17 +38,27 @@ Which of the following equation is true?
 6 + 4 = 9
 8 - 7 > 5
 5 + 0 = 0
+Which of the following equation is true?
+4 + 5 = 5 + 4
+10 + 9 > 20
+7 - 3 = 5
+8 + 4 > 13
 What is the smallest number you can make with 7, 4, and 9?
 479
 497
 749
 974
-(!!10!!)The product is the answer from which operation?
-Product
+What is the largest number you can make with 4,8, and 3?
+843
+834
+438
+384
+The product is the answer from which operation?
+Multiplication
 Sum
 Difference
 Quotient
-How many edges does a cube have?
+How many faces does a cube have?
 12
 6
 8
@@ -68,8 +78,23 @@ Addition
 Subtraction
 Multiplication
 Division
-(!!15!!)What is the smallest sum possible by rolling 3 dices
+What is the smallest sum possible by rolling 3 dices
 3
 1
 5
 4
+If you eat 2 icecream cones per day, how much do you eat in a week?
+14
+10
+5
+12
+What is the first day of the week?
+Sunday
+Monday
+Saturday
+Wednesday
+How many days are there in September?
+31
+30
+29
+28

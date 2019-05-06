@@ -18,7 +18,7 @@ A teacher shares 12 books between his students. This is the 3/4 of his books. Ho
 9 books
 3 books
 4 books
-(!!5!!)Charles bought 24 pencils. Rose has the 3/9 of Charles' pencils. How many pencils does Rose have?
+Charles bought 24 pencils. Rose has the 3/9 of Charles' pencils. How many pencils does Rose have?
 8 pencils
 12 pencils
 6 pencils
@@ -43,7 +43,7 @@ Which number is not even?
 418
 624
 556
-(!!10!!)Which unit of measure is best for measuring the height of a house?
+Which unit of measure is best for measuring the height of a house?
 m
 cm
 dm
@@ -68,7 +68,7 @@ A primary color
 A secondary color
 A tertiary color
 A quaternary color
-(!!15!!)What is the name of an animal that a predator seizes for food?
+What is the name of an animal that a predator seizes for food?
 A prey
 A victim
 An hunted animal
@@ -93,7 +93,7 @@ Flowers are sold in packs of 10. How many flowers were sold if 16 packs were sol
 <
 =
 ------------
-(!!20!!)Round the number 242 to the nearest ten.
+Round the number 242 to the nearest ten.
 240
 250
 242
@@ -118,7 +118,7 @@ Place these numbers in decreasing order.
 101, 111, 201, 1 010, 1 012, 1 021, 1 210
 101, 201, 111, 1 010, 1 021, 1 012, 1 210
 1 210, 1 012, 1 021, 1 010, 111, 201, 101
-(!!25!!)Of the following numbers, which one does not give 3 200 if it is rounded to the nearest hundred?
+Of the following numbers, which one does not give 3 200 if it is rounded to the nearest hundred?
 3 295
 3 248
 3 210
@@ -143,7 +143,7 @@ Complete the following equation: 3 hundreds + 13 units + 4 units + 4 tens = ?
 31344
 34134
 3434
-(!!30!!)There are 15 apples in a bucket. if the 2/3 of the apples are needed to bake a pie, how many apples will be needed?
+There are 15 apples in a bucket. if the 2/3 of the apples are needed to bake a pie, how many apples will be needed?
 10 apples
 5 apples
 12 apples
@@ -168,7 +168,7 @@ How many faces do a triangular pyramid have
 3
 5
 6
-(!!35!!)If there are 538 persons sitting in a room. Each rows contain 10 chairs. How many rows are there?
+If there are 538 persons sitting in a room. Each rows contain 10 chairs. How many rows are there?
 54 rows
 53 rows
 50 rows
