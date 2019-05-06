@@ -22,33 +22,37 @@ import javafx.stage.WindowEvent;
  *
  * @author Félix Dupont
  */
-public class Trivial extends Application{
+public class Trivial extends Application {
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         launch(args);
     }
-    double sound=100;
-    double resfactor=1;
-    int resolution=1;
+    double sound = 100;
+    double resfactor = 1;
+    int resolution = 1;
     Game game;
     Stage stage;
+
     @Override
     public void start(Stage stage) throws Exception {
         restart();
     }
-    
-    public void restart() throws FileNotFoundException{
-        if(stage!=null)
-        stage.close();
-        stage=new Stage();
-        try{
-            File opt = new File("src/Resources/opt.txt");
+
+    public void restart() throws FileNotFoundException {
+        if (stage != null) {
+            stage.close();
+        }
+        stage = new Stage();
+        try {
+            File opt = new File("/Resources/opt.txt");
             Scanner input = new Scanner(opt);
-            sound=Double.parseDouble(input.next());
-            resolution=input.nextInt();
+            sound = Double.parseDouble(input.next());
+            resolution = input.nextInt();
             input.close();
+            
             switch(resolution){
             case 1: this.resfactor=1;break;
             case 2: this.resfactor=(0.75);break;
@@ -63,10 +67,10 @@ public class Trivial extends Application{
             writer.println(resolution);
             writer.close();
         }
-        
-        game = new Game(sound,resolution,resfactor,this);
-        
-        Scene scene = new Scene(game,1920*resfactor,1080*resfactor);
+
+        game = new Game(sound, resolution, resfactor, this);
+
+        Scene scene = new Scene(game, 1920 * resfactor, 1080 * resfactor);
         Font.loadFont(getClass().getResourceAsStream("/Resources/EraserDust.ttf"), 14);
         scene.getStylesheets().add(getClass().getResource("/Resources/Style.css").toExternalForm());
         stage.setScene(scene);
@@ -75,9 +79,9 @@ public class Trivial extends Application{
         stage.setResizable(false);
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent t) {
-        Platform.exit();
-        System.exit(0);
-    }
-});
+                Platform.exit();
+                System.exit(0);
+            }
+        });
     }
 }

@@ -9,8 +9,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 
 public class HostPlayer extends Player implements Serializable {
@@ -147,10 +145,13 @@ public class HostPlayer extends Player implements Serializable {
                         updatePlayer(player);sendData(player);//After receiving the player, it is sent to all the other clients
                         if (game.getState().equals("playing") && player.getId() != -1) {
                             sendData(player);//After receiving the player, it is sent to all the other clients
-                            if(game.getChildren().get(0) instanceof GameInterface)
+                            try{
                             Platform.runLater(() -> {
                             ((GameInterface) game.getChildren().get(0)).updateScore();//Updates the score in the GUI});
                             });
+                            }catch(ClassCastException ex){
+                            reading=false;
+                            }
                         }
                     }
                 }
