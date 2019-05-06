@@ -139,13 +139,14 @@ public class Leaderboard extends VBox {
             listingNames.addRow(i, names[i],scores[i]);
         }
         
-        exportTxtStack.setOnMouseClicked(eh->{try {
+        exportTxtStack.setOnMouseClicked(eh->{
+            try {
             click.play();
             Date date = new Date();
             FileChooser fileChooser=new FileChooser();
             fileChooser.setInitialFileName("Quiz_"+date.getDate()+"∕"+(date.getMonth()+1)+"∕"+(date.getYear()+1900)+"∕"+date.getHours()+"꞉"+date.getMinutes()+"꞉"+date.getSeconds()+".txt");
             exportScore(fileChooser.showSaveDialog(new Stage()));
-            } catch (FileNotFoundException | NullPointerException ex) {
+            } catch (FileNotFoundException ex) {
                 Logger.getLogger(Leaderboard.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
@@ -170,7 +171,7 @@ public class Leaderboard extends VBox {
 
     //creates a text file containing the scores and information of all the players in the game
     public void exportScore(File file) throws FileNotFoundException {
-        if(!exported){
+        if(!exported && file!=null){
             try {
                 PrintWriter writer = new PrintWriter(file);
                 for (Player i : players) {
