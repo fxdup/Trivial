@@ -263,7 +263,8 @@ public class Menu extends StackPane {
                 }
             } else {
                 Text error = new Text("Your name must be at least 2 characters.");
-                error.setStroke(Color.RED);
+                error.setFill(Color.RED);
+                error.setStyle("-fx-font: " + 25 * resfactor + "px Arial;");
                 menu.getChildren().add(error);
             }
         });
@@ -439,6 +440,7 @@ public class Menu extends StackPane {
                 waiting();
             } catch (IOException | IllegalArgumentException ex) {
                 error.setText("Impossible to connect. IP or Port is invalid");
+                error.setStyle("-fx-font: " + 25 * resfactor + "px Arial;");
             } catch (InterruptedException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }

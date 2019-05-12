@@ -97,7 +97,7 @@ public class GameInterface extends Pane {
         correctAnswer = new AudioClip(new File("src/Resources/Sounds/Correct.wav").toURI().toString());
         correctAnswer.setVolume(sound / 100);
         wrongAnswer = new AudioClip(new File("src/Resources/Sounds/Incorrect.mp3").toURI().toString());
-        correctAnswer.setVolume(sound / 100);
+        wrongAnswer.setVolume(sound / 100);
 
         try {
             questionList = new QuestionList();//Creating the list of questions for the game
