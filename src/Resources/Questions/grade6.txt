@@ -14,30 +14,30 @@ How many centimeters squared are in 1 meter squared?
 100 000
 100
 How many degrees are in a circle?
-360°
-180
-90°
-270°
+360º
+180º
+90º
+270º
 How many degrees are there in a right angle?
-90°
-180°
-360°
-45°
+90º
+180º
+360º
+45º
 An obtuse angle is
->90°
-<90°
-=0°
-=90°
+>90º
+<90º
+=0º
+=90º
 Which of the following is an acute angle?
-89°
-90°
-98°
-91°
+89º
+90º
+98º
+91º
 Which of the following is an obtuse angle?
-91°
-90°
-89°
-75°
+91º
+90º
+89º
+75º
 Which of the following polygon has 6 edges?
 Hexagon
 Octogon
@@ -49,10 +49,10 @@ Dodecagon
 Octogon
 Hendecagon
 What is the sum of the angles made by a triangle?
-180
-90
-360
-270
+180º
+90º
+360º
+270º
 How do you call the reaction when you burn wood?
 Combustion
 Fusion
