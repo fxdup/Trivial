@@ -153,6 +153,7 @@ public class GameInterface extends Pane {
         questionPane.setLayoutX(50 * resfactor);
         questionPane.setLayoutY(250 * resfactor);
         white_question.setFill(Color.WHITE);
+        text_question.setStyle("-fx-font: " + 30 * resfactor + "px EraserDust;");
         
         //skip button and timebar creation
         skip_button = new Rectangle();
