@@ -94,20 +94,20 @@ If the perimeter of a garden is 24 m and its height is twice the length of its w
 16 m
 6 m
 What is the freezing point of water?
-0°C
-100°C
-50°C
--10°C
+0ºC
+100ºC
+50ºC
+-10ºC
 What is the volume of a cube with sides of 4 cm
 64
 16
 32
 84
 How many degrees is a flat angle?
-180°
-90°
-0°
-360°
+180º
+90º
+0º
+360º
 The telescope was invented in:
 1600
 1200
