@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -57,11 +58,15 @@ public class Leaderboard extends VBox {
         mainMenuText.setStyle("-fx-font: "+65*resfactor+"px EraserDust;-fx-fill: white");
         Rectangle exportTxt_rectangle = new Rectangle(443*resfactor,167*resfactor);
         Rectangle mainMenu_rectangle = new Rectangle(443*resfactor,167*resfactor);
-        exportTxt_rectangle.setStroke(Color.BLACK);
-        exportTxt_rectangle.setStrokeWidth(5*resfactor);
+        exportTxt_rectangle.setStroke(Color.GREY);
+        exportTxt_rectangle.setStrokeWidth(10*resfactor);
+        exportTxt_rectangle.setArcHeight(20*resfactor);
+        exportTxt_rectangle.setArcWidth(20*resfactor);
         exportTxt_rectangle.setFill(Color.rgb(96, 139, 109));
-        mainMenu_rectangle.setStroke(Color.BLACK);
-        mainMenu_rectangle.setStrokeWidth(5*resfactor);
+        mainMenu_rectangle.setStroke(Color.GREY);
+        mainMenu_rectangle.setStrokeWidth(10*resfactor);
+        mainMenu_rectangle.setArcHeight(20*resfactor);
+        mainMenu_rectangle.setArcWidth(20*resfactor);
         mainMenu_rectangle.setFill(Color.rgb(96, 139, 109));
         exportTxtStack = new StackPane();
         StackPane mainMenuStack = new StackPane();
@@ -75,58 +80,59 @@ public class Leaderboard extends VBox {
         Pane podium = new Pane();
         switch(players.length){
             case 1:{
-                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore());
+                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore()+5);
                 first_rectangle.setFill(players[0].getColor());
                 first_rectangle.setY(first_rectangle.getY()+650*resfactor-first_rectangle.getHeight());
                 podium.getChildren().addAll(first_rectangle);
                 Text first_text = new Text(first_rectangle.getX(),first_rectangle.getY()-10,players[0].getName());
-                first_text.setStyle("-fx-font: "+30*resfactor+"px EraserDust;");
+                first_text.setStyle("-fx-font: "+30*resfactor+"px EraserDust;-fx-stroke: white; -fx-fill: white");
                 podium.getChildren().addAll(first_text);
                 
                 break; 
             }
             case 2:{
-                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore());
+                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore()+5);
                 first_rectangle.setFill(players[0].getColor());
                 first_rectangle.setY(first_rectangle.getY()+650*resfactor-first_rectangle.getHeight());
-                Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore());
+                Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore()+5);
                 second_rectangle.setFill(players[1].getColor());
                 second_rectangle.setY(second_rectangle.getY()+650*resfactor-second_rectangle.getHeight());
                 podium.getChildren().addAll(second_rectangle,first_rectangle);
                 Text first_text = new Text(first_rectangle.getX(),first_rectangle.getY()-10*resfactor,players[0].getName());
                 Text second_text = new Text(second_rectangle.getX(),second_rectangle.getY()-10*resfactor,players[1].getName());
-                first_text.setStyle("-fx-font: "+30*resfactor+"px EraserDust;");
-                second_text.setStyle("-fx-font: "+30*resfactor+"px EraserDust;");
+                first_text.setStyle("-fx-font: "+30*resfactor+"px EraserDust;-fx-stroke: white; -fx-fill: white");
+                second_text.setStyle("-fx-font: "+30*resfactor+"px EraserDust;-fx-stroke: white; -fx-fill: white");
                 podium.getChildren().addAll(first_text,second_text);
                 break;
             }
-            case 3:{
-                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore());
+            default:{
+                Rectangle first_rectangle = new Rectangle(0,0,170*resfactor,650*resfactor/1000*players[0].getScore()+5);
                 first_rectangle.setFill(players[0].getColor());
                 first_rectangle.setY(first_rectangle.getY()+650*resfactor-first_rectangle.getHeight());
-                Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore());
+                Rectangle second_rectangle = new Rectangle(170*resfactor,0,170*resfactor,650*resfactor/1000*players[1].getScore()+5);
                 second_rectangle.setFill(players[1].getColor());
                 second_rectangle.setY(second_rectangle.getY()+650*resfactor-second_rectangle.getHeight());
-                Rectangle third_rectangle = new Rectangle(170*2*resfactor,0,170*resfactor,650*resfactor/1000*players[2].getScore());
+                Rectangle third_rectangle = new Rectangle(170*2*resfactor,0,170*resfactor,650*resfactor/1000*players[2].getScore()+5);
                 third_rectangle.setFill(players[2].getColor());
                 third_rectangle.setY(third_rectangle.getY()+650*resfactor-third_rectangle.getHeight());
                 podium.getChildren().addAll(second_rectangle,first_rectangle,third_rectangle);
                 Text first_text = new Text(first_rectangle.getX(),first_rectangle.getY()-10*resfactor,players[0].getName());
                 Text second_text = new Text(second_rectangle.getX(),second_rectangle.getY()-10*resfactor,players[1].getName());
                 Text third_text = new Text(third_rectangle.getX(),third_rectangle.getY()-10*resfactor,players[2].getName());
-                first_text.setStyle("-fx-font: "+30*resfactor+"px EraserDust;");
-                second_text.setStyle("-fx-font: "+30*resfactor+"px EraserDust;");
-                third_text.setStyle("-fx-font: "+30*resfactor+"px EraserDust;");
+                first_text.setStyle("-fx-font: "+30*resfactor+"px EraserDust;-fx-stroke: white; -fx-fill: white");
+                second_text.setStyle("-fx-font: "+30*resfactor+"px EraserDust;-fx-stroke: white; -fx-fill: white");
+                third_text.setStyle("-fx-font: "+30*resfactor+"px EraserDust;-fx-stroke: white; -fx-fill: white");
                 podium.getChildren().addAll(first_text,second_text,third_text);
             }
         }
         GridPane listingNames = new GridPane();
+        listingNames.setPadding(new Insets(0,10,10,10));
         listingNames.setHgap(600*resfactor);
         listingNames.setVgap(10*resfactor);
         ScrollPane scroll = new ScrollPane();
         scroll.setPrefSize(920*resfactor, 650*resfactor);
         scroll.setMaxHeight(620*resfactor);
-        scroll.setStyle("-fx-stroke: black;");
+        scroll.setStyle("-fx-stroke: grey");
         scroll.setContent(listingNames);
         Text[] names = new Text[players.length];
         Text[] scores = new Text[players.length];
@@ -169,6 +175,7 @@ public class Leaderboard extends VBox {
         this.setSpacing(85*resfactor);
         this.getChildren().addAll(leaderBoard,buttons);
         this.setAlignment(Pos.CENTER);
+        this.setStyle("-fx-background-color: black");
     }
 
     //creates a text file containing the scores and information of all the players in the game

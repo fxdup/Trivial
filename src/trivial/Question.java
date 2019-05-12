@@ -11,10 +11,10 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
+//import java.util.Iterator;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 
 /**
  *
@@ -45,69 +45,70 @@ public class Question {
 
     private String answerString;
     private String[] choices;
-    private static int[] countKeeper = {0, 0, 0, 0, 0, -1}; //keeps the count of which question has been read from the file for each grade.
+    private static int[] countKeeper = {0, 0, 0, 0, 0, 0}; //keeps the count of which question has been read from the file for each grade.
     private int iterator = 0;
-    private static int[] numberOfQuestions = {-1, -1, -1, -1, -1, -1};
+    private static int[] numberOfQuestions = {-1, -1, -1, -1, -1, -1};//Sets how many questions are in the text files
 
     public Question(int grade) throws FileNotFoundException {
         this.grade = grade;
-        choices = new String[4];
+        choices = new String[4]; //creates the array for the choices[]
+        
         /*
         This part of the code checks if all pre-made questions for all grades has been put into the array of questions.
         When all questions have been processed, it creates a math question
         At the end of the process, all the questions will be shuffled to make sure the quiz is not too easy.
          */
         if (grade == 1) {
-            if (countKeeper[grade - 1] != -1) {
+            if (countKeeper[grade - 1] != -1) { //if countKeeper != -1, it reads the file
                 File file = new File("src/Resources/Questions/grade1.txt");
                 readFile(file);
             } else {
-                math();
+                math(); // creates a math question
             }
         }
 
         if (grade == 2) {
-            if (countKeeper[grade - 1] != -1) {
+            if (countKeeper[grade - 1] != -1) { //if countKeeper != -1, it reads the file
                 File file = new File("src/Resources/Questions/grade2.txt");
                 readFile(file);
             } else {
-                math();
+                math(); // creates a math question
             }
         }
 
         if (grade == 3) {
-            if (countKeeper[grade - 1] != -1) {
+            if (countKeeper[grade - 1] != -1) { //if countKeeper != -1, it reads the file
                 File file = new File("src/Resources/Questions/grade3.txt");
                 readFile(file);
             } else {
-                math();
+                math(); // creates a math question
             }
         }
 
         if (grade == 4) {
-            if (countKeeper[grade - 1] != -1) {
+            if (countKeeper[grade - 1] != -1) { //if countKeeper != -1, it reads the file
                 File file = new File("src/Resources/Questions/grade4.txt");
                 readFile(file);
             } else {
-                math();
+                math(); // creates a math question
             }
         }
 
         if (grade == 5) {
-            if (countKeeper[grade - 1] != -1) {
+            if (countKeeper[grade - 1] != -1) { //if countKeeper != -1, it reads the file
                 File file = new File("src/Resources/Questions/grade5.txt");
                 readFile(file);
             } else {
-                math();
+                math(); // creates a math question
             }
         }
 
         if (grade == 6) {
-            if (countKeeper[grade - 1] != -1) {
+            if (countKeeper[grade - 1] != -1) { //if countKeeper != -1, it reads the file
                 File file = new File("src/Resources/Questions/grade6.txt");
                 readFile(file);
             } else {
-                math();
+                math(); // creates a math question
             }
         }
     }
@@ -140,30 +141,22 @@ public class Question {
         return iAnswer;
     }
 
-    public static void setNumberOfQuestions(int[] numberOfQuestions) {
-
-    }
-
     public void math() {
 
         int mathType = (int) (Math.random() * 2);
         switch (type) {
 
             case 0:
-                arithmetic();
+                arithmetic(); //creates an arithmetic question
                 break;
             case 1:
-                fractions();
+                fractions(); //creates a fraction answer
                 break;
         }
 
     }
 
     public void arithmetic() {
-//
-//        NumberFormat nf1 = NumberFormat.getInstance();
-//        nf1.setMaximumFractionDigits(0);
-//        nf1.setMinimumFractionDigits(0);
 
         if (this.grade == 1) {
 
@@ -174,7 +167,7 @@ public class Question {
 
             switch (operation) {
 
-                case 0:
+                case 0: 
                     String addition = x + " + " + y;
                     question = addition; //puts the global variable "question" equal to the addition
                     iAnswer = x + y; //this is the true value of the operation
@@ -182,7 +175,7 @@ public class Question {
                     arithmeticIntegerAnswers(iAnswer);
                     break;
 
-                case 1:
+                case 1: 
                     String subtraction;
                     if (x >= y) { //to make sure we have a positive answer
                         subtraction = x + " - " + y;
@@ -931,7 +924,6 @@ public class Question {
             }
         }
 
-        System.out.println("range1: " + range1 + " range2: " + range2 + " range3: " + range3);
 
         if (this.grade < 6) {
             c1 = nf1.format((range1 * numericalAnswer) + numericalAnswer) + "";
@@ -948,11 +940,6 @@ public class Question {
         choices[2] = c2;
         choices[3] = c3;
 
-        System.out.println("Answer: " + choices[0]);
-        System.out.println("choices[1]: " + choices[1]);
-        System.out.println("choices[2]: " + choices[2]);
-        System.out.println("choices[3]: " + choices[3]);
-        System.out.println("");
         this.answer = choices[0];
     }
 
@@ -1095,6 +1082,11 @@ public class Question {
         }
     }
 
+    /*
+    This method shuffles the order of the answers. We couldn't just do Collections.shuffle
+    since it couldn't shuffle an array, so we converted our array to an arrrayList to shuffle it, 
+    then convert the shuffled arrayList to an array.
+    */
     public void shuffle() {
 
         ArrayList<String> unshuffled = new ArrayList<String>(Arrays.asList(choices));

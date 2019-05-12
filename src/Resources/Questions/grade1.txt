@@ -148,6 +148,3 @@ Camel
 Tiger
 Lion
 Cat
-
-
-

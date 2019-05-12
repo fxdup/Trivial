@@ -75,16 +75,16 @@ public class GameInterface extends Pane {
 
     private int timerbar_red;//Quantity of red in the timebar
     private int timerbar_green;//Quantity of green in the timebar
-    private Timeline countdown;
-    private Timeline startAnim;
-    private Timeline updateScore;
-    private KeyFrame color;
-    private int clickCount = 0;
+    private Timeline countdown;//Timeline of the line countdown during 
+    private Timeline startAnim;//Timeline of the starting countdown
+    private Timeline updateScore;//Timeline that updates the score and the icon placement
+    private KeyFrame color;//Keyframe of the color and the size of the countdown bar;
+    private int clickCount = 0;//Used for the sound. So that it does not make the sound when spamming an answer
 
-    private ImageView separation;
+    private ImageView separation;//Image of the chalk between the answers 
     
-    private AudioClip correctAnswer;
-    private AudioClip wrongAnswer;
+    private AudioClip correctAnswer;//Audio of good answer
+    private AudioClip wrongAnswer;//Audio of wrong anser
 
     public GameInterface(Boolean host, double resfactor, Player localPlayer, double sound) {
         this.localPlayer = localPlayer;
@@ -100,21 +100,23 @@ public class GameInterface extends Pane {
         correctAnswer.setVolume(sound / 100);
 
         try {
-            questionList = new QuestionList();
+            questionList = new QuestionList();//Creating the list of questions for the game
         } catch (FileNotFoundException ex) {
             Logger.getLogger(GameInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        //Creating the answer panes
         answer1 = new AnswerPane(0, HEIGHT / 2 + 50);
         answer2 = new AnswerPane(WIDTH / 2, HEIGHT / 2 + 50);
         answer3 = new AnswerPane(0, HEIGHT / 2 + 50 + (HEIGHT / 4 - 50));
         answer4 = new AnswerPane(WIDTH / 2, HEIGHT / 2 + 50 + (HEIGHT / 4 - 50));
 
+        //Bar of progression of the local player
         leaderbar = new Rectangle(0, 25 * resfactor, WIDTH, 18 * resfactor);
         leaderbar.setFill(Color.WHITE);
         fillingbar = new Rectangle(0, 25 * resfactor, 0, 18 * resfactor);
         fillingbar.setFill(localPlayer.getColor());
 
+        //Text of the the first player, grade and score
         first_place = new Text();
         first_place.getStyleClass().add("inGameGUI");
         first_place.setStyle("-fx-font: " + 30 * resfactor + "px EraserDust;");
@@ -151,7 +153,8 @@ public class GameInterface extends Pane {
         questionPane.setLayoutX(50 * resfactor);
         questionPane.setLayoutY(250 * resfactor);
         white_question.setFill(Color.WHITE);
-
+        
+        //skip button and timebar creation
         skip_button = new Rectangle();
         skip_button.setArcHeight(5 * resfactor);
         skip_button.setArcWidth(5 * resfactor);
@@ -187,6 +190,7 @@ public class GameInterface extends Pane {
 
     }
 
+    //Animation of the start countdown
     public void startAnimation() {
         startAnimTime = new Text(WIDTH / 2, HEIGHT / 3, "3");
         startAnimTime.setStroke(Color.BLACK);
@@ -209,6 +213,7 @@ public class GameInterface extends Pane {
 
     }
 
+    //Draws the icons of the players
     public void drawCircles() {
         crown = new ImageView(new Image("/Resources/Images/crown.png"));
         icons = new Circle[localPlayer.getPlayers().length];
