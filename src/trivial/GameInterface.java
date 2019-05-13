@@ -97,7 +97,7 @@ public class GameInterface extends Pane {
         correctAnswer = new AudioClip(new File("src/Resources/Sounds/Correct.wav").toURI().toString());
         correctAnswer.setVolume(sound / 100);
         wrongAnswer = new AudioClip(new File("src/Resources/Sounds/Incorrect.mp3").toURI().toString());
-        correctAnswer.setVolume(sound / 100);
+        wrongAnswer.setVolume(sound / 100);
 
         try {
             questionList = new QuestionList();//Creating the list of questions for the game
@@ -153,6 +153,7 @@ public class GameInterface extends Pane {
         questionPane.setLayoutX(50 * resfactor);
         questionPane.setLayoutY(250 * resfactor);
         white_question.setFill(Color.WHITE);
+        text_question.setStyle("-fx-font: " + 30 * resfactor + "px EraserDust;");
         
         //skip button and timebar creation
         skip_button = new Rectangle();
@@ -295,6 +296,7 @@ public class GameInterface extends Pane {
             if (localPlayer.getPlayers()[i].getGrade() == 6) {
                 streakIcons[i].setX(icons[i].getCenterX() - icons[i].getRadius());
                 streakIcons[i].setVisible(true);
+                streakIcons[i].toFront();
             } else if (streakIcons[i].isVisible()) {
                 streakIcons[i].setVisible(false);
             }
