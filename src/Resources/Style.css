@@ -2,6 +2,7 @@
     -fx-stroke: white;
     -fx-fill: white;
 }
+//had different font size but it got changed in the code for the resfactor
 .submenu{
     -fx-stroke: white;
     -fx-fill: white;
@@ -18,12 +19,14 @@
     -fx-stroke: yellow;
     -fx-fill: yellow;
 }
+//used for the text fields
 .textField{
     -fx-background-color: transparent;
     -fx-fill: white;
     -fx-border-color: white; 
     -fx-text-fill: white;
 }
+//used in game for the GUI
 .inGameGUI{
     -fx-stroke: white;
     -fx-fill: white;

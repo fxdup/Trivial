@@ -236,6 +236,7 @@ public class GameInterface extends Pane {
         getChildren().add(crown);
     }
 
+    //Method to start the cooldown of the timebar
     public void timeAnimation(int time) {
         countdown = new Timeline();
         double millis = time * 2.0 / WIDTH;
@@ -276,6 +277,7 @@ public class GameInterface extends Pane {
         countdown.play();
     }
 
+    //updates the scores and places
     public synchronized void updateScore() {
         if (icons != null) {
             first_place.setText("First Place: " + getFirstPlace().getName());
@@ -289,6 +291,7 @@ public class GameInterface extends Pane {
         }
     }
 
+    //updates the icons on the bar
     public void updateIcons() {
         for (int i = 0; i < icons.length; i++) {
             icons[i].setCenterX(WIDTH * localPlayer.getPlayers()[i].getScore() / 1000);
@@ -307,6 +310,7 @@ public class GameInterface extends Pane {
         }
     }
 
+    //check if their is a winner
     public void winner() {
         for (Player i : localPlayer.getPlayers()) {
             if (i.getScore() >= 1000) {
@@ -319,6 +323,7 @@ public class GameInterface extends Pane {
         }
     }
 
+    //Goes to teh next question
     public void nextQuestion() {
         clickCount = 0;
         updateScore();
@@ -333,6 +338,7 @@ public class GameInterface extends Pane {
         timeAnimation(question.getTime());
     }
 
+    //send data to the other players
     public void sendData() {
         try {
             if (host) {
@@ -345,6 +351,7 @@ public class GameInterface extends Pane {
         }
     }
 
+    //clears de question pane and the choices
     public void clearQuestion() {
         text_question.setText("");
         answer1.setText("");
@@ -353,6 +360,7 @@ public class GameInterface extends Pane {
         answer4.setText("");
     }
 
+    //Returns the player first place
     public Player getFirstPlace() {
         Player max = localPlayer;
         for (Player i : localPlayer.getPlayers()) {
@@ -363,6 +371,7 @@ public class GameInterface extends Pane {
         return max;
     }
 
+    //Animation for a good answer
     public void goodAnswer() {
         correctAnswer.play();
         FillTransition anstran1 = new FillTransition(Duration.seconds(0.3), (Rectangle) answer1.getChildren().get(0), Color.GREEN, Color.rgb(96, 139, 109));
@@ -388,6 +397,7 @@ public class GameInterface extends Pane {
         nextQuestion();
     }
 
+    //Animation for a bad answer
     public void badAnswer() {
         wrongAnswer.play();
         FillTransition anstran1 = new FillTransition(Duration.seconds(0.3), (Rectangle) answer1.getChildren().get(0), Color.RED, Color.rgb(96, 139, 109));
@@ -404,6 +414,7 @@ public class GameInterface extends Pane {
         updateScore();
     }
 
+    //Pane that contains the choice
     class AnswerPane extends StackPane {
 
         private Rectangle answer_rectangle;
@@ -418,6 +429,7 @@ public class GameInterface extends Pane {
             this.setLayoutX(layoutX);
             this.setLayoutY(LayoutY);
 
+            //Checks if the answer is the good one
             this.setOnMouseClicked(e -> {
                 if (clickCount == 0) {
                     clickCount++;
@@ -433,12 +445,14 @@ public class GameInterface extends Pane {
             });
         }
 
+        //Sets the text in the pane
         public void setText(String text) {
             answer_text.setText(text);
         }
 
     }
 
+    //Stops the game
     public void stop() {
         paused = true;
     }
