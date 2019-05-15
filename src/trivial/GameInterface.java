@@ -315,6 +315,7 @@ public class GameInterface extends Pane {
         for (Player i : localPlayer.getPlayers()) {
             if (i.getScore() >= 1000) {
                 win = true;
+                i.setScore(1000);
                 sendData();
                 Platform.runLater(() -> {
                     ((Game) (getParent())).leaderboard(localPlayer.getPlayers());
